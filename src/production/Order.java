@@ -12,17 +12,13 @@ public class Order implements Tick {
 	
 	String orderAddress;			// address of this order
 	String orderName;				// who this order is going to
-	ArrayList<Item> orderItems;		// list of items included in order
+	ArrayList<MockItem> orderItems;		// list of items included in order
 	boolean isFilled;				// has the order been filled?
 	
 	
-	public Order() {
-		// TODO: finish constructor
-	}
-	
-	public Order (String address, String name, ArrayList<Item> items){
+	// Constructor
+	public Order (String address, ArrayList<MockItem> items){
 		orderAddress = address;
-		orderName = name;
 		orderItems = items;
 		isFilled = false;
 	}
@@ -32,17 +28,17 @@ public class Order implements Tick {
 	}
 	
 	// Adds an item to the list of items required for this order
-	public void addItem(Item a) {
+	public void addItem(MockItem a) {
 		orderItems.add(a);
 	}
 	
 	// Removes the item from the list of items required for this order
-	public void removeItem(Item a) {
+	public void removeItem(MockItem a) {
 		orderItems.remove(a);
 	}
 	
 	// Queries on whether or not the item is required for this order
-	public boolean containsItem(Item a) {
+	public boolean containsItem(MockItem a) {
 		return orderItems.contains(a);
 	}
 	
@@ -57,7 +53,7 @@ public class Order implements Tick {
 	}
 	
 	// Returns the list of items within this order
-	public ArrayList<Item> getItems() {
+	public ArrayList<MockItem> getItems() {
 		return orderItems;
 	}
 }
