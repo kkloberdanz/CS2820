@@ -102,8 +102,4 @@ public class Inventory implements Tick {
     	//removeItem(product.item);
     }
     
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
-    
 }
