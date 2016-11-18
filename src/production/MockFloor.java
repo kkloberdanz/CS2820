@@ -8,28 +8,37 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class MockFloor implements Floor, Tick{
-    final Point picker        = new Point(0,0 );
-    final Point packer        = new Point(5,0 );
-    final Point shippingDock  = new Point(0,12);
-    final Point receivingDock = new Point(9,13);
+    static Point picker       ;
+    static Point packer       ;
+    static Point shippingDock ;
+    static Point receivingDock;
     
-    final int x_dimension = 10;
-    final int y_dimension = 14;
+    static int x_dimension;
+    static int y_dimension;
     
-    ArrayList<charger> chargers      = new ArrayList<>();
-    ArrayList<Point>   usedLocations = new ArrayList<>();
-    ArrayList<Shelf>   shelves       = new ArrayList<>();
-    ArrayList<Robot>   robots        = new ArrayList<>();
+    static ArrayList<charger> chargers     ;
+    static ArrayList<Point  > usedLocations;
+    static ArrayList<Shelf  > shelves      ;
+    static ArrayList<Robot  > robots       ;
     
     public MockFloor(){
+    	picker        = new Point(0,0 );
+        packer        = new Point(5,0 );
+        shippingDock  = new Point(0,12);
+        receivingDock = new Point(9,13);
+        
+        x_dimension = 10;
+        y_dimension = 14;
+        
+        chargers      = new ArrayList<>();
+        usedLocations = new ArrayList<>();
+        shelves       = new ArrayList<>();
+        robots        = new ArrayList<>();
     	
     	//create chargers
-    	charger ch1 = new charger(new Point(9,2));
-    	charger ch2 = new charger(new Point(9,4));
-    	charger ch3 = new charger(new Point(9,6));
-    	chargers.add(ch1);
-    	chargers.add(ch2);
-    	chargers.add(ch3);
+    	charger ch1 = new charger(new Point(9,2));ch1.setState(true);chargers.add(ch1);
+    	//charger ch2 = new charger(new Point(9,4));ch2.setState(true);chargers.add(ch2);
+    	//charger ch3 = new charger(new Point(9,6));ch3.setState(true);chargers.add(ch3);
     	
     	//set used locations
     	setUsedLocations();
