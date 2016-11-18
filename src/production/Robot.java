@@ -3,57 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package production;
-
+package warehouse2;
 import java.awt.Point;
-
 /**
-*
-* @author lenovo
-* @author Gary Ridgway -- 11/15/2016 -- changed Location from Object to Point so it would work with the MockFloor
-*/
+ *
+ * @author lenovo
+ */
 public class Robot {
-    int QuantityCharge;
-    boolean Needtocharge;
-    int notenoughcharge;
-    int NumberofRobot;
+    public static int chargebound = 50;
     Point location;
-    public Robot(int QuantityCharge,int NumberofRobot){
-        this.QuantityCharge = QuantityCharge;
-        this.NumberofRobot = NumberofRobot;
+    int charge;
+    Shelf s; // the shelf robot need to carry
+    Picker picker; // the picker robot need to go
+    Path path; // the path robot move
+    boolean state;
+    public Robot(Point Createlocation){
+        location = Createlocation;
+        path = null;
+        s = null;
+        picker = null;
+    }
+    public Point getLocation(Robot a){
+            return a.location; 
+         }
         
-    }
+    }       
     
-    public void tick(int count) {
-    	// TODO: finish tick
-    }
     
-   public boolean needcharge(){
-       if(QuantityCharge >= notenoughcharge){
-           return (Needtocharge = false);
-       }
-       else{return Needtocharge = true;}
-   }
-   public void move(){};
-   public void moveshelf(){};
-   public Point getRobotlocation(){
-       return location;
-   }
-   
-   /**
-    * this will set the current locaton of the robot
-    * @author Gary Ridgway
-    * @param Point A
-    */
-   public void setRobotlocation(Point A){
-	   location = A;
-   }
-   /**
-    * added a toString() method so that I could properly see that all the proper fields were created correctly
-    * @return String
-    */
-   @Override
-   public String toString(){
-	   return "Robot #"+Integer.toString(NumberofRobot) + "|| At :"+location.toString()+"|| With Charge :"+Integer.toString(QuantityCharge);
-   }
 }
