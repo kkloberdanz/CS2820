@@ -119,7 +119,11 @@ public class Inventory implements Tick{
         	Shelf i=shelves.get(temp);
         	if(i.removeItem(product,quantity,false)){
         		location.removequantity(loc[temp],product.id,quantity);
+                break;
         	}
+            else{
+                i++;
+            }
         }
     }
     
