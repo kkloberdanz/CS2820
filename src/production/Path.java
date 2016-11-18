@@ -1,3 +1,7 @@
+/**
+ * @author Gary Ridgway
+ */
+
 package production;
 
 import java.awt.Point;
@@ -26,6 +30,16 @@ public class Path {
 	@Override
 	public String toString(){
 		return pos.toString();
+	}
+	public Point getLast(){
+		if (next ==null){
+			return pos;
+		}else{
+			return next.getLast();
+		}
+	}
+	public Point getPos(){
+		return pos;
 	}
 
 }

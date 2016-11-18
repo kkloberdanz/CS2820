@@ -1,3 +1,7 @@
+/**
+ * @author Gary Ridgway
+ */
+
 package production;
 
 import java.awt.Point;

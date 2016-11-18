@@ -56,12 +56,18 @@ public class TestFloor {
         Point A=new Point(0,1);
         Point B=new Point(9,2);
         pickToCharge =floor.makePath(A,B , false);
+        System.out.print("***Last Point***\n");
+        System.out.println(pickToCharge.getLast().toString());
+        System.out.print("****************\n\n");
         while(pickToCharge!=null){
             System.out.println(pickToCharge.toString());
             pickToCharge =pickToCharge.step();
         }
         System.out.println("\n-----Path Found!!-----\n");
 
+        
+        
+        
 
     }
     
