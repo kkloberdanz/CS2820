@@ -3,25 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package warehouse2;
+package production;
 import java.awt.Point;
 /**
  *
- * @author lenovo
+ * @author Shuhao Liu
  */
 public class Robot {
     public static int chargebound = 50;
     Point location;
     int charge;
     Shelf s; // the shelf robot need to carry
-    Picker picker; // the picker robot need to go
     Path path; // the path robot move
+    Point pickerR;
     boolean state;
     public Robot(Point Createlocation){
         location = Createlocation;
         path = null;
         s = null;
-        picker = null;
+        pickerR = null;
     }
     public Point getLocation(Robot a){
             return a.location; 
@@ -30,4 +30,4 @@ public class Robot {
     }       
     
     
-}
+

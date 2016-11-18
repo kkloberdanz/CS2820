@@ -3,30 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package warehouse2;
+package production;
 
 import java.awt.Point;
 import java.util.ArrayList;
 
 /**
  *
- * @author lenovo
+ * @author Shuhao Liu
  */
 public class MockRobotScheduler implements RobotScheduler,Tick{
     Floor F;
+    static Point picker;
     ArrayList<Robot> robots;
     public MockRobotScheduler(MockFloor F){
         this.F = F;
-        robots = F.getRobot();
+        robots = F.robots;
     }
     public void moveRobot(Robot a){
         
     }
     @Override
-    public void moveShelf(Shelf A, picker B){
+    public void moveShelf(Shelf A, Point p){
         Robot robot = GetAvailableRobot();
-        robot.path = makePath(A.getLocation(),B.getLocation(), True);
-        robot.picker = B;
+        robot.path = F.makePath(A.shelfLoc,p, false);
+        robot.pickerR = this.picker;
         robot.s = A;
         robot.state = true;
         
@@ -34,9 +35,18 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
     public Robot GetAvailableRobot(){
         Robot r = robots.get(0);
         return r;
+        // only one robot now
     }
-    public boolean RobotAvailable(robot r){
+    @Override
+    public boolean findAvailableRobot(Robot r){
         return r.state;
     }
+    @Override
+    public void chargeRobot(Robot a){
+    	a.charge = 100;
+    }
+	public void tick(int count) {
+		
+	}
     
 }

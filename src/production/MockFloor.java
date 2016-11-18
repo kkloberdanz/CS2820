@@ -184,10 +184,10 @@ public class MockFloor implements Floor, Tick{
     public void setRobots(){
     	int num = 0;
     	for (charger c:chargers){
-    		Robot temp = new Robot(100, num);
-    		temp.setRobotlocation(c.charLoc);
+    		Robot temp = new Robot(c.charLoc);
+    		temp.charge = 100;
+    		temp.state = false; // false mean unworking
     		robots.add(temp);
-    		num++;
     	}
     }
     /**

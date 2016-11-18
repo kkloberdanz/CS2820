@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package warehouse2;
+package production;
+
+import java.awt.Point;
 
 /**
  *
@@ -16,11 +18,11 @@ public interface RobotScheduler {
      * @param Point A is the shelf
      * @param Point B is the destination that shelf should be moved to
      */
-    void moveShelf(Shelf A, picker B);
+    void moveShelf(Shelf A, Point p);
     /**
      * find an available robot which is not used and in the best location with available charge
      */
-    boolean findAvailableRobot();
+    boolean findAvailableRobot(Robot r);
     /**
      * charge robot
      */
