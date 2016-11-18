@@ -122,7 +122,7 @@ public class Inventory implements Tick{
                 break;
         	}
             else{
-                i++;
+                temp++;
             }
         }
     }
