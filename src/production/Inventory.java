@@ -85,6 +85,7 @@ public class Inventory implements Tick{
             }
             else{
                 System.out.println("the shelf cannot store so many items");
+                temp++;
             }
         }
                                     
