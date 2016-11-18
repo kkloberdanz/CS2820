@@ -34,20 +34,22 @@ public class TestFloor {
          * (set in MockFloor as .topLeftShelfArea and .bottomRightShelfArea)
          * Currently it prints all the shelves with Name, Location, and whether it is being carried or not
          */
-        xCurr=floor.topLeftShelfArea.x;
-        yCurr=floor.topLeftShelfArea.y;
-        while(!(xCurr>floor.bottomRightShelfArea.x)){
-        	while(!(yCurr>floor.bottomRightShelfArea.y)){
-        		p= new Point(xCurr,yCurr);s= new Shelf(p,false,10,"S("+Integer.toString(xCurr)+","+Integer.toString(yCurr)+")");floor.shelves.add(s);
-        		yCurr+=1;
-        	}
-        	yCurr=floor.topLeftShelfArea.y;
-        	xCurr+=1;
-        }
+        System.out.println("\n-----Shelves-----\n");
         for (Shelf s:floor.shelves){
             System.out.println(s.toString());
         }
 //////////////////////////////////////////////////////////////////////////////////////////////
+        System.out.println("\n-----chargers-----\n");
+        for(charger c:floor.chargers){
+        	System.out.println(c);
+        }
+////////////////////////////////////////////////////////////////////////////////////////////// 
+        System.out.println("\n-----robots-----\n");
+        for(Robot r:floor.robots){
+    	System.out.println(r);
+    	}
+//////////////////////////////////////////////////////////////////////////////////////////////
+        System.out.println("\n-----Path-----\n");
         /**
          * This will create a simple Path and then print that Path
          */
@@ -58,6 +60,7 @@ public class TestFloor {
             System.out.println(pickToCharge.toString());
             pickToCharge =pickToCharge.step();
         }
+        System.out.println("\n-----Path Found!!-----\n");
 
 
     }

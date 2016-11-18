@@ -49,4 +49,15 @@ public interface Floor {
      * @return Array List of Points
      */
     ArrayList<Point> getChargers(); 
+    /**
+     * This will set empty shelves in the specified positions using A 
+     * as the top left point and B as the bottom left point of a block
+     * @param Point A
+     * @param Point B
+     */
+    void setShelfBlock(Point A, Point B);
+    /**
+     * this will set a robot on every charger at the beginning of the program
+     */
+    void setRobots();
 }

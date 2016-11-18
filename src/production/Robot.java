@@ -5,16 +5,19 @@
  */
 package production;
 
+import java.awt.Point;
+
 /**
- *
- * @author lenovo
- */
-public class Robot implements Tick {
+*
+* @author lenovo
+* @author Gary Ridgway -- 11/15/2016 -- changed Location from Object to Point so it would work with the MockFloor
+*/
+public class Robot {
     int QuantityCharge;
     boolean Needtocharge;
     int notenoughcharge;
     int NumberofRobot;
-    Object location;
+    Point location;
     public Robot(int QuantityCharge,int NumberofRobot){
         this.QuantityCharge = QuantityCharge;
         this.NumberofRobot = NumberofRobot;
@@ -33,7 +36,24 @@ public class Robot implements Tick {
    }
    public void move(){};
    public void moveshelf(){};
-   public Object getRobotlocation(){
+   public Point getRobotlocation(){
        return location;
+   }
+   
+   /**
+    * this will set the current locaton of the robot
+    * @author Gary Ridgway
+    * @param Point A
+    */
+   public void setRobotlocation(Point A){
+	   location = A;
+   }
+   /**
+    * added a toString() method so that I could properly see that all the proper fields were created correctly
+    * @return String
+    */
+   @Override
+   public String toString(){
+	   return "Robot #"+Integer.toString(NumberofRobot) + "|| At :"+location.toString()+"|| With Charge :"+Integer.toString(QuantityCharge);
    }
 }
