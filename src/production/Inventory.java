@@ -1,5 +1,7 @@
 package production;
 
+package production;
+
 import java.util.*;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,99 +13,121 @@ import java.util.*;
  *
  * @author george
  */
-public class Inventory implements Tick {
-    Item item;
-    int size;
-    int weight;
-    int quantity;
-    HashMap<Integer,Inventory> database;
-    Boolean reachcapacity=false;
+public class Inventory implements Tick{
+    public static HashMap<Integer,Item> database;
+    public static HashMap<Integer,Integer> quantity;
+    public static location[] loc;
     /**
-     * constructor of Inventory
+     * 
      * @author haoyang Wei
      */
+    
+    public class location{
+    	HashMap<Integer,Integer> quantity;
+    	public location(Shelf shelf,HashMap<Integer,Integer> quantity){
+    		this.shelf=shelf;
+    		this.quantity=quantity
+    	}
+    	public static void addquantity(location loc,int id,int quantity){
+    		if(loc.quantity.containsKey(id)){
+    			loc.quantity.put(id,loc.quantity.get(id)+quantity);
+    		}
+    		else{
+    			loc.quantity.put(id, quantity);
+    		}
+    		
+    	}
+    	public static void removequantity(location loc,int id,int quantity){
+    		loc.quantity.put(id,loc.quantity.get(id)-quantity);
+    	}
+    }
     public Inventory(){
-        this.item=null;
-        this.size=0;
-        this.weight=0;
-        this.quantity=0;
-    }
-    public Inventory(Item item,int size,int weight,int quantity){
-        this.item=item;
-        this.size=size;
-        this.weight=weight;
-        this.quantity=quantity;
+        
     }
     
-    public void tick(int count) {
-    	// TODO: finish tick
-    }
-    
+
     /**
      * initial the database and add the items into database
      * @author haoyang wei
      */
-    public void initialize(Item[] item,int[] size,int[] weight,int[] quantity){
-        database=new HashMap<Integer,Inventory>();
+    public void initialize(Item[] item,int[] quantity){
+    	loc=new location[shelves.length];
+    	for(int i=0;i<loc.length;i++){
+    		loc[i]=new location(shelves.get(i),new HashMap<Integer,Integer>())
+    	}
+        database=new HashMap<Integer,Item>();
+        this.quantity=new HashMap<Integer,Integer>();
        for(int i=0;i<item.length;i++){
-           Inventory initial=new Inventory(item[i],size[i],weight[i],quantity[i]);
-           
-           //This does not compile
-           //additem(initial);
-           //putitemonshelf(initial);
+           additems(item[i],quantity[i]);
        }
     }/*
     *add item to the database, if exists we only need to add the quantity,then put the product onto shelf
     *@author haoyang wei
     */
-    
-    
-    /* This code does not compile
-    public void additem(Inventory product){
-        if(database.containsKey(product.item.get_id_number())){
-            database.get(product.item.get_id_number()).quantity+=item.quantity;
-            putitemonshelf(product.item);
+    public void additems(Item product,int quantity){
+        if(database.containsKey(product.get_id_number())){
+            this.quantity.get(product.get_id_number())+=quantity;
+            putitemonshelf(product,quantity);
         }
         else{
-            database.put(product.item.get_id_number(),product);
-            putitemonshelf(product.item);
+            database.put(product.get_id_number(),product);
+            this.quantity.put(product.get_id_number(),quantity);
+            putitemonshelf(product,quantity);
         }
     }
-    public void putitemonshelf(Inventory product){
-        addItem(product.item,product.quantity);
+    public void putitemonshelf(Item product,int quantity){
+    	int temp=0;
+        while(true){
+        	Shelf i=shelves.get(temp);
+            if(i.addItem(product,quantity)){
+            	location.addquantity(loc[temp], product.id, quantity);
+                break;
+            }
+            else{
+                System.out.println("the shelf cannot store so many items");
+                temp++;
+            }
+        }
                                     
     }
-    */
-    
     /*remove item from shelf, first check whether we have enough in stock, if not we cannot remove it.
     @author haoyang wei
     */
-    public void removeitem(Inventory product){
-        if(!database.containsKey(product.item.get_id_number())){
+    public boolean removeitems(Item product,int quantity){
+        if(!database.containsKey(product.get_id_number())){
             System.out.println("We don't have this product in stock");
+            return false;
         }
-        /*// This does not compile
         else{
-            if(database.get(product.item.get_id_number()).quantity<item.quantity){
+            if(this.quantity.get(product.get_id_number())<quantity){
                 System.out.println("We don't have enough products in stock, please add more products or reduce the number of products to be shippped");
+                return false;
             }
             else{
-                removeitemfromshelf(product);
-                database.get(product.item.get_id_number()).quantity-=item.quantity;
-                if(database.get(product.item.get_id_number()).quantity==0){
-                    database.remove(product.item.get_id_number());
+                removeitemfromshelf(product,quantity);
+                this.quantity.get(product.get_id_number())-=quantity;
+                if(this.quantity.get(product.get_id_number())==0){
+                    database.remove(product.get_id_number());
+                    this.quantity.remove(product.get_id_number);
                 }
+                return true;
             }
         }
-        */
     }
-    public void removeitemfromshelf(Inventory product){
-        // This does not compile
-    	//removeItem(product.item);
+    public void removeitemfromshelf(Item product,int quantity){
+    	int temp=0;
+        while(true){
+        	Shelf i=shelves.get(temp);
+        	if(i.removeItem(product,quantity,false)){
+        		location.removequantity(loc[temp],product.id,quantity);
+                break;
+        	}
+            else{
+                temp++;
+            }
+        }
     }
     
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
+
     
 }

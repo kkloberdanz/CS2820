@@ -15,6 +15,10 @@ public class Order implements Tick {
 	ArrayList<MockItem> orderItems;		// list of items included in order
 	boolean isFilled;				// has the order been filled?
 	
+	public Order () {
+		// We need a constructor that takes no elements for the main()
+		isFilled = false;
+	}
 	
 	// Constructor
 	public Order (String address, ArrayList<MockItem> items){
