@@ -35,6 +35,7 @@ public class Inventory implements Tick{
         this.quantity=new HashMap<Integer,Integer>();
        for(int i=0;i<item.length;i++){
            additems(item[i],quantity[i]);
+           //sbdbs
        }
     }/*
     *add item to the database, if exists we only need to add the quantity,then put the product onto shelf
