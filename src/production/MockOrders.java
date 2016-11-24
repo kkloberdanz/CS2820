@@ -34,13 +34,16 @@ public class MockOrders implements Orders, Tick {
 	// Generates a random order.
 	public Order generateRandomOrder() {
 		String randAddress = new Address(randSource).createAddress();
-		ArrayList<MockItem> orderItems = new ArrayList<MockItem>();
+		Order returnOrder = new Order();
+		returnOrder.updateAddress(randAddress);
 		int numItems = (1+randSource.nextInt(5));
+		// Will eventually fix this to work in conjunction with the Inventory
+		// For now, it simply produces a certain amount of MockItems
 		for (int i = 0; i < numItems; i++){
 			MockItem myItem = new MockItem(123, "test");
-			orderItems.add(myItem);
+			returnOrder.addItem(myItem);
 		}
-		return new Order(randAddress, orderItems);
+		return returnOrder;
 	}
 
 }

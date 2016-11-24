@@ -16,19 +16,18 @@ public class Order implements Tick {
 	boolean isFilled;				// has the order been filled?
 	
 	public Order () {
-		// We need a constructor that takes no elements for the main()
 		isFilled = false;
-	}
-	
-	// Constructor
-	public Order (String address, ArrayList<MockItem> items){
-		orderAddress = address;
-		orderItems = items;
-		isFilled = false;
+		orderAddress = "";
+		orderItems = new ArrayList<MockItem>();
 	}
 	
 	public void tick(int count) {
 		// TODO: Do something with tick
+	}
+	
+	// Updates the address of the order
+	public void updateAddress(String address){
+		orderAddress = address;
 	}
 	
 	// Adds an item to the list of items required for this order
