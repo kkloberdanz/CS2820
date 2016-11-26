@@ -14,6 +14,7 @@ public class MockOrders implements Orders, Tick {
 	// private RobotScheduler R; need to work with RobotScheduler to do this
 	private ArrayList<Order> orderQueue;
 	private SimRandom randSource;
+	int id = 1; // keeps track of order ID number
 	
 	// Constructor
 	public MockOrders(Inventory I, SimRandom rand) {
@@ -28,8 +29,10 @@ public class MockOrders implements Orders, Tick {
 	// Will work on this more later
 	public void tick(int count){}
 	
-	// Will also work on this more later
-	public void notify(Robot R, Shelf S){};
+	// Gets the shelf that corresponds to a certain item
+	public Shelf getShelf(Item x, Inventory I, Floor f){
+		return null;
+	}
 	
 	// Generates a random order.
 	public Order generateRandomOrder() {
@@ -43,6 +46,8 @@ public class MockOrders implements Orders, Tick {
 			MockItem myItem = new MockItem(123, "test");
 			returnOrder.addItem(myItem);
 		}
+		returnOrder.orderID = id;
+		id += 1;
 		return returnOrder;
 	}
 

@@ -1,6 +1,7 @@
 package production;
 
 import java.util.ArrayList;
+import java.lang.Cloneable;
 
 /**
  * 
@@ -8,17 +9,28 @@ import java.util.ArrayList;
  *
  */
 
-public class Order implements Tick {
+public class Order implements Tick, Cloneable {
 	
 	String orderAddress;			// address of this order
-	String orderName;				// who this order is going to
+	int orderID;					// order ID number
 	ArrayList<MockItem> orderItems;		// list of items included in order
+	ArrayList<MockItem> filledItems;	// list of items that have been filled
 	boolean isFilled;				// has the order been filled?
 	
 	public Order () {
 		isFilled = false;
-		orderAddress = "";
+		orderID = 0;
+		orderAddress = null;
 		orderItems = new ArrayList<MockItem>();
+		filledItems = new ArrayList<MockItem>();
+	}//
+	
+	public Order(Order o) {
+		this.isFilled = o.isFilled;
+		this.orderID = o.orderID;
+		this.orderAddress = o.orderAddress;
+		this.orderItems = o.orderItems;
+		this.filledItems = o.filledItems;
 	}
 	
 	public void tick(int count) {
@@ -30,9 +42,20 @@ public class Order implements Tick {
 		orderAddress = address;
 	}
 	
+	
+	// Updates the id number of the order
+	public void updateID(int idNum){
+		orderID = idNum;
+	}
+	
 	// Adds an item to the list of items required for this order
 	public void addItem(MockItem a) {
 		orderItems.add(a);
+	}
+	
+	// Adds an item to the list of filled items for the order
+	public void fillItem(MockItem a) {
+		filledItems.add(a);
 	}
 	
 	// Removes the item from the list of items required for this order
@@ -50,44 +73,18 @@ public class Order implements Tick {
 		return orderAddress;
 	}
 	
-	// Returns the name of the person who placed the order
-	public String getName() {
-		return orderName;
-	}
-	
 	// Returns the list of items within this order
 	public ArrayList<MockItem> getItems() {
 		return orderItems;
 	}
+	
+	// Updates the status of the isFilled boolean
+	public void updateFilled(){
+		isFilled = true;
+	}
+	
+	// Returns the status of the isFilled boolean
+	public boolean isFilled(){
+		return isFilled;
+	}
 }
-    
-    /*public class Item {
-        public Item(){}
-    }
-    
-    public class Orders {
-        ArrayList<Item> items;
-        String status;
-        
-        public Orders(){
-            items = new ArrayList<>();
-            status = "not started";
-        }
-        
-        public void addItem(Item a){
-            items.add(a);
-        }
-        
-        public void removeItem(Item a){
-            items.remove(a);
-        }
-        
-        public void contains(Item a){
-            items.contains(a);
-        }
-        
-        public ArrayList<Item> getItems(){
-            return items;
-        }
-        
-    }*/
