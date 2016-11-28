@@ -9,7 +9,7 @@ public class Picker implements Tick, Orders, Cloneable {
 	static Bin currentBin; // current bin that is going to be sent to the belt
 	static MockOrders O; // order subsystem, check for arraylist of orders
 	static Bin pickerBin; // this is the bin that orders go in once complete
-	static Floor F; // get the floor
+	static MockFloor F; // get the floor
 	static Inventory I; // get the inventory
 	static RobotScheduler R; // get the robot scheduler
 	
@@ -24,6 +24,8 @@ public class Picker implements Tick, Orders, Cloneable {
 		return currentBin;
 	}
 	
+	// the Belt will use this to remove the current bin AFTER
+	// it has been taken to the belt
 	public static void removeCurrentBin() {
 		currentBin = null;
 	}
@@ -52,10 +54,8 @@ public class Picker implements Tick, Orders, Cloneable {
 		if (validTransfer){
 			for (int k = 0; k < num; k++){
 				currentOrder.fillItem(I);
-				// omg this works
 			}
 		}
-		// 
 	}
 	
 	// This method checks the isFilled boolean of the order; if it
@@ -74,6 +74,9 @@ public class Picker implements Tick, Orders, Cloneable {
 	}
 	
 	public void tick(int count){
-		checkCompletion();
+		boolean isDone = checkCompletion();
+		if (isDone == false){
+			// this is where I need to figure out stuff with the robot
+		}
 	};
 }

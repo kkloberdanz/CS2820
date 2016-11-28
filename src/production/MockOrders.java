@@ -10,11 +10,11 @@ import java.util.*;
 
 public class MockOrders implements Orders, Tick {
 	
-	private Inventory I;
+	private static Inventory I;
 	// private RobotScheduler R; need to work with RobotScheduler to do this
-	private ArrayList<Order> orderQueue;
-	private SimRandom randSource;
-	int id = 1; // keeps track of order ID number
+	private static ArrayList<Order> orderQueue;
+	private static SimRandom randSource;
+	static int id = 1; // keeps track of order ID number
 	
 	// Constructor
 	public MockOrders(Inventory I, SimRandom rand) {
@@ -30,17 +30,17 @@ public class MockOrders implements Orders, Tick {
 	public void tick(int count){}
 	
 	// this method gets the next order in the queue
-	public Order getNextOrder(){
+	public static Order getNextOrder(){
 		return orderQueue.remove(0);
 	}
 	
 	// Gets the shelf that corresponds to a certain item
-	public Shelf getShelf(Item x, Inventory I, Floor f){
+	public static Shelf getShelf(Item x, Inventory I, Floor f){
 		return null;
 	}
 	
 	// Generates a random order.
-	public Order generateRandomOrder() {
+	public static Order generateRandomOrder() {
 		String randAddress = new Address(randSource).createAddress();
 		Order returnOrder = new Order();
 		returnOrder.updateAddress(randAddress);
@@ -133,8 +133,8 @@ class Address {
 		String state = chooseState();
 		String zip = chooseZip();
 		String address = firstName + " " + lastName + "\n";
-		address = number + " " + streetName + "\n";
-		address = city + " " + state + " " + zip;
+		address += number + " " + streetName + "\n";
+		address += city + " " + state + " " + zip;
 		return address;
 	}
 }
