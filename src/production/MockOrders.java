@@ -29,6 +29,11 @@ public class MockOrders implements Orders, Tick {
 	// Will work on this more later
 	public void tick(int count){}
 	
+	// this method gets the next order in the queue
+	public Order getNextOrder(){
+		return orderQueue.remove(0);
+	}
+	
 	// Gets the shelf that corresponds to a certain item
 	public Shelf getShelf(Item x, Inventory I, Floor f){
 		return null;
