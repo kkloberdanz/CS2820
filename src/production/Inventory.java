@@ -26,8 +26,8 @@ public class Inventory implements Tick{
      */
     
     public static class location{
-    	HashMap<Integer,Integer> quantity;
-        Shelf shelf;
+    	public static HashMap<Integer,Integer> quantity;
+        public static Shelf shelf;
     	public location(Shelf shelf,HashMap<Integer,Integer> quantity){
     		this.shelf=shelf;
     		this.quantity=quantity;
@@ -54,37 +54,37 @@ public class Inventory implements Tick{
      * initial the database and add the items into database
      * @author haoyang wei
      */
-    public void initialize(ArrayList<Item> item,ArrayList<Integer> quantity){
-    	loc=new location[shelves.length];
+    public static void initialize(ArrayList<Item> item,ArrayList<Integer> quantity){
+    	loc=new location[MockFloor.shelves.size()];
     	for(int i=0;i<loc.length;i++){
-    		loc[i]=new location(shelves.get(i),new HashMap<Integer,Integer>());
+    		loc[i]=new location(MockFloor.shelves.get(i),new HashMap<Integer,Integer>());
     	}
         database=new HashMap<Integer,Item>();
-        this.quantity=new HashMap<Integer,Integer>();
-       for(int i=0;i<item.size;i++){
+        Inventory.quantity=new HashMap<Integer,Integer>();
+       for(int i=0;i<item.size();i++){
            additems(item.get(i),quantity.get(i));
        }
     }/*
     *add item to the database, if exists we only need to add the quantity,then put the product onto shelf
     *@author haoyang wei
     */
-    public void additems(Item product,int quantity){
+    public static void additems(Item product,int quantity){
         if(database.containsKey(product.get_id_number())){
-            this.quantity.put(product.get_id_number(),this.quantity.get(product.get_id_number())+quantity);
+            Inventory.quantity.put(product.get_id_number(),Inventory.quantity.get(product.get_id_number())+quantity);
             putitemonshelf(product,quantity);
         }
         else{
             database.put(product.get_id_number(),product);
-            this.quantity.put(product.get_id_number(),quantity);
+            Inventory.quantity.put(product.get_id_number(),quantity);
             putitemonshelf(product,quantity);
         }
     }
-    public void putitemonshelf(Item product,int quantity){
+    public static void putitemonshelf(Item product,int quantity){
     	int temp=0;
         while(true){
-        	Shelf i=shelves.get(temp);
+        	Shelf i=MockFloor.shelves.get(temp);
             if(i.addItem(product,quantity)){
-            	location.addquantity(loc[temp], product.id, quantity);
+            	location.addquantity(loc[temp], product.get_id_number(), quantity);
                 break;
             }
             else{
@@ -97,33 +97,33 @@ public class Inventory implements Tick{
     /*remove item from shelf, first check whether we have enough in stock, if not we cannot remove it.
     @author haoyang wei
     */
-    public boolean removeitems(Item product,int quantity){
+    public static boolean removeitems(Item product,int quantity){
         if(!database.containsKey(product.get_id_number())){
             System.out.println("We don't have this product in stock");
             return false;
         }
         else{
-            if(this.quantity.get(product.get_id_number())<quantity){
+            if(Inventory.quantity.get(product.get_id_number())<quantity){
                 System.out.println("We don't have enough products in stock, please add more products or reduce the number of products to be shippped");
                 return false;
             }
             else{
                 removeitemfromshelf(product,quantity);
-                this.quantity.put(product.get_id_number(),this.quantity.get(product.get_id_number())-quantity);
-                if(this.quantity.get(product.get_id_number())==0){
+                Inventory.quantity.put(product.get_id_number(),Inventory.quantity.get(product.get_id_number())-quantity);
+                if(Inventory.quantity.get(product.get_id_number())==0){
                     database.remove(product.get_id_number());
-                    this.quantity.remove(product.get_id_number());
+                    Inventory.quantity.remove(product.get_id_number());
                 }
                 return true;
             }
         }
     }
-    public void removeitemfromshelf(Item product,int quantity){
+    public static void removeitemfromshelf(Item product,int quantity){
     	int temp=0;
         while(true){
-        	Shelf i=shelves.get(temp);
+        	Shelf i=MockFloor.shelves.get(temp);
         	if(i.removeItem(product,quantity,false)){
-        		location.removequantity(loc[temp],product.id,quantity);
+        		location.removequantity(loc[temp],product.get_id_number(),quantity);
                 break;
         	}
             else{
@@ -131,19 +131,24 @@ public class Inventory implements Tick{
             }
         }
     }
-    public Shelf finditem(Item product){
+    public static Shelf finditem(Item product){
         for(int i=0;i<loc.length;i++){
-            if(loc[i].quantity.contains(product.id)){
+            if(loc[i].quantity.containsKey(product.get_id_number())){
                 return loc[i].shelf;
             }
         }
+        System.out.println("We cannot find that in stock");
         return null;
     }
     public void tick(int count){
         for(int i=0;i<count;i++){
             if(initial==true){
+            	if(Taskadd!=null){
                 initialize(Taskadd,TaskItemadd);
-                initial=false;
+                initial=false;}
+            	else{
+            		System.out.println("We need initial products in stock");
+            	}
             }
             else{
                 if(Taskadd!=null){
