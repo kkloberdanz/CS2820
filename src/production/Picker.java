@@ -6,13 +6,26 @@ public class Picker implements Tick, Orders, Cloneable {
 	
 	Order currentOrder; // current order that the Picker is working on
 	Order copiedOrder; // order that is going to be put into the bin
+	Bin currentBin; // current bin that is going to be sent to the belt
+	MockOrders O; // order subsystem, check for arraylist of orders
 	Bin pickerBin; // this is the bin that orders go in once complete
 	Floor F; // get the floor
 	Inventory I; // get the inventory
 	RobotScheduler R; // get the robot scheduler
 	
+	// constructor
 	public Picker() {
 		currentOrder = null;
+		currentBin = null;
+	}
+	
+	// returns the current bin that the picker is using
+	public Bin getCurrentBin() {
+		return currentBin;
+	}
+	
+	public void removeCurrentBin() {
+		currentBin = null;
 	}
 	
 	// Updates the current order that the picker is working on
@@ -44,27 +57,22 @@ public class Picker implements Tick, Orders, Cloneable {
 		// 
 	}
 	
-	public void sendBintoBelt(Bin x, Belt B){
-		// Communicate with Belt for this
-	}
-	
 	// This method checks the isFilled boolean of the order; if it
 	// is true, then put the order in a bin and send it to the
 	// the belt, if not then do nothing.
 	public boolean checkCompletion(){
 		if (currentOrder.isFilled()){
-			pickerBin = new Bin();
+			currentBin = new Bin();
 			copiedOrder = new Order(currentOrder);
-			pickerBin.setOrder(copiedOrder);
-			pickerBin.setComplete();
-			// NOTIFY THE BELT THAT THE PICKER BIN IS COMPLETE
-			currentOrder = null;
+			currentBin.setOrder(copiedOrder);
+			currentBin.setComplete();
+			currentOrder = O.getNextOrder();
 			return true;
 		}
 		return false;
 	}
 	
 	public void tick(int count){
-		
+		checkCompletion();
 	};
 }
