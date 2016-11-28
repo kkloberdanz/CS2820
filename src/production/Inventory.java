@@ -26,7 +26,7 @@ public class Inventory implements Tick{
     	HashMap<Integer,Integer> quantity;
     	public location(Shelf shelf,HashMap<Integer,Integer> quantity){
     		this.shelf=shelf;
-    		this.quantity=quantity
+    		this.quantity=quantity;
     	}
     	public static void addquantity(location loc,int id,int quantity){
     		if(loc.quantity.containsKey(id)){
@@ -53,7 +53,7 @@ public class Inventory implements Tick{
     public void initialize(Item[] item,int[] quantity){
     	loc=new location[shelves.length];
     	for(int i=0;i<loc.length;i++){
-    		loc[i]=new location(shelves.get(i),new HashMap<Integer,Integer>())
+    		loc[i]=new location(shelves.get(i),new HashMap<Integer,Integer>());
     	}
         database=new HashMap<Integer,Item>();
         this.quantity=new HashMap<Integer,Integer>();
