@@ -10,8 +10,10 @@ public class Item {
     private String  name;
 
     public Item() {
-    	;
+    	this.id_number = 0;
+    	this.name = "NONE";
     }
+    
     public Item(int num, String new_name) {
         this.id_number = num;
         this.name = new_name;
