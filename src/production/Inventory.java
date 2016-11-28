@@ -22,7 +22,7 @@ public class Inventory implements Tick{
      * @author haoyang Wei
      */
     
-    public class location{
+    public static class location{
     	HashMap<Integer,Integer> quantity;
     	public location(Shelf shelf,HashMap<Integer,Integer> quantity){
     		this.shelf=shelf;
@@ -126,6 +126,9 @@ public class Inventory implements Tick{
                 temp++;
             }
         }
+    }
+    public void tick(int count){
+    
     }
     
 
