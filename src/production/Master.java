@@ -5,6 +5,8 @@
 
 package production;
 
+import java.awt.Point;
+
 public class Master {
 
     /**
@@ -19,11 +21,11 @@ public class Master {
 
     	System.out.println("Running Simulation");
     
-        MockFloor floor     = new MockFloor();
-        Inventory inventory = new Inventory();
-        Order     order     = new Order();
-        Belt      belt      = new Belt();
-        Robot     robot     = new Robot(100, 1);
+        MockFloor     floor     = new MockFloor();
+        Inventory     inventory = new Inventory();
+        Order         order     = new Order();
+        Belt          belt      = new Belt();
+        RobotSchedule robot     = new RobotSchedule();
 
         for (int i = 0;; ++i) {
             floor.tick(i);

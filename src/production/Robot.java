@@ -17,6 +17,7 @@ public class Robot {
     Path path; // the path robot move
     Point pickerR;
     boolean state;
+    
     public Robot(Point Createlocation){
         location = Createlocation;
         path = null;
@@ -25,9 +26,9 @@ public class Robot {
     }
     public Point getLocation(Robot a){
             return a.location; 
-         }
+    }
         
-    }       
+}       
     
     
 

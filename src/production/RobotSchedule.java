@@ -2,7 +2,11 @@ package production;
 
 import java.util.ArrayList;
 
-public class RobotSchedule{
+public class RobotSchedule implements Tick {
+	
+	public RobotSchedule() {
+		;
+	}
     ArrayList<Robot> Robotlist = new ArrayList<Robot>();
     /*
     Robot NUMBER1 = new Robot(100,1);
@@ -23,4 +27,8 @@ public class RobotSchedule{
     // get the route form the robot to the location of the shelf
     public void getRoute(Object Station, Object location){}
     // get the route from the shelf to the station
+    
+    public void tick(int count) {
+    	//TODO write code here to implement tick
+    }
 }
