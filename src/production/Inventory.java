@@ -70,7 +70,7 @@ public class Inventory implements Tick{
     */
     public void additems(Item product,int quantity){
         if(database.containsKey(product.get_id_number())){
-            this.quantity.get(product.get_id_number())+=quantity;
+            this.quantity.put(product.get_id_number(),this.quantity.get(product.get_id_number())+quantity);
             putitemonshelf(product,quantity);
         }
         else{
@@ -109,10 +109,10 @@ public class Inventory implements Tick{
             }
             else{
                 removeitemfromshelf(product,quantity);
-                this.quantity.get(product.get_id_number())-=quantity;
+                this.quantity.put(product.get_id_number(),this.quantity.get(product.get_id_number())-quantity);
                 if(this.quantity.get(product.get_id_number())==0){
                     database.remove(product.get_id_number());
-                    this.quantity.remove(product.get_id_number);
+                    this.quantity.remove(product.get_id_number());
                 }
                 return true;
             }
