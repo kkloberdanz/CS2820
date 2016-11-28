@@ -19,8 +19,9 @@ public class Master {
      */
     public static void main(String[] args) { 
 
-    	System.out.println("Running Simulation");
-    
+    	if (Debug.verboseLevel() >= 1) {
+    		System.out.println("Running Simulation");
+    	}
         MockFloor     floor     = new MockFloor();
         Inventory     inventory = new Inventory();
         Order         order     = new Order();
