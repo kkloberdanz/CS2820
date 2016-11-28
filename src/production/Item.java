@@ -9,6 +9,9 @@ public class Item {
     private int     id_number;
     private String  name;
 
+    public Item() {
+    	;
+    }
     public Item(int num, String new_name) {
         this.id_number = num;
         this.name = new_name;
