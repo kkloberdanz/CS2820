@@ -1,7 +1,5 @@
 package production;
 
-package production;
-
 import java.util.*;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -24,6 +22,7 @@ public class Inventory implements Tick{
     
     public static class location{
     	HashMap<Integer,Integer> quantity;
+        Shelf shelf;
     	public location(Shelf shelf,HashMap<Integer,Integer> quantity){
     		this.shelf=shelf;
     		this.quantity=quantity;
@@ -127,8 +126,17 @@ public class Inventory implements Tick{
             }
         }
     }
+    public Shelf finditem(Item product){
+        for(int i=0;i<loc.length;i++){
+            if(loc[i].quantity.contains(product.id)){
+                return loc[i].shelf;
+            }
+        }
+    }
     public void tick(int count){
-    
+        for(int i=0;i<count;i++){
+            
+        }
     }
     
 
