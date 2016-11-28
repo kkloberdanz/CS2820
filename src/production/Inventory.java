@@ -15,6 +15,11 @@ public class Inventory implements Tick{
     public static HashMap<Integer,Item> database;
     public static HashMap<Integer,Integer> quantity;
     public static location[] loc;
+    public static boolean initial=true;
+    public static ArrayList<Item> Taskadd;
+    public static ArrayList<Integer> TaskItemadd;
+    public static ArrayList<Item> Taskremove;
+    public static ArrayList<Integer> TaskItemremove;
     /**
      * 
      * @author haoyang Wei
@@ -49,15 +54,15 @@ public class Inventory implements Tick{
      * initial the database and add the items into database
      * @author haoyang wei
      */
-    public void initialize(Item[] item,int[] quantity){
+    public void initialize(ArrayList<Item> item,ArrayList<Integer> quantity){
     	loc=new location[shelves.length];
     	for(int i=0;i<loc.length;i++){
     		loc[i]=new location(shelves.get(i),new HashMap<Integer,Integer>());
     	}
         database=new HashMap<Integer,Item>();
         this.quantity=new HashMap<Integer,Integer>();
-       for(int i=0;i<item.length;i++){
-           additems(item[i],quantity[i]);
+       for(int i=0;i<item.size;i++){
+           additems(item.get(i),quantity.get(i));
        }
     }/*
     *add item to the database, if exists we only need to add the quantity,then put the product onto shelf
@@ -132,10 +137,29 @@ public class Inventory implements Tick{
                 return loc[i].shelf;
             }
         }
+        return null;
     }
     public void tick(int count){
         for(int i=0;i<count;i++){
-            
+            if(initial==true){
+                initialize(Taskadd,TaskItemadd);
+                initial=false;
+            }
+            else{
+                if(Taskadd!=null){
+                    additems(Taskadd.get(0),TaskItemadd.get(0));
+                }
+                else{
+                    System.out.println("We have no products to add into the stock");
+                }
+                if(Taskremove!=null){
+                    removeitems(Taskremove.get(0),TaskItemremove.get(0));
+                }
+                else{
+                    System.out.println("We have no products to be removed this time");
+                }
+                
+            }
         }
     }
     
