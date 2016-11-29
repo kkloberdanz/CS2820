@@ -13,17 +13,17 @@ public class Order implements Tick, Cloneable {
 	
 	String orderAddress;			// address of this order
 	int orderID;					// order ID number
-	ArrayList<MockItem> orderItems;		// list of items included in order
-	ArrayList<MockItem> filledItems;	// list of items that have been filled
+	ArrayList<Item> orderItems;		// list of items included in order
+	ArrayList<Item> filledItems;	// list of items that have been filled
 	boolean isFilled;				// has the order been filled?
 	
 	public Order () {
-		isFilled = false;
-		orderID = 0;
-		orderAddress = null;
-		orderItems = new ArrayList<MockItem>();
-		filledItems = new ArrayList<MockItem>();
-	}//
+		this.isFilled = false;
+		this.orderID = 0;
+		this.orderAddress = null;
+		this.orderItems = new ArrayList<Item>();
+		this.filledItems = new ArrayList<Item>();
+	}
 	
 	public Order(Order o) {
 		this.isFilled = o.isFilled;
@@ -49,22 +49,22 @@ public class Order implements Tick, Cloneable {
 	}
 	
 	// Adds an item to the list of items required for this order
-	public void addItem(MockItem a) {
+	public void addItem(Item a) {
 		orderItems.add(a);
 	}
 	
 	// Adds an item to the list of filled items for the order
-	public void fillItem(MockItem a) {
+	public void fillItem(Item a) {
 		filledItems.add(a);
 	}
 	
 	// Removes the item from the list of items required for this order
-	public void removeItem(MockItem a) {
+	public void removeItem(Item a) {
 		orderItems.remove(a);
 	}
 	
 	// Queries on whether or not the item is required for this order
-	public boolean containsItem(MockItem a) {
+	public boolean containsItem(Item a) {
 		return orderItems.contains(a);
 	}
 	
@@ -74,7 +74,7 @@ public class Order implements Tick, Cloneable {
 	}
 	
 	// Returns the list of items within this order
-	public ArrayList<MockItem> getItems() {
+	public ArrayList<Item> getItems() {
 		return orderItems;
 	}
 	

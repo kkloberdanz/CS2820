@@ -17,9 +17,9 @@ public class MockOrders implements Orders, Tick {
 	static int id = 1; // keeps track of order ID number
 	
 	// Constructor
-	public MockOrders(Inventory I, SimRandom rand) {
+	public MockOrders() {
 		this.I = I;
-		randSource = rand;
+		this.randSource = randSource;
 		orderQueue = new ArrayList<Order>();
 		for (int i = 0; i < 3; i++) {
 			orderQueue.add(generateRandomOrder());
@@ -48,7 +48,7 @@ public class MockOrders implements Orders, Tick {
 		// Will eventually fix this to work in conjunction with the Inventory
 		// For now, it simply produces a certain amount of MockItems
 		for (int i = 0; i < numItems; i++){
-			MockItem myItem = new MockItem(123, "test");
+			Item myItem = new Item();
 			returnOrder.addItem(myItem);
 		}
 		returnOrder.orderID = id;

@@ -24,14 +24,14 @@ public class Master {
     	}
         MockFloor     floor     = new MockFloor();
         Inventory     inventory = new Inventory();
-        Order         order     = new Order();
+        MockOrders    orders    = new MockOrders();
         Belt          belt      = new Belt();
         RobotSchedule robot     = new RobotSchedule();
 
         for (int i = 0;; ++i) {
             floor.tick(i);
             inventory.tick(i);
-            order.tick(i);
+            orders.tick(i);
             belt.tick(i);
             robot.tick(i);
             System.out.println("Current Count = " + i);
