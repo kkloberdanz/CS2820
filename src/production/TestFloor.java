@@ -26,8 +26,13 @@ public class TestFloor {
     static Path pickToCharge=null;
     static Point A;
     static Point B;
+    /**
+     * testLevel options
+     * 1= basic nonsense tests
+     * 2= tick
+     */
+    static int  testLevel = 1;
     
-    static int  testLevel = 2;
     public static void main(String[] args) {
         floor = new MockFloor();     
 /////////////////////////////////////////////////////////////////////////////////////////////
