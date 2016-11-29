@@ -14,12 +14,14 @@ import java.util.*;
 public class Inventory implements Tick{
     public static HashMap<Integer,Item> database;
     public static HashMap<Integer,Integer> quantity;
-    public static location[] loc;
     public static boolean initial=true;
     public static ArrayList<Item> Taskadd;
     public static ArrayList<Integer> TaskItemadd;
     public static ArrayList<Item> Taskremove;
     public static ArrayList<Integer> TaskItemremove;
+    public static MockFloor Floor=new MockFloor();
+    
+    public static location[] loc=new location[Floor.shelves.size()];
     /**
      * 
      * @author haoyang Wei
@@ -55,9 +57,8 @@ public class Inventory implements Tick{
      * @author haoyang wei
      */
     public static void initialize(ArrayList<Item> item,ArrayList<Integer> quantity){
-    	loc=new location[MockFloor.shelves.size()];
     	for(int i=0;i<loc.length;i++){
-    		loc[i]=new location(MockFloor.shelves.get(i),new HashMap<Integer,Integer>());
+    		loc[i]=new location(Floor.shelves.get(i),new HashMap<Integer,Integer>());
     	}
         database=new HashMap<Integer,Item>();
         Inventory.quantity=new HashMap<Integer,Integer>();
@@ -81,16 +82,20 @@ public class Inventory implements Tick{
     }
     public static void putitemonshelf(Item product,int quantity){
     	int temp=0;
-        while(true){
-        	Shelf i=MockFloor.shelves.get(temp);
+        while(temp<loc.length){
+        	Shelf i=Floor.shelves.get(temp);
             if(i.addItem(product,quantity)){
+            	
             	location.addquantity(loc[temp], product.get_id_number(), quantity);
                 break;
             }
             else{
-                System.out.println("the shelf cannot store so many items");
-                temp++;
+            	temp++;
+}
             }
+        if(temp==loc.length){
+        	System.out.println("No shelf can store these items");
+        
         }
                                     
     }
@@ -120,8 +125,8 @@ public class Inventory implements Tick{
     }
     public static void removeitemfromshelf(Item product,int quantity){
     	int temp=0;
-        while(true){
-        	Shelf i=MockFloor.shelves.get(temp);
+        while(temp<loc.length){
+        	Shelf i=Floor.shelves.get(temp);
         	if(i.removeItem(product,quantity,false)){
         		location.removequantity(loc[temp],product.get_id_number(),quantity);
                 break;
