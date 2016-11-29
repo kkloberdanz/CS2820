@@ -87,4 +87,15 @@ public class Order implements Tick, Cloneable {
 	public boolean isFilled(){
 		return isFilled;
 	}
+	
+	// This method converts the order object into a string
+	public String toString(){
+		String output = "";
+		output += "Order address: " + orderAddress + "\nOrder ID: " + orderID + "\n";
+		for (int i = 0; i < orderItems.size(); i++) {
+			output += "Item " + (i+1) + ": " + orderItems.get(i) + "\n";
+		}
+		output += "Has this order been filled? " + isFilled + "\n";
+		return output;
+	}
 }

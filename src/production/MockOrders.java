@@ -8,19 +8,29 @@ import java.util.*;
  *
  */
 
-public class MockOrders implements Orders, Tick {
+public class MockOrders implements Tick {
 	
 	private static Inventory I;
-	// private RobotScheduler R; need to work with RobotScheduler to do this
-	private static ArrayList<Order> orderQueue;
-	private static SimRandom randSource;
+	private static RobotScheduler R;
+	static ArrayList<Order> orderQueue;
+	static private SimRandom randSource;
+	static private String randAddress;
 	static int id = 1; // keeps track of order ID number
 	
 	// Constructor
 	public MockOrders() {
-		this.I = I;
-		this.randSource = randSource;
-		orderQueue = new ArrayList<Order>();
+		MockOrders.orderQueue = new ArrayList<Order>(3);
+		for (int i = 0; i < 3; i++) {
+			orderQueue.add(generateRandomOrder());
+		}
+	}
+	
+	// Constructor that takes arguments
+	public MockOrders(Inventory I, RobotScheduler R, SimRandom rand){
+		MockOrders.I = I;
+		MockOrders.R = R;
+		MockOrders.randSource = rand;
+		MockOrders.orderQueue = new ArrayList<Order>();
 		for (int i = 0; i < 3; i++) {
 			orderQueue.add(generateRandomOrder());
 		}
@@ -41,7 +51,7 @@ public class MockOrders implements Orders, Tick {
 	
 	// Generates a random order.
 	public static Order generateRandomOrder() {
-		String randAddress = new Address(randSource).createAddress();
+		randAddress = new Address(randSource).createAddress();
 		Order returnOrder = new Order();
 		returnOrder.updateAddress(randAddress);
 		int numItems = (1+randSource.nextInt(5));
