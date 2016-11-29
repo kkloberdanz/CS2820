@@ -23,6 +23,6 @@ public class charger {
 	
 	@Override
 	public String toString(){
-		return charLoc.toString()+Boolean.toString(occupied);
+		return "Charger at "+charLoc.toString()+ " || Occupied: "+Boolean.toString(occupied);
 	}
 }

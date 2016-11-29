@@ -180,7 +180,7 @@ public class MockFloor implements Floor, Tick{
      * this will set a robot on every charger at the beginning of the program
      */
     public void setRobots(){
-    	int num = 0;
+    	//int num = 0;
     	for (charger c:chargers){
     		Robot temp = new Robot(c.charLoc);
     		temp.charge = 100;
@@ -192,5 +192,13 @@ public class MockFloor implements Floor, Tick{
      * This implements Tick
      */
     public void tick(int count){
+    	if (Debug.verboseLevel()>=2){
+    		for (charger c:chargers){
+    			System.out.println(c.toString());
+    		}
+    		for (Robot r:robots){
+    			System.out.println(r.toString());
+    		}
+    	}
     }
 }

@@ -26,6 +26,8 @@ public class TestFloor {
     static Path pickToCharge=null;
     static Point A;
     static Point B;
+    
+    static int  testLevel = 2;
     public static void main(String[] args) {
         floor = new MockFloor();     
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,21 +36,28 @@ public class TestFloor {
          * (set in MockFloor as .topLeftShelfArea and .bottomRightShelfArea)
          * Currently it prints all the shelves with Name, Location, and whether it is being carried or not
          */
-        System.out.println("\n-----Shelves-----\n");
-        for (Shelf s:floor.shelves){
-            System.out.println(s.toString());
+        if (testLevel==1){
+	        System.out.println("\n-----Shelves-----\n");
+	        for (Shelf s:floor.shelves){
+	            System.out.println(s.toString());
+	        }
         }
 //////////////////////////////////////////////////////////////////////////////////////////////
+        if (testLevel==1){
         System.out.println("\n-----chargers-----\n");
         for(charger c:floor.chargers){
         	System.out.println(c);
         }
+        }
 ////////////////////////////////////////////////////////////////////////////////////////////// 
+        if (testLevel==1){
         System.out.println("\n-----robots-----\n");
         for(Robot r:floor.robots){
     	System.out.println(r);
     	}
+        }
 //////////////////////////////////////////////////////////////////////////////////////////////
+        if (testLevel==1){
         System.out.println("\n-----Path-----\n");
         /**
          * This will create a simple Path and then print that Path
@@ -64,6 +73,14 @@ public class TestFloor {
             pickToCharge =pickToCharge.step();
         }
         System.out.println("\n-----Path Found!!-----\n");
+        }
+/////////////////////////////////////////////////////////////////////////////////////////
+        /*
+         * test tick
+         */
+        if (testLevel==2){
+        	floor.tick(1);
+        }
 
         
         
