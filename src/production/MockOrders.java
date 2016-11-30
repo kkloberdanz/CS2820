@@ -44,6 +44,15 @@ public class MockOrders implements Tick {
 		return orderQueue.remove(0);
 	}
 	
+	// this method will generate new orders as time goes on; for now,
+	// it simply will add an order whenever the queue loses an order,
+	// but eventually I would like generation to be random if possible
+	public static void receiveNewOrders(){
+		while (orderQueue.size() < 3) {
+			orderQueue.add(generateRandomOrder());
+		}
+	}
+	
 	// Gets the shelf that corresponds to a certain item
 	public static Shelf getShelf(Item x, Inventory I, Floor f){
 		return null;
@@ -101,7 +110,13 @@ class Address {
 		return 1+rand.nextInt(998);
 	}
 	
-	// This function chooses a random first name for the address.
+	// This function chooses a random name for the address.
+	private String chooseName() {
+		final String[] names = {"Eddard Stark", "Catelyn Stark", "Arya Stark", "Sansa Stark", "Robb Stark", "Jon Snow", "Bran Stark", "Rickon Stark", "Jaime Lannister", "Cersei Lannister", "Robert Baratheon", "Tyrion Lannister", "Tywin Lannister", "Joffrey Baratheon", "Daenerys Targaryen", "Petyr Baelish", "Jorah Mormont", "Theon Greyjoy", "The Hound", "Khal Drogo", "Viserys Targaryen", "Samwell Tarly", "Tommen Baratheon", "Melisandre", "Margaery Tyrell", "Davos Seaworth", "Stannis Baratheon", "Shireen Baratheon", "Brienne of Tarth", "Roose Bolton", "Ramsay Bolton", "Tormund Giantsbane", "Daario Naharis", "Missandei", "Ellaria Sand", "Oberyn Martell", "Petyr Baelish"};
+		return names[rand.nextInt(names.length)];
+	}
+	
+	/*// This function chooses a random first name for the address.
 	private String chooseFirstName() {
 		final String[] firstNames = {"Grant", "Tom", "Tyler", "Ben", "Kendall", "Bri", "Max", "Steve", "Holly", "Sam", "Andrew", "Laura", "Jack", "Chuck", "Amanda", "Kristin", "Annie"};
 		return firstNames[rand.nextInt(firstNames.length)];
@@ -111,7 +126,7 @@ class Address {
 	private String chooseLastName() {
 		final String[] lastNames = {"Gertsen", "Bowman", "Foster", "Jacobs", "Johnson", "Hammer", "Peterson", "Harrington", "Mindemann", "Kaplan", "Novitskiy", "Schneider", "Rose", "Carlson", "Stout", "Witz", "Majure"};
 		return lastNames[rand.nextInt(lastNames.length)];
-	}
+	}*/
 	
 	// This function chooses a random state for the address.
 	private String chooseState() {
@@ -121,7 +136,7 @@ class Address {
 	
 	// This function chooses a random city for the address.
 	private String chooseCity() {
-		final String[] cityNames = {"Winterfell", "King's Landing", "Highgarden", "Riverrun", "Pyke", "Pentos", "Braavos", "Qarth", "Astapor", "Yunkai", "Meereen", "Harrenhaal", "Casterly Rock", "Sunspear"};
+		final String[] cityNames = {"Winterfell", "King's Landing", "Highgarden", "Riverrun", "Pyke", "Pentos", "Braavos", "Qarth", "Astapor", "Yunkai", "Meereen", "Harrenhal", "Casterly Rock", "Sunspear", "Valyria", "Volantis", "Vaes Dothrak", "The Eyrie", "Castle Black", "The Dreadfort", "The Twins"};
 		return cityNames[rand.nextInt(cityNames.length)];
 	}
 	
@@ -135,14 +150,15 @@ class Address {
 	}
 	
 	public String createAddress() {
-		String firstName = chooseFirstName();
-		String lastName = chooseLastName();
+		String name = chooseName();
+		/*String firstName = chooseFirstName();
+		String lastName = chooseLastName();*/
 		String number = new Integer(chooseNumber()).toString();
 		String streetName = chooseStreet();
 		String city = chooseCity();
 		String state = chooseState();
 		String zip = chooseZip();
-		String address = firstName + " " + lastName + "\n";
+		String address = name + "\n";
 		address += number + " " + streetName + "\n";
 		address += city + " " + state + " " + zip;
 		return address;
