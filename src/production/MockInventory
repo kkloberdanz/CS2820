@@ -1,0 +1,42 @@
+package production;
+import java.util.*;
+public class MockInventory extends Inventory {
+	public static void  main(String[] arguments){
+	Item[] catalog = {
+		    new Item(143531,"Chef Cleaver Knife"),
+		    new Item(893607,"Chef's Knife"),
+		    new Item(244911,"Cherry  Olive Pitter"),
+		    new Item(877744,"Circuit Tester"),
+		    new Item(954547,"Cleaning Pads"),
+		    new Item(997806,"Donut Pan"),
+		    new Item(512232,"Drifting Machine"),
+		    new Item(796905,"Drinking Glasses"),
+		    new Item(91687,"Dry Bag"),
+		    new Item(259450,"Dryer vent cleaning system"),
+		    new Item(745712,"Drying Rack"),
+		    new Item(891433,"Dumbbell Rack"),
+		    new Item(374709,"Egg / Bacon Microwave Cooker"),
+		    new Item(452859,"Egg Beater"),
+		    new Item(148733,"Electric Duster Vacuum"),
+		    new Item(390402,"Electric Fondue Maker"),
+		    new Item(107781,"Electric Food Slicer"),
+		    new Item(113927,"Electric Griddle"),
+		    new Item(590089,"Electric Meat Grinder"),
+		    new Item(639242,"Electric Rotisserie"),
+		    new Item(932108,"Electric Salad Slicer"),
+		    new Item(582932,"Electric Scooter"),
+		    new Item(241881,"Electric Smoker"),
+		    new Item(828697,"Electric Wok"),
+		    new Item(920858,"Elevation Training Gear"),
+
+		    };
+	ArrayList<Item> Item=new ArrayList<Item>();
+	ArrayList<Integer> quantity=new ArrayList<Integer>();
+	for(int i=0;i<catalog.length;i++){
+		Item.add(catalog[i]);
+		quantity.add(1);
+		
+	}
+	initialize(Item,quantity);
+}
+}

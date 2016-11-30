@@ -28,7 +28,8 @@ public class SimRandom {
    * of pseudo-random numbers.
    */
   public SimRandom() {
-	R = new java.util.Random(1001L);  // give initial seed for determinism
+	//R = new java.util.Random(1001L);  // give initial seed for determinism
+	R = new java.util.Random();
     }
   public int nextInt(int bound) {
 	return R.nextInt(bound);

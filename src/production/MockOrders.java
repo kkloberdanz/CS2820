@@ -8,19 +8,29 @@ import java.util.*;
  *
  */
 
-public class MockOrders implements Orders, Tick {
+public class MockOrders implements Tick {
 	
 	private static Inventory I;
-	// private RobotScheduler R; need to work with RobotScheduler to do this
-	private static ArrayList<Order> orderQueue;
-	private static SimRandom randSource;
+	private static RobotScheduler R;
+	static ArrayList<Order> orderQueue;
+	static private SimRandom randSource;
+	static private String randAddress;
 	static int id = 1; // keeps track of order ID number
 	
 	// Constructor
-	public MockOrders(Inventory I, SimRandom rand) {
-		this.I = I;
-		randSource = rand;
-		orderQueue = new ArrayList<Order>();
+	public MockOrders() {
+		MockOrders.orderQueue = new ArrayList<Order>(3);
+		for (int i = 0; i < 3; i++) {
+			orderQueue.add(generateRandomOrder());
+		}
+	}
+	
+	// Constructor that takes arguments
+	public MockOrders(Inventory I, RobotScheduler R, SimRandom rand){
+		MockOrders.I = I;
+		MockOrders.R = R;
+		MockOrders.randSource = rand;
+		MockOrders.orderQueue = new ArrayList<Order>();
 		for (int i = 0; i < 3; i++) {
 			orderQueue.add(generateRandomOrder());
 		}
@@ -41,14 +51,14 @@ public class MockOrders implements Orders, Tick {
 	
 	// Generates a random order.
 	public static Order generateRandomOrder() {
-		String randAddress = new Address(randSource).createAddress();
+		randAddress = new Address(randSource).createAddress();
 		Order returnOrder = new Order();
 		returnOrder.updateAddress(randAddress);
 		int numItems = (1+randSource.nextInt(5));
 		// Will eventually fix this to work in conjunction with the Inventory
 		// For now, it simply produces a certain amount of MockItems
 		for (int i = 0; i < numItems; i++){
-			MockItem myItem = new MockItem(123, "test");
+			Item myItem = new Item();
 			returnOrder.addItem(myItem);
 		}
 		returnOrder.orderID = id;
