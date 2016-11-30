@@ -18,6 +18,14 @@ public class Bin implements Cloneable {
 		complete = false;
 	}
 	
+	// converts bin to a string representation
+	@Override
+	public String toString(){
+		String output = order.toString();
+		output += "\nIs this order complete? " + complete;
+		return output;
+	}
+	
 	// this constructor clones a bin
 	public Bin(Bin b) {
 		this.order = b.order;

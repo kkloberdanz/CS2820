@@ -89,13 +89,17 @@ public class Order implements Tick, Cloneable {
 	}
 	
 	// This method converts the order object into a string
+	@Override
 	public String toString(){
 		String output = "";
-		output += "Order address: " + orderAddress + "\nOrder ID: " + orderID + "\n";
+		output += "Order address:\n" + orderAddress + "\nOrder ID: " + orderID + "\n";
 		for (int i = 0; i < orderItems.size(); i++) {
 			output += "Item " + (i+1) + ": " + orderItems.get(i) + "\n";
 		}
 		output += "Has this order been filled? " + isFilled + "\n";
+		for (int i = 0; i < filledItems.size(); i++) {
+			output += "Item #" + filledItems.get(i).get_id_number() + "has been retrieved.";
+		}
 		return output;
 	}
 }

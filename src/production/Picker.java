@@ -19,6 +19,22 @@ public class Picker implements Tick, Orders, Cloneable {
 		currentBin = null;
 	}
 	
+	@Override
+	public String toString(){
+		String output = "There is currently no order.";
+		if (currentOrder != null){
+			output = "Current order at the picker station:\n" + currentOrder.toString();
+		}
+		if (currentBin != null){
+			output+= "\nCurrent bin at the picker station:\n" + currentBin.toString();
+			return output;
+		}
+		else {
+			output+= "\nThe picker bin is not full yet.";
+			return output;
+		}
+	}
+	
 	// returns the current bin that the picker is using
 	public static Bin getCurrentBin() {
 		return currentBin;
