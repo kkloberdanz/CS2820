@@ -2,7 +2,7 @@ package production;
 
 import java.lang.Cloneable;
 
-public class Picker implements Tick, Orders, Cloneable {
+public class Picker implements Tick, Cloneable {
 	
 	static Order currentOrder; // current order that the Picker is working on
 	static Order copiedOrder; // order that is going to be put into the bin
