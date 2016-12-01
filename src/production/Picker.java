@@ -14,7 +14,7 @@ public class Picker implements Tick, Cloneable {
 	static Bin pickerBin; // this is the bin that orders go in once complete
 	static MockFloor F; // get the floor
 	static Inventory I; // get the inventory
-	static MockRobotScheduler R; // get the robot scheduler
+	static RobotScheduler R; // get the robot scheduler
 	
 	// constructor
 	public Picker() {
@@ -84,7 +84,7 @@ public class Picker implements Tick, Cloneable {
 	
 	// This method notifies the RobotScheduler of what Shelf needs to be brought
 	// to the picker
-	public static void notifyRobot(Shelf S, MockRobotScheduler R){
+	public static void notifyRobot(Shelf S, RobotScheduler R){
 		
 	}
 
@@ -103,6 +103,7 @@ public class Picker implements Tick, Cloneable {
 	// This method checks the list of filled order items to see if it the same
 	// size as the needed order items list; if it is, then all items have been
 	// collected
+	// NOTE: This method is probably not needed anymore
 	public static boolean checkOrderItems(){
 		for (int i = 0; i < currentOrder.orderItems.size(); i++) {
 			if (currentOrder.filledItems.contains(currentOrder.orderItems.get(i)) == false) {
@@ -112,22 +113,6 @@ public class Picker implements Tick, Cloneable {
 		currentOrder.updateFilled();
 		return true;
 	}
-	
-	// This method checks the isFilled boolean of the order; if it
-	// is true, then put the order in a bin and send it to the
-	// the belt, if not then do nothing.
-	/*public static boolean checkCompletion(){
-		if (currentOrder.isFilled()){
-			currentBin = new Bin();
-			copiedOrder = new Order(currentOrder);
-			currentBin.setOrder(copiedOrder);
-			currentBin.setComplete();
-			currentOrder = MockOrders.getNextOrder();
-			MockOrders.receiveNewOrders();
-			return true;
-		}
-		return false;
-	}*/
 	
 	// This method moves the current order to the bin.
 	public static void moveFinishedOrder(){
