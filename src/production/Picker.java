@@ -24,6 +24,9 @@ public class Picker implements Tick, Cloneable {
 		atStation = null;
 	}
 	
+	/**
+	 * nice formatting method
+	 */
 	@Override
 	public String toString(){
 		String output = "There is currently no order.";
