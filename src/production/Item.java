@@ -8,19 +8,23 @@ package production;
 public class Item {
     private int     id_number;
     private String  name;
+    private boolean inOrder;
 
     public Item() {
     	this.id_number = 0;
     	this.name = "NONE";
+    	this.inOrder = false;
     }
     
     public Item(int num, String new_name) {
         this.id_number = num;
         this.name = new_name;
+        this.inOrder = false;
     }
 
     public Item(String new_name, int num) {
         this(num, new_name);
+        this.inOrder = false;
     }
 
     public void set_id_number(int num) {
@@ -41,6 +45,14 @@ public class Item {
 
     public String toString() {
         return id_number + ", " + name;
+    }
+    
+    public boolean inOrder() {
+    	return inOrder;
+    }
+    
+    public void setInOrder() {
+    	inOrder = true;
     }
 
 }

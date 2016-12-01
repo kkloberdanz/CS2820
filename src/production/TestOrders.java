@@ -1,7 +1,5 @@
 package production;
 
-import java.util.*;
-
 /**
  * 
  * @author Tyler
@@ -23,7 +21,7 @@ public class TestOrders {
 		rand = new SimRandom();
 		picker = new Picker();
 		String divider = "******************************************************************";
-		new MockOrders(inventory, robotScheduler, rand);
+		new MockOrders(rand);
 		System.out.println("Current order queue:\n");
 		for (int i = 0; i < MockOrders.orderQueue.size(); i++) {
 			System.out.println(MockOrders.orderQueue.get(i).toString());
@@ -63,18 +61,15 @@ public class TestOrders {
 		}
 		System.out.println(divider);
 		
-		// Code for testing the checkCompletion() method of Picker WITHOUT filled order
-		Picker.checkCompletion();
-		System.out.println(picker.toString());
-		System.out.println(divider);		
-		
 		// Code for testing what happens in Picker when order is filled
 		selectedOrder.updateFilled();
 		System.out.println(picker.toString());
 		System.out.println(divider);
 		
 		// Code for testing the checkCompletion() method of Picker
-		Picker.checkCompletion();
+		Picker.moveFinishedOrder();
+		Picker.currentOrder = MockOrders.getNextOrder();
+		MockOrders.receiveNewOrders();
 		System.out.println(picker.toString());
 		System.out.println(divider);
 		

@@ -10,8 +10,6 @@ import java.util.*;
 
 public class MockOrders implements Tick {
 	
-	private static Inventory I;
-	private static RobotScheduler R;
 	static ArrayList<Order> orderQueue;
 	static private SimRandom randSource;
 	static private String randAddress;
@@ -25,20 +23,15 @@ public class MockOrders implements Tick {
 		}
 	}
 	
-	// Constructor that takes arguments
-	public MockOrders(Inventory I, RobotScheduler R, SimRandom rand){
-		MockOrders.I = I;
-		MockOrders.R = R;
+	// Constructor that takes randomness argument
+	public MockOrders(SimRandom rand){
 		MockOrders.randSource = rand;
 		MockOrders.orderQueue = new ArrayList<Order>();
 		for (int i = 0; i < 3; i++) {
 			orderQueue.add(generateRandomOrder());
 		}
 	}
-	
-	// Will work on this more later
-	public void tick(int count){}
-	
+
 	// this method gets the next order in the queue
 	public static Order getNextOrder(){
 		return orderQueue.remove(0);
@@ -51,11 +44,6 @@ public class MockOrders implements Tick {
 		while (orderQueue.size() < 3) {
 			orderQueue.add(generateRandomOrder());
 		}
-	}
-	
-	// Gets the shelf that corresponds to a certain item
-	public static Shelf getShelf(Item x, Inventory I, Floor f){
-		return null;
 	}
 	
 	// Generates a random order.
@@ -75,6 +63,15 @@ public class MockOrders implements Tick {
 		return returnOrder;
 	}
 
+	// For every tick, MockOrders needs to simply generate
+	// more orders for the queue; the picker will be doing
+	// most of the other tick-by-tick work.
+	public void tick(int count){
+		receiveNewOrders();
+		return;
+	}
+		
+	
 }
 
 // This is a local class that is purely designed to generate random
@@ -112,7 +109,7 @@ class Address {
 	
 	// This function chooses a random name for the address.
 	private String chooseName() {
-		final String[] names = {"Eddard Stark", "Catelyn Stark", "Arya Stark", "Sansa Stark", "Robb Stark", "Jon Snow", "Bran Stark", "Rickon Stark", "Jaime Lannister", "Cersei Lannister", "Robert Baratheon", "Tyrion Lannister", "Tywin Lannister", "Joffrey Baratheon", "Daenerys Targaryen", "Petyr Baelish", "Jorah Mormont", "Theon Greyjoy", "The Hound", "Khal Drogo", "Viserys Targaryen", "Samwell Tarly", "Tommen Baratheon", "Melisandre", "Margaery Tyrell", "Davos Seaworth", "Stannis Baratheon", "Shireen Baratheon", "Brienne of Tarth", "Roose Bolton", "Ramsay Bolton", "Tormund Giantsbane", "Daario Naharis", "Missandei", "Ellaria Sand", "Oberyn Martell", "Petyr Baelish"};
+		final String[] names = {"Eddard Stark", "Catelyn Stark", "Arya Stark", "Sansa Stark", "Robb Stark", "Jon Snow", "Bran Stark", "Rickon Stark", "Jaime Lannister", "Cersei Lannister", "Robert Baratheon", "Tyrion Lannister", "Tywin Lannister", "Joffrey Baratheon", "Daenerys Targaryen", "Petyr Baelish", "Jorah Mormont", "Theon Greyjoy", "The Hound", "Khal Drogo", "Viserys Targaryen", "Samwell Tarly", "Tommen Baratheon", "Melisandre", "Margaery Tyrell", "Davos Seaworth", "Stannis Baratheon", "Shireen Baratheon", "Brienne of Tarth", "Roose Bolton", "Ramsay Bolton", "Tormund Giantsbane", "Daario Naharis", "Missandei", "Ellaria Sand", "Oberyn Martell"};
 		return names[rand.nextInt(names.length)];
 	}
 	
