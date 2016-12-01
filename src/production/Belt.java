@@ -11,6 +11,8 @@ public class Belt implements Tick{
 	
 	ArrayList<Object> belt = new ArrayList<Object>();
 	ArrayList<Object> ship = new ArrayList<Object>();
+	int start = 0;
+	int current = 3;
 	
 	
 	/**
@@ -31,7 +33,7 @@ public class Belt implements Tick{
 	 * packBox checks contents of Arrray list at the 10th position. If there is an object, packs it into the shipping array. if null, removes the null.
 	 * @author Tyler Sporrer
 	 */
-	public void packBox(){
+	public void packBox(int x){
 		Object y;
 		if(belt.get(9) != null){
 			y = belt.get(9);
@@ -40,6 +42,7 @@ public class Belt implements Tick{
 				System.out.println("Box added to shipping belt.");
 			}
 			belt.remove(9);
+			delay(x); // look at
 		}else{
 			belt.remove(9);
 		}	
@@ -65,17 +68,31 @@ public class Belt implements Tick{
 		}
 	}
 	
+	public boolean delay(int x){ //work on
+		if(start == 0){
+			start = x;
+		}else{
+			current = x;
+			if(current - start ==3){
+				start = 0;
+				return true;
+			}else{
+				return false;
+			}
+		}
+	}
+	
 	/**
 	 * tick method will use the previous methods when called.
 	 * @author Tyler Sporrer
 	 */
 	public void tick(int x){
-		
-		this.loadBelt(Picker.getCurrentBin()); // checks/grabs current bin from picker and adds to belt
-		this.packBox(); // loads the boxed item onto the shipping belt
-		
-
-		
+		delay(x);//work on
+		if(delay()){// work on
+			this.loadBelt(Picker.getCurrentBin()); // checks/grabs current bin from picker and adds to belt
+			this.packBox(x); // loads the boxed item onto the shipping belt
+		}
+				
 	}
 
 }
