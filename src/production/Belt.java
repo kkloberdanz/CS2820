@@ -9,21 +9,29 @@ import java.util.ArrayList;
 
 public class Belt implements Tick{
 	
-	ArrayList<Integer> belt = new ArrayList<Integer>(10);
-	ArrayList<Integer> ship = new ArrayList<Integer>();
+	ArrayList<Object> belt = new ArrayList<Object>(10);
+	ArrayList<Object> ship = new ArrayList<Object>();
 	
-	int tick = 0;
 	
 	/**
-	 * packBin method takes order id and puts it into an Array list. When Bin gets to the 10th position, Boxes item and sends to shipping.
+	 * packBin method takes a bin object and puts it into an Array list. When Bin gets to the 10th position, Boxes item and sends to shipping.
 	 * @author Tyler Sporrer
 	 */
-	public void packBin(int x){
-		int y;
+	public void loadBelt(Object x){
+		Object y;
 		belt.add(x);
-		if(belt.get(9) != 0){
+		if(x != null){ // if the bin is not empty(null), then calls removeCurrentBin to reset the bin to null
+			Picker.removeCurrentBin();
+			if(Debug.veboseLevel() >= 1){
+				System.out.println("Full bin added to belt.");
+			}
+		}
+		if(belt.get(9) != null){
 			y = belt.get(9);
 			ship.add(y);
+			if(Debug.verboseLevel() >= 1){
+				System.out.println("Box added to shipping belt.");
+			}
 			belt.remove(9);
 		}else{
 			belt.remove(9);
@@ -55,6 +63,10 @@ public class Belt implements Tick{
 	 * @author Tyler Sporrer
 	 */
 	public void tick(int x){
+		
+		this.loadBelt(Picker.getCurrentBin()); // checks/grabs current bin from picker and adds to belt
+		
+
 		
 	}
 
