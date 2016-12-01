@@ -10,7 +10,7 @@ import java.util.*;
 
 public class MockOrders implements Tick {
 	
-	static ArrayList<Order> orderQueue;
+	static ArrayList<Order> orderQueue; // a queue of orders
 	static private SimRandom randSource;
 	static private String randAddress;
 	static int id = 1; // keeps track of order ID number
@@ -37,16 +37,7 @@ public class MockOrders implements Tick {
 		return orderQueue.remove(0);
 	}
 	
-	// this method will generate new orders as time goes on; for now,
-	// it simply will add an order whenever the queue loses an order,
-	// but eventually I would like generation to be random if possible
-	public static void receiveNewOrders(){
-		while (orderQueue.size() < 3) {
-			orderQueue.add(generateRandomOrder());
-		}
-	}
-	
-	// Generates a random order.
+// Generates a random order.
 	public static Order generateRandomOrder() {
 		randAddress = new Address(randSource).createAddress();
 		Order returnOrder = new Order();
@@ -63,7 +54,16 @@ public class MockOrders implements Tick {
 		return returnOrder;
 	}
 
-	// For every tick, MockOrders needs to simply generate
+	// this method will generate new orders as time goes on; for now,
+	// it simply will add an order whenever the queue loses an order,
+	// but eventually I would like generation to be random if possible
+	public static void receiveNewOrders(){
+		while (orderQueue.size() < 3) {
+			orderQueue.add(generateRandomOrder());
+		}
+	}
+	
+		// For every tick, MockOrders needs to simply generate
 	// more orders for the queue; the picker will be doing
 	// most of the other tick-by-tick work.
 	public void tick(int count){
@@ -140,7 +140,7 @@ class Address {
 	// This function creates a random zip code for the address.
 	private String chooseZip(){
 		String zipCode = "";
-		for (int i = 0; i < 6; i++){
+		for (int i = 0; i < 5; i++){
 			zipCode += "0123456789".charAt(rand.nextInt(10));
 		}
 		return zipCode;
