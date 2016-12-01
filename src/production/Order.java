@@ -94,12 +94,9 @@ public class Order implements Tick, Cloneable {
 		String output = "";
 		output += "Order address:\n" + orderAddress + "\nOrder ID: " + orderID + "\n";
 		for (int i = 0; i < orderItems.size(); i++) {
-			output += "Item " + (i+1) + ": " + orderItems.get(i) + "\n";
+			output += "Item " + (i+1) + ": " + orderItems.get(i) + " " + orderItems.get(i).inOrder() + "\n";
 		}
 		output += "Has this order been filled? " + isFilled + "\n";
-		for (int i = 0; i < filledItems.size(); i++) {
-			output += "Item #" + filledItems.get(i).get_id_number() + "has been retrieved.";
-		}
 		return output;
 	}
 }
