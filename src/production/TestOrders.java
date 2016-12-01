@@ -21,6 +21,8 @@ public class TestOrders {
 		rand = new SimRandom();
 		picker = new Picker();
 		String divider = "******************************************************************";
+		
+		// Tests the constructor
 		new MockOrders(rand);
 		System.out.println("Current order queue:\n");
 		for (int i = 0; i < MockOrders.orderQueue.size(); i++) {
