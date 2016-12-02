@@ -67,18 +67,28 @@ public class Belt implements Tick{
 			System.out.println(ship.get(i));
 		}
 	}
-	
+	/**
+	 * checks if a package is at the picker position, if it is creates a delay for 3 ticks.
+	 * @author Tyler Sporrer
+	 */
 	public boolean delay(int x){ //work on
 		if(start == 0){
-			start = x;
-		}else{
-			current = x;
-			if(current - start ==3){
-				start = 0;
+			if(belt.get(9) != null){
+				start = x;
 				return true;
 			}else{
 				return false;
 			}
+		}else{
+			current = x;
+		}
+			
+		if(current - start == 3){
+			start = 0;
+			current = 0;
+			return false;
+		}else{
+			return true;
 		}
 	}
 	
@@ -87,8 +97,7 @@ public class Belt implements Tick{
 	 * @author Tyler Sporrer
 	 */
 	public void tick(int x){
-		delay(x);//work on
-		if(delay()){// work on
+		if(delay(x) == false){
 			this.loadBelt(Picker.getCurrentBin()); // checks/grabs current bin from picker and adds to belt
 			this.packBox(x); // loads the boxed item onto the shipping belt
 		}
