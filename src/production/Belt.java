@@ -12,7 +12,7 @@ public class Belt implements Tick{
 	ArrayList<Object> belt = new ArrayList<Object>();
 	ArrayList<Object> ship = new ArrayList<Object>();
 	int start = 0;
-	int current = 3;
+	int current = 0;
 	
 	
 	/**
