@@ -10,7 +10,7 @@ public class Picker implements Tick, Cloneable {
 	static Item neededItem; // the item that the picker is currently attemping to get
 	static Shelf atStation; // if a robot has arrived with a shelf, update this variable
 	
-	static MockOrders O; // order subsystem, check for arraylist of orders
+	static MockOrders O; // order subsystem, check for arrayList of orders
 	static MockFloor F; // get the floor
 	static Inventory I; // get the inventory
 	static RobotScheduler R; // get the robot scheduler
