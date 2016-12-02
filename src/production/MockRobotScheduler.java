@@ -21,7 +21,7 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
         robots = F.robots;
     }
     public void moveRobot(Robot a){
-        
+        a.location = a.path.pos;
     }
     @Override
     public void moveShelf(Shelf A, Point p){
@@ -46,7 +46,14 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
     	a.charge = 100;
     }
 	public void tick(int count) {
-		
+	    for(Robot a:robots) {
+	    	if (a.path.next == null){
+	    		a.path = null;
+	    	}
+	    	else{
+	    		a.path.step();
+	    	}
+	    }
 	}
     
 }
