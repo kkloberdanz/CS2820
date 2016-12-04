@@ -32,6 +32,13 @@ public class Robot {
     /*
      * @author Kyle Kloberdanz
      */
+    public void setShelf(Shelf shelf) {
+    	this.s = shelf;
+    }
+    
+    /*
+     * @author Kyle Kloberdanz
+     */
     public boolean isBusy() {
     	return this.busy;
     }
@@ -57,9 +64,14 @@ public class Robot {
     public void step() {
     	this.path = path.step();
     	
+    	// TODO: This is a dummy placeholder.
+    	// This will not work. This needs to access the static shelves from MockFloor, and set the location there
+		s.shelfLoc = location;
+
     	// then done
-    	if (path == null);
-    	this.busy = false;
+    	if (path == null) {
+    		this.busy = false;
+    	}
     }
     
     public Point getLocation(Robot a){

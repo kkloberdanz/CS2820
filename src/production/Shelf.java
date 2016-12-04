@@ -11,12 +11,17 @@ public class Shelf {
 	int capacity;
 	int currItems = 0;
 	String sName;
+	int id;
+	
+	private static int counter = 0;
+	
 	public Shelf(Point point, boolean bool, int Int, String name){
 		contents = new HashMap<>();
-                shelfLoc=point;
-                beingCarried=bool;
-                capacity = Int;
-                sName = name;
+        shelfLoc=point;
+        beingCarried=bool;
+        capacity = Int;
+        sName = name;
+        id = counter++;
 	}
 	/**
 	 * adds an amount of an item to the shelf

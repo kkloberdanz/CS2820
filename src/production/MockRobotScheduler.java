@@ -21,7 +21,7 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
      * @author Kyle Kloberdanz
      */
     public MockRobotScheduler() {
-    	ArrayList<Robot> robots = new ArrayList<Robot>();
+    	robots = new ArrayList<Robot>();
     }
     
     /*
@@ -35,11 +35,15 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
         a.location = a.path.pos;
     }
     
-    public static void moveShelf(Shelf A, Point p){
+    public static int moveShelf(Shelf A, Point p){
     	int notBusyIndex = getAvailableRobotIndex();
     	if (notBusyIndex != -1) {
     		robots.get(notBusyIndex).setPath(MockFloor.makePath(A.shelfLoc, p, true));
     		robots.get(notBusyIndex).setBusy(true);
+    		robots.get(notBusyIndex).setShelf(A);
+    		return 0;
+    	} else {
+    		return -1;
     	}
     	/*
         Robot robot = GetAvailableRobot();
