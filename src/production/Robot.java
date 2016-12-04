@@ -19,13 +19,49 @@ public class Robot {
     Path path; // the path robot move
     Point pickerR;
     boolean state;
+    private boolean busy;
     
     public Robot(Point Createlocation){
+    	this.busy = false;
         location = Createlocation;
         path = null;
         s = null;
         pickerR = null;
     }
+    
+    /*
+     * @author Kyle Kloberdanz
+     */
+    public boolean isBusy() {
+    	return this.busy;
+    }
+    
+    /*
+     * @author Kyle Kloberdanz
+     */
+    public void setBusy(boolean b) {
+    	this.busy = b;
+    }
+    
+    /*
+     * @author Kyle Kloberdanz
+     */
+    public void setPath(Path p) {
+    	this.path = p;
+    }
+    
+    /*
+     * @author Kyle Kloberdanz
+     * takes one step along path. when finished, sets busy to false
+     */
+    public void step() {
+    	this.path = path.step();
+    	
+    	// then done
+    	if (path == null);
+    	this.busy = false;
+    }
+    
     public Point getLocation(Robot a){
             return a.location; 
     }
