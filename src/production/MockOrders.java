@@ -13,7 +13,10 @@ public class MockOrders implements Tick {
 	static ArrayList<Order> orderQueue; // a queue of orders
 	static private SimRandom randSource;
 	static private String randAddress;
+	static Inventory I;
 	static int id = 1; // keeps track of order ID number
+	static ArrayList<Item> itemDatabase = new ArrayList<Item>();
+	static ArrayList<Integer> itemQuantities = new ArrayList<Integer>();
 	
 	// Constructor
 	public MockOrders() {
@@ -31,22 +34,26 @@ public class MockOrders implements Tick {
 			orderQueue.add(generateRandomOrder());
 		}
 	}
+	
+	// This method generates a random item from CatItem
+	public static Item randomItem() {
+		int k = randSource.nextInt(CatItem.catalog.length);
+		return new Item(CatItem.catalog[k].id, CatItem.catalog[k].description);
+	}	
 
 	// this method gets the next order in the queue
 	public static Order getNextOrder(){
 		return orderQueue.remove(0);
 	}
 	
-// Generates a random order.
+	// Generates a random order.
 	public static Order generateRandomOrder() {
 		randAddress = new Address(randSource).createAddress();
 		Order returnOrder = new Order();
 		returnOrder.updateAddress(randAddress);
 		int numItems = (1+randSource.nextInt(5));
-		// Will eventually fix this to work in conjunction with the Inventory
-		// For now, it simply produces a certain amount of MockItems
 		for (int i = 0; i < numItems; i++){
-			Item myItem = new Item();
+			Item myItem = randomItem();
 			returnOrder.addItem(myItem);
 		}
 		returnOrder.orderID = id;
@@ -63,7 +70,7 @@ public class MockOrders implements Tick {
 		}
 	}
 	
-		// For every tick, MockOrders needs to simply generate
+	// For every tick, MockOrders needs to simply generate
 	// more orders for the queue; the picker will be doing
 	// most of the other tick-by-tick work.
 	public void tick(int count){
@@ -112,19 +119,7 @@ class Address {
 		final String[] names = {"Eddard Stark", "Catelyn Stark", "Arya Stark", "Sansa Stark", "Robb Stark", "Jon Snow", "Bran Stark", "Rickon Stark", "Jaime Lannister", "Cersei Lannister", "Robert Baratheon", "Tyrion Lannister", "Tywin Lannister", "Joffrey Baratheon", "Daenerys Targaryen", "Petyr Baelish", "Jorah Mormont", "Theon Greyjoy", "The Hound", "Khal Drogo", "Viserys Targaryen", "Samwell Tarly", "Tommen Baratheon", "Melisandre", "Margaery Tyrell", "Davos Seaworth", "Stannis Baratheon", "Shireen Baratheon", "Brienne of Tarth", "Roose Bolton", "Ramsay Bolton", "Tormund Giantsbane", "Daario Naharis", "Missandei", "Ellaria Sand", "Oberyn Martell"};
 		return names[rand.nextInt(names.length)];
 	}
-	
-	/*// This function chooses a random first name for the address.
-	private String chooseFirstName() {
-		final String[] firstNames = {"Grant", "Tom", "Tyler", "Ben", "Kendall", "Bri", "Max", "Steve", "Holly", "Sam", "Andrew", "Laura", "Jack", "Chuck", "Amanda", "Kristin", "Annie"};
-		return firstNames[rand.nextInt(firstNames.length)];
-	}
-	
-	// This function chooses a random last name for the address.
-	private String chooseLastName() {
-		final String[] lastNames = {"Gertsen", "Bowman", "Foster", "Jacobs", "Johnson", "Hammer", "Peterson", "Harrington", "Mindemann", "Kaplan", "Novitskiy", "Schneider", "Rose", "Carlson", "Stout", "Witz", "Majure"};
-		return lastNames[rand.nextInt(lastNames.length)];
-	}*/
-	
+
 	// This function chooses a random state for the address.
 	private String chooseState() {
 		final String[] stateNames = {"IA", "IL", "MN", "MI", "MO", "KS", "OK", "TX", "NY", "OR", "CA", "AZ", "NE", "NV", "MA", "IN", "OH", "TN", "WA"};
@@ -161,5 +156,3 @@ class Address {
 		return address;
 	}
 }
-
-

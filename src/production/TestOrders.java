@@ -1,5 +1,7 @@
 package production;
 
+import java.util.*;
+
 /**
  * 
  * @author Tyler
@@ -14,6 +16,8 @@ public class TestOrders {
 	static MockRobotScheduler robotScheduler;
 	static SimRandom rand;
 	static Picker picker;
+	static ArrayList<Item> itemDatabase = new ArrayList<Item>();
+	static ArrayList<Integer> itemQuantities = new ArrayList<Integer>();
 	
 	public static void main(String[] args){
 		
@@ -24,6 +28,7 @@ public class TestOrders {
 		
 		// Tests the constructor
 		new MockOrders(rand);
+		new Inventory(rand);
 		System.out.println("Current order queue:\n");
 		for (int i = 0; i < MockOrders.orderQueue.size(); i++) {
 			System.out.println(MockOrders.orderQueue.get(i).toString());
@@ -86,6 +91,8 @@ public class TestOrders {
 			System.out.println(MockOrders.orderQueue.get(i).toString());
 		}
 		System.out.println(divider);
+		
+		// Now test out some stuff with items
 		
 	}
 }

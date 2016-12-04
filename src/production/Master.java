@@ -17,6 +17,9 @@ public class Master {
      * the ware house. Each section utilizes these ticks to keep
      * synchronized with eachother.
      */
+	
+	static SimRandom randSource;
+	
     public static void main(String[] args) { 
 
     	if (Debug.verboseLevel() >= 1) {
@@ -24,7 +27,8 @@ public class Master {
     	}
         MockFloor     floor     = new MockFloor();
         Inventory     inventory = new Inventory();
-        MockOrders    orders    = new MockOrders();
+        MockOrders    orders    = new MockOrders(randSource);
+        Picker        picker	= new Picker();
         Belt          belt      = new Belt();
         RobotSchedule robot     = new RobotSchedule();
 
@@ -32,6 +36,7 @@ public class Master {
             floor.tick(i);
             inventory.tick(i);
             orders.tick(i);
+            picker.tick(i);
             belt.tick(i);
             robot.tick(i);
             System.out.println("Current Count = " + i);

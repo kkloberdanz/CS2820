@@ -20,6 +20,7 @@ public class Inventory implements Tick{
     public static ArrayList<Item> Taskremove;
     public static ArrayList<Integer> TaskItemremove;
     public static MockFloor Floor=new MockFloor();
+    public static SimRandom randSource; // method added by @author Tyler Foster to give randomness to quantities
     
     public static location[] loc=new location[Floor.shelves.size()];
     /**
@@ -51,6 +52,42 @@ public class Inventory implements Tick{
         
     }
     
+    /**
+     * Inventory class that takes SimRandom variable as a constructor
+     * @author Tyler Foster
+     */
+    public Inventory(SimRandom rand){
+    	ArrayList<Item> inputItems = obtainItems();
+    	ArrayList<Integer> inputQuantities = obtainQuantities(rand);
+    	Inventory.initialize(inputItems, inputQuantities);
+    }
+    
+    /**
+     * 
+     * Extracts the list of items from CatItem's catalog
+     * @author Tyler Foster
+     */
+    public static ArrayList<Item> obtainItems(){
+    	ArrayList<Item> myItems = new ArrayList<Item>();
+    	for (int k = 0; k < CatItem.catalog.length; k++) {
+    		myItems.add(new Item(CatItem.catalog[k].id, CatItem.catalog[k].description));
+    	}
+    	return myItems;
+    }
+    
+    /**
+     * 
+     * Creates a list of random quantities for every item of the catalog
+     * @author Tyler Foster
+     * 
+     */
+    public static ArrayList<Integer> obtainQuantities(SimRandom rand) {
+    	ArrayList<Integer> myQuantities = new ArrayList<Integer>();
+    	for (int k = 0; k < CatItem.catalog.length; k++) {
+    		myQuantities.add(rand.nextInt(5));
+    	}
+    	return myQuantities;
+    }
 
     /**
      * initial the database and add the items into database
