@@ -18,7 +18,7 @@ public interface RobotScheduler {
      * @param Point A is the shelf
      * @param Point B is the destination that shelf should be moved to
      */
-    void moveShelf(Shelf A, Point p);
+    //void moveShelf(Shelf A, Point p);
     /**
      * find an available robot which is not used and in the best location with available charge
      */

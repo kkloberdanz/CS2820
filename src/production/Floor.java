@@ -17,7 +17,7 @@ public interface Floor {
      * @param Point B
      * @return Path
      */
-    Path makePath(Point A, Point B, boolean flag);
+    //Path makePath(Point A, Point B, boolean flag);
     /**
      * This Function will return true if the location passed is occupied
      * @param loc

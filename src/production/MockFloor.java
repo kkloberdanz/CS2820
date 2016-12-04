@@ -72,7 +72,7 @@ public class MockFloor implements Floor, Tick{
      * @param Point B
      * @return Path
      */
-    public Path makePath(Point A, Point B, boolean flag){
+    public static Path makePath(Point A, Point B, boolean flag){
     	int xCurr=A.x;
     	int yCurr=A.y;
     	boolean lorrX;

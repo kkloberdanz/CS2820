@@ -13,30 +13,32 @@ import java.util.ArrayList;
  * @author Shuhao Liu
  */
 public class MockRobotScheduler implements RobotScheduler,Tick{
-    Floor F;
+    //private Floor F;
     static Point picker;
-    ArrayList<Robot> robots;
+    private static ArrayList<Robot> robots;
     
     /*
      * @author Kyle Kloberdanz
      */
     public MockRobotScheduler() {
-    	;
+    	ArrayList<Robot> robots = new ArrayList<Robot>();
     }
     
+    /*
     public MockRobotScheduler(MockFloor F){
         this.F = F;
         robots = F.robots;
     }
+    */
+    
     public void moveRobot(Robot a){
         a.location = a.path.pos;
     }
     
-    @Override
-    public void moveShelf(Shelf A, Point p){
+    public static void moveShelf(Shelf A, Point p){
     	int notBusyIndex = getAvailableRobotIndex();
     	if (notBusyIndex != -1) {
-    		robots.get(notBusyIndex).setPath(F.makePath(A.shelfLoc, p, true));
+    		robots.get(notBusyIndex).setPath(MockFloor.makePath(A.shelfLoc, p, true));
     		robots.get(notBusyIndex).setBusy(true);
     	}
     	/*
@@ -52,7 +54,7 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
      * @author Kyle Kloberdanz
      * returns the index of a robot that is not busy
      */
-    public int getAvailableRobotIndex() {
+    public static int getAvailableRobotIndex() {
     	for (int i = 0; i < robots.size(); ++i) {
     		if (!robots.get(i).isBusy()) {
     			return i;
