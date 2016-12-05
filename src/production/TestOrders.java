@@ -28,7 +28,7 @@ public class TestOrders {
 		String divider = "******************************************************************";
 		
 		// Tests the constructor
-		new MockOrders(rand, inventory);
+		new MockOrders(rand, inventory, floor);
 		new Inventory(rand, floor);
 		System.out.println("Current order queue:\n");
 		for (int i = 0; i < MockOrders.orderQueue.size(); i++) {

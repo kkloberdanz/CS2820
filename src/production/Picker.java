@@ -207,7 +207,9 @@ public class Picker implements Tick, Cloneable {
 		// If no robots are available, reset the previous variables to be null
 		// and wait another tick..
 		if (valid == -1){
-			System.out.println("No robots are available.");
+			if (Debug.verboseLevel() >= 2) {
+				System.out.println("No robots are available.");
+			}
 			neededItem = null;
 			currentShelf = null;
 			returnLocation = null;

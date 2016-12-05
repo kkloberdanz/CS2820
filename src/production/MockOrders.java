@@ -14,22 +14,16 @@ public class MockOrders implements Tick {
 	static private SimRandom randSource;
 	static private String randAddress;
 	static Inventory Inventory;
+	static MockFloor floor;
 	static int id = 1; // keeps track of order ID number
 	static ArrayList<Item> itemDatabase = new ArrayList<Item>();
 	static ArrayList<Integer> itemQuantities = new ArrayList<Integer>();
-	
-	// Constructor
-	public MockOrders() {
-		MockOrders.orderQueue = new ArrayList<Order>(3);
-		for (int i = 0; i < 3; i++) {
-			orderQueue.add(generateRandomOrder());
-		}
-	}
-	
+
 	// Constructor that takes randomness argument
-	public MockOrders(SimRandom rand, Inventory I){
+	public MockOrders(SimRandom rand, Inventory I, MockFloor F){
 		MockOrders.randSource = rand;
 		MockOrders.Inventory = I;
+		MockOrders.floor = F;
 		MockOrders.orderQueue = new ArrayList<Order>();
 		for (int i = 0; i < 3; i++) {
 			orderQueue.add(generateRandomOrder());

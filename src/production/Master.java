@@ -29,7 +29,7 @@ public class Master {
     	}
         MockFloor     		floor     = new MockFloor();
         Inventory     		inventory = new Inventory(rand, floor);
-        MockOrders    		orders    = new MockOrders(rand, inventory);
+        MockOrders    		orders    = new MockOrders(rand, inventory, floor);
         MockRobotScheduler 	robot     = new MockRobotScheduler();
         Picker        		picker	  = new Picker(floor, orders, inventory, robot);
         Belt          		belt      = new Belt();
