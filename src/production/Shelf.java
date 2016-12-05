@@ -104,6 +104,21 @@ public class Shelf {
 	public Integer getID() {
 		return this.id;
 	}
+	
+	/**
+	 * returns current items
+	 * @return int
+	 */
+	public int capacity(){
+		return capacity;
+	}
+	/**
+	 * returns the current number of items in the shelf
+	 * @return int 
+	 */
+	public int size(){
+		return currItems;
+}
 	/**
 	 * sets the shelfs current location
 	 * @param int x
