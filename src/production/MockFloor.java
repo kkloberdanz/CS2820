@@ -4,6 +4,7 @@
 package production;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MockFloor implements Floor, Tick{
     static Point picker       ;
@@ -16,8 +17,10 @@ public class MockFloor implements Floor, Tick{
     
     static ArrayList<charger> chargers     ;
     static ArrayList<Point  > usedLocations;
-    static ArrayList<Shelf  > shelves      ;
+    //static ArrayList<Shelf  > shelves      ;
     static ArrayList<Robot  > robots       ;
+    
+    private static HashMap<Integer, Shelf> shelves;
     
     public MockFloor(){
     	picker        = new Point(0,0 );
@@ -30,7 +33,8 @@ public class MockFloor implements Floor, Tick{
         
         chargers      = new ArrayList<>();
         usedLocations = new ArrayList<>();
-        shelves       = new ArrayList<>();
+        //shelves       = new ArrayList<>();
+        shelves       = new HashMap<>();
         robots        = new ArrayList<>();
     	
     	//create chargers
@@ -47,6 +51,20 @@ public class MockFloor implements Floor, Tick{
     	//set shelf blocks
     	setShelfBlock(new Point(2,3),new Point(3,9));
     	setShelfBlock(new Point(6,3),new Point(7,9));
+    }
+    
+    /**
+     * @author Kyle Kloberdanz
+     */
+    public static HashMap<Integer, Shelf> getShelves() {
+    	return shelves;
+    }
+    
+    /**
+     * @author Kyle Kloberdanz
+     */
+    public static void setShelf(Shelf s) {
+    	shelves.put(s.getID(), s);
     }
 
     /**
@@ -169,8 +187,10 @@ public class MockFloor implements Floor, Tick{
         int yCurr=A.y;
         while(!(xCurr>B.x)){
             while(!(yCurr>B.y)){
-                shelves.add(new Shelf(new Point(xCurr,yCurr),false,10,"S("+Integer.toString(xCurr)+","+Integer.toString(yCurr)+")"));
-                yCurr+=1;
+            	// TODO: Change this so that it works with HashMap
+            	//shelves.add(new Shelf(new Point(xCurr,yCurr),false,10,"S("+Integer.toString(xCurr)+","+Integer.toString(yCurr)+")"));
+
+            	yCurr+=1;
             }
             yCurr=A.y;
             xCurr+=1;
