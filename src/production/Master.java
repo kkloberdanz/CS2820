@@ -18,16 +18,18 @@ public class Master {
      * synchronized with eachother.
      */
 	
-	static SimRandom randSource;
+	static SimRandom rand;
 	
     public static void main(String[] args) { 
+    	
+    	rand = new SimRandom();
 
     	if (Debug.verboseLevel() >= 1) {
     		System.out.println("Running Simulation");
     	}
         MockFloor     floor     = new MockFloor();
         Inventory     inventory = new Inventory();
-        MockOrders    orders    = new MockOrders(randSource);
+        MockOrders    orders    = new MockOrders(rand);
         Picker        picker	= new Picker();
         Belt          belt      = new Belt();
         RobotSchedule robot     = new RobotSchedule();
