@@ -66,6 +66,24 @@ public class MockFloor implements Floor, Tick{
     public static void setShelf(Shelf s) {
     	shelves.put(s.getID(), s);
     }
+    
+    /**
+     * @author Kyle Kloberdanz
+     * If the item is not in the warhouse, then order it
+     * from the supplier, and put it on the shelf.
+     */
+    static boolean OrderFromSupplier(Item item, int num_items) {
+    	for (Integer i : shelves.keySet()) {
+    		if (shelves.get(i).size() < shelves.get(i).capacity()) {
+    			shelves.get(i).addItem(item, num_items);
+    			return true;
+    		}
+    	}
+    	if (Debug.verboseLevel() >= 1) {
+    		System.out.println("Error: We are out of shelves!");
+    	}
+    	return false;
+    }
 
     /**
      *This Function will set the currently used locations by objects in the area. 

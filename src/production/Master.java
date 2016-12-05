@@ -5,7 +5,7 @@
 
 package production;
 
-import java.awt.Point;
+//import java.awt.Point;
 
 public class Master {
 
@@ -25,7 +25,7 @@ public class Master {
     	rand = new SimRandom();
 
     	if (Debug.verboseLevel() >= 1) {
-    		System.out.println("Running Simulation");
+    		System.out.println("Initializing");
     	}
         MockFloor     		floor     = new MockFloor();
         Inventory     		inventory = new Inventory(rand, floor);
@@ -34,14 +34,22 @@ public class Master {
         Picker        		picker	  = new Picker(floor, orders, inventory, robot);
         Belt          		belt      = new Belt();
         
+    	if (Debug.verboseLevel() >= 1) {
+    		System.out.println("Running Simulation");
+    	}
+        
         for (int i = 0; i < 20; ++i) {
+        	
+        	if (Debug.verboseLevel() >= 5) {
+        		System.out.println("Current Count = " + i);
+        	}
+        	
             floor.tick(i);
             inventory.tick(i);
             orders.tick(i);
             robot.tick(i);
             picker.tick(i);
             belt.tick(i);
-            System.out.println("Current Count = " + i);
         }
     }
 }
