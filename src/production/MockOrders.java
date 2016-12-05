@@ -47,6 +47,18 @@ public class MockOrders implements Tick {
 		return orderQueue.remove(0);
 	}
 	
+	// this method returns a boolean indicating whether or not an
+	// item exists in the warehouse
+	public static boolean locateItem(Item I) {
+		for (Integer i : MockFloor.getShelves().keySet()) {
+			Shelf s = MockFloor.getShelves().get(i);
+			if (s.contains(I)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	// Generates a random order.
 	public static Order generateRandomOrder() {
 		randAddress = new Address(randSource).createAddress();
@@ -55,6 +67,10 @@ public class MockOrders implements Tick {
 		int numItems = (1+randSource.nextInt(5));
 		for (int i = 0; i < numItems; i++){
 			Item myItem = randomItem();
+			if (locateItem(myItem) == false) {
+				MockFloor.OrderFromSupplier(myItem, 3);
+				System.out.println("We have ordered some " + myItem + " from the supplier.");
+			}
 			returnOrder.addItem(myItem);
 		}
 		returnOrder.orderID = id;

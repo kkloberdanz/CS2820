@@ -82,23 +82,14 @@ public class Picker implements Tick, Cloneable {
 	}
 	
 	// This method locates the shelf that contains the needed item
-	public static Shelf locateItem(MockFloor F, Item I){
-		for (int i = 0; i < MockFloor.getShelves().size(); i++) {
-			if (MockFloor.getShelves().get(i).contents.containsKey(I)) {
-				return MockFloor.getShelves().get(i);
-			}
-		}
-		return null;
-	}
-	
-	public static boolean locateItem(Item I) {
+	public static Shelf locateItem(Item I) {
 		for (Integer i : MockFloor.getShelves().keySet()) {
 			Shelf s = MockFloor.getShelves().get(i);
 			if (s.contains(I)) {
-				return true;
+				return s;
 			}
 		}
-		return false;
+		return null;
 	}
 	
 	// This method notifies the RobotScheduler of what Shelf needs to be brought
@@ -195,11 +186,12 @@ public class Picker implements Tick, Cloneable {
 		}
 		
 		// At this point, we need to look for the item
-		Shelf s = locateItem(F, nextItem);
+		Shelf s = locateItem(nextItem);
 
 		// If the shelf is not available then the item does not exist,
 		// and inventory needs to restock
 		if (s == null) {
+			System.out.println("Could not find a " + nextItem.get_name() + " from the shelves.");
 			return;
 		}
 		
@@ -215,6 +207,7 @@ public class Picker implements Tick, Cloneable {
 		// If no robots are available, reset the previous variables to be null
 		// and wait another tick.
 		if (valid == -1){
+			System.out.println("No robots are available.");
 			neededItem = null;
 			currentShelf = null;
 			returnLocation = null;
