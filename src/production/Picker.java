@@ -76,9 +76,9 @@ public class Picker implements Tick, Cloneable {
 	
 	// This method locates the shelf that contains the needed item
 	public static Shelf locateItem(MockFloor F, Item I){
-		for (int i = 0; i < MockFloor.shelves.size(); i++) {
-			if (MockFloor.shelves.get(i).contents.containsKey(I)) {
-				return MockFloor.shelves.get(i);
+		for (int i = 0; i < MockFloor.getShelves().size(); i++) {
+			if (MockFloor.getShelves().get(i).contents.containsKey(I)) {
+				return MockFloor.getShelves().get(i);
 			}
 		}
 		return null;

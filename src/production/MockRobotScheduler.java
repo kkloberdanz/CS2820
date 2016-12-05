@@ -17,7 +17,7 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
     static Point picker;
     private static ArrayList<Robot> robots;
     
-    /*
+    /**
      * @author Kyle Kloberdanz
      */
     public MockRobotScheduler() {
@@ -54,7 +54,7 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
         */
     }
     
-    /*
+    /**
      * @author Kyle Kloberdanz
      * returns the index of a robot that is not busy
      */

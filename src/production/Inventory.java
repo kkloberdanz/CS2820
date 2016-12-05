@@ -22,7 +22,7 @@ public class Inventory implements Tick{
     public static MockFloor Floor=new MockFloor();
     public static SimRandom randSource; // method added by @author Tyler Foster to give randomness to quantities
     
-    public static location[] loc=new location[Floor.shelves.size()];
+    public static location[] loc=new location[MockFloor.getShelves().size()];
     /**
      * 
      * @author haoyang Wei
@@ -95,7 +95,7 @@ public class Inventory implements Tick{
      */
     public static void initialize(ArrayList<Item> item,ArrayList<Integer> quantity){
     	for(int i=0;i<loc.length;i++){
-    		loc[i]=new location(Floor.shelves.get(i),new HashMap<Integer,Integer>());
+    		loc[i]=new location(MockFloor.getShelves().get(i),new HashMap<Integer,Integer>());
     	}
         database=new HashMap<Integer,Item>();
         Inventory.quantity=new HashMap<Integer,Integer>();
@@ -120,7 +120,7 @@ public class Inventory implements Tick{
     public static void putitemonshelf(Item product,int quantity){
     	int temp=0;
         while(temp<loc.length){
-        	Shelf i=Floor.shelves.get(temp);
+        	Shelf i= MockFloor.getShelves().get(temp);
             if(i.addItem(product,quantity)){
             	
             	location.addquantity(loc[temp], product.get_id_number(), quantity);
@@ -163,7 +163,7 @@ public class Inventory implements Tick{
     public static void removeitemfromshelf(Item product,int quantity){
     	int temp=0;
         while(temp<loc.length){
-        	Shelf i=Floor.shelves.get(temp);
+        	Shelf i= MockFloor.getShelves().get(temp);
         	if(i.removeItem(product,quantity,false)){
         		location.removequantity(loc[temp],product.get_id_number(),quantity);
                 break;

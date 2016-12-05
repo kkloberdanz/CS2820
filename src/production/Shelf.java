@@ -11,7 +11,7 @@ public class Shelf {
 	int capacity;
 	int currItems = 0;
 	String sName;
-	int id;
+	private Integer id;
 	
 	private static int counter = 0;
 	
@@ -80,6 +80,13 @@ public class Shelf {
 	 */
 	public void setCarry(boolean carried){
 		beingCarried = carried;		
+	}
+	
+	/**
+	 * @author Kyle Kloberdanz
+	 */
+	public Integer getID() {
+		return this.id;
 	}
 	/**
 	 * sets the shelfs current location

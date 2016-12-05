@@ -43,8 +43,8 @@ public class TestFloor {
          */
         if (testLevel==1){
 	        System.out.println("\n-----Shelves-----\n");
-	        for (Shelf s:floor.shelves){
-	            System.out.println(s.toString());
+	        for (Integer i: MockFloor.getShelves().keySet()){
+	            System.out.println(MockFloor.getShelves().get(i));
 	        }
         }
 //////////////////////////////////////////////////////////////////////////////////////////////
