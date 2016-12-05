@@ -11,7 +11,7 @@ public class MockFloor implements Floor, Tick{
     static Point packer       ;
     static Point shippingDock ;
     static Point receivingDock;
-    
+    static int unique_id=0;/** author haoyang wei , a unique id for shelf starts from 0**/
     static int x_dimension;
     static int y_dimension;
     
@@ -187,9 +187,11 @@ public class MockFloor implements Floor, Tick{
         int yCurr=A.y;
         while(!(xCurr>B.x)){
             while(!(yCurr>B.y)){
-            	// TODO: Change this so that it works with HashMap
-            	//shelves.add(new Shelf(new Point(xCurr,yCurr),false,10,"S("+Integer.toString(xCurr)+","+Integer.toString(yCurr)+")"));
-
+            	shelves.put(unique_id,new Shelf(new Point(xCurr,yCurr),false,10,"S("+Integer.toString(xCurr)+","+Integer.toString(yCurr)+")"));
+            	unique_id++;
+		/** author haoyang wei 
+		change the arraylist to hashmap
+		*/
             	yCurr+=1;
             }
             yCurr=A.y;
