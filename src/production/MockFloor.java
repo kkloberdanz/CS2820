@@ -71,8 +71,10 @@ public class MockFloor implements Floor, Tick{
      * @author Kyle Kloberdanz
      * If the item is not in the warhouse, then order it
      * from the supplier, and put it on the shelf.
+     * 
+     * returns true if successful, false if there are no more shelves available
      */
-    static boolean OrderFromSupplier(Item item, int num_items) {
+    public static boolean OrderFromSupplier(Item item, int num_items) {
     	for (Integer i : shelves.keySet()) {
     		if (shelves.get(i).size() < shelves.get(i).capacity()) {
     			shelves.get(i).addItem(item, num_items);
