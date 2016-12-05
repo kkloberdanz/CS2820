@@ -48,7 +48,7 @@ public class MockOrders implements Tick {
 	}
 	
 	// this method returns a boolean indicating whether or not an
-	// item exists in the warehouse
+	// item exists in the warehouse.
 	public static boolean locateItem(Item I) {
 		for (Integer i : MockFloor.getShelves().keySet()) {
 			Shelf s = MockFloor.getShelves().get(i);

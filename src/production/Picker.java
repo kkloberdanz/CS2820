@@ -205,7 +205,7 @@ public class Picker implements Tick, Cloneable {
 		int valid = MockRobotScheduler.moveShelf(currentShelf, pickerStation);
 		
 		// If no robots are available, reset the previous variables to be null
-		// and wait another tick.
+		// and wait another tick..
 		if (valid == -1){
 			System.out.println("No robots are available.");
 			neededItem = null;
