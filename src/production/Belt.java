@@ -18,7 +18,7 @@ public class Belt implements Tick{
 	
 	
 	/**
-	 * packBin method takes a bin object and puts it into an Array list. 
+	 * packBin method takes a bin object and puts it into an LinkedList. 
 	 * @author Tyler Sporrer
 	 */
 	public static void loadBelt(Object x){
@@ -34,7 +34,7 @@ public class Belt implements Tick{
 	}
 		
 	/**
-	 * packBox checks contents of Arrray list at the 10th position. If there is an object, packs it into the shipping array. if null, removes the null.
+	 * packBox checks contents of LinkedList at the 5th position. If there is an object, packs it into the shipping LinkedList. if null, removes the null.
 	 * @author Tyler Sporrer
 	 */
 	public static void packBox(int x){
@@ -44,6 +44,7 @@ public class Belt implements Tick{
 			if(belt.get(4) == null){
 				belt.remove(4);
 				System.out.println("Null is removed from belt");
+				number = number - 1;
 			}else{
 				y = belt.get(4);
 				ship.addFirst(y);
