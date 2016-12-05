@@ -56,7 +56,7 @@ public class Picker implements Tick, Cloneable {
 		return currentBin;
 	}
 	
-	// the Belt will use this to remove the current bin AFTER
+	// the Belt will use this to remove the current bin after
 	// it has been taken to the belt
 	public static void removeCurrentBin() {
 		currentBin = null;
