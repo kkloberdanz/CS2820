@@ -36,38 +36,18 @@ public class Belt implements Tick{
 	 */
 	public static void packBox(int x){
 		Object y;
-		if(belt.get(4) != null){
-			y = belt.get(4);
+		if(belt.get(0) != null){
+			y = belt.get(0);
 			ship.add(y);
 			if(Debug.verboseLevel() >= 1){
 				System.out.println("Box added to shipping belt.");
 			}
-			belt.remove(4);
-			delay(x); // look at
+			belt.remove(0);
 		}else{
-			belt.remove(4);
+			belt.remove(0);
 		}	
 	}
-	
-	/**
-	 * showBelt method shows the the order ID of the bins on the belt
-	 * @author Tyler Sporrer
-	 */
-	public void showBelt(){
-		for(int i = 0; i < belt.size(); i++){
-			System.out.println(belt.get(i));
-		}
-	}
-	
-	/**
-	 * showShip method shows the order ID of the orders that have been packed and sent to shipping
-	 * @author Tyler Sporrer
-	 */
-	public void showShip(){
-		for(int i = 0; i < ship.size(); i++){
-			System.out.println(ship.get(i));
-		}
-	}
+
 	/**
 	 * checks if a package is at the picker position, if it is creates a delay for 3 ticks.
 	 * @author Tyler Sporrer

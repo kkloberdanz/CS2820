@@ -2,7 +2,14 @@ package production;
 
 public class beltTest {
 	 private String name;
-	
+	 
+	 public String toString(){
+		 return name;
+	 }
+	/**
+	 * Tester for loadBelt and packBox.
+	 * @author Tyler Sporrer
+	 */
 	public static void main(String args[]){
 		beltTest a = new beltTest();
 		beltTest b = new beltTest();
@@ -20,6 +27,8 @@ public class beltTest {
 		Belt.loadBelt(d);
 		Belt.loadBelt(e);
 		Belt.packBox(2);
+		System.out.println(Belt.belt);
+		System.out.println(Belt.ship);
 	}
 		
 }
