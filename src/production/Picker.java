@@ -91,13 +91,14 @@ public class Picker implements Tick, Cloneable {
 		return null;
 	}
 	
-	public static Shelf locateItem(Item I) {
+	public static boolean locateItem(Item I) {
 		for (Integer i : MockFloor.getShelves().keySet()) {
 			Shelf s = MockFloor.getShelves().get(i);
 			if (s.contains(I)) {
 				return true;
 			}
 		}
+		return false;
 	}
 	
 	// This method notifies the RobotScheduler of what Shelf needs to be brought
