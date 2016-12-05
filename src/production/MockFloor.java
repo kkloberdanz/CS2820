@@ -192,6 +192,7 @@ public class MockFloor implements Floor, Tick{
             	unique_id++;
 		/** author haoyang wei 
 		change the arraylist to hashmap
+		update capacity so that we can put all things onto shelf
 		*/
             	yCurr+=1;
             }
