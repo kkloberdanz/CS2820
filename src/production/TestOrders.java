@@ -14,6 +14,7 @@ public class TestOrders {
 	static MockOrders orders;
 	static Inventory inventory;
 	static MockRobotScheduler robotScheduler;
+	static MockFloor floor;
 	static SimRandom rand;
 	static Picker picker;
 	static ArrayList<Item> itemDatabase = new ArrayList<Item>();
@@ -23,11 +24,11 @@ public class TestOrders {
 		
 		// Code for testing the MockOrders constructor
 		rand = new SimRandom();
-		picker = new Picker();
+		picker = new Picker(floor, orders, inventory, robotScheduler);
 		String divider = "******************************************************************";
 		
 		// Tests the constructor
-		new MockOrders(rand);
+		new MockOrders(rand, inventory);
 		new Inventory(rand);
 		System.out.println("Current order queue:\n");
 		for (int i = 0; i < MockOrders.orderQueue.size(); i++) {

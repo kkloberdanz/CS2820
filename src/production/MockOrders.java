@@ -13,7 +13,7 @@ public class MockOrders implements Tick {
 	static ArrayList<Order> orderQueue; // a queue of orders
 	static private SimRandom randSource;
 	static private String randAddress;
-	static Inventory I;
+	static Inventory Inventory;
 	static int id = 1; // keeps track of order ID number
 	static ArrayList<Item> itemDatabase = new ArrayList<Item>();
 	static ArrayList<Integer> itemQuantities = new ArrayList<Integer>();
@@ -27,8 +27,9 @@ public class MockOrders implements Tick {
 	}
 	
 	// Constructor that takes randomness argument
-	public MockOrders(SimRandom rand){
+	public MockOrders(SimRandom rand, Inventory I){
 		MockOrders.randSource = rand;
+		MockOrders.Inventory = I;
 		MockOrders.orderQueue = new ArrayList<Order>();
 		for (int i = 0; i < 3; i++) {
 			orderQueue.add(generateRandomOrder());

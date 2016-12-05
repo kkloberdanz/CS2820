@@ -20,7 +20,11 @@ public class Picker implements Tick, Cloneable {
 	static MockRobotScheduler R; // get the robot scheduler
 	
 	// constructor
-	public Picker() {
+	public Picker(MockFloor F, MockOrders O, Inventory I, MockRobotScheduler R) {
+		Picker.F = F;
+		Picker.O = O;
+		Picker.I = I;
+		Picker.R = R;
 		currentOrder = null;
 		currentBin = null;
 		neededItem = null;
@@ -118,9 +122,12 @@ public class Picker implements Tick, Cloneable {
 	public void tick(int count){
 		// If there is currently no order, then we need to pull the first
 		// order from the queue.
+		Point pickerStation = new Point(0,1);
+		
 		if (currentOrder == null){
 			updateOrder(MockOrders.getNextOrder());
 			System.out.println("Picker is starting a new order.");
+			System.out.println(currentOrder.toString());
 			return;
 		}
 		
@@ -136,14 +143,14 @@ public class Picker implements Tick, Cloneable {
 		// If the order is neither null or complete, then check to see if
 		// point(0,1) is occupied; if not, then just remain idle for this
 		// tick while waiting for the robot to arrive
-		if ((F.isSpaceOccupied(new Point(0,1)) == false) && currentShelf != null) {
+		if ((F.isSpaceOccupied(pickerStation) == false) && currentShelf != null) {
 			return;
 		}
 		
 		// If the space next to the picker station HAS been occupied by
 		// a robot, transfer the necessary items from the shelf to the
 		// current order, and then set the current shelf equal to null
-		if (F.isSpaceOccupied(new Point(0,1)) && currentShelf != null) {
+		if (F.isSpaceOccupied(pickerStation) && currentShelf != null) {
 			transferItems(neededItem, 1, currentShelf);
 			shelfToReturn = currentShelf;
 			currentShelf = null;
@@ -154,7 +161,7 @@ public class Picker implements Tick, Cloneable {
 		// current shelf is null, this means we have already transferred items
 		// but are simply waiting to move the shelf, so send the shelf back
 		// to where it came from
-		if (F.isSpaceOccupied(new Point(0,1)) && currentShelf == null) {
+		if (F.isSpaceOccupied(pickerStation) && currentShelf == null) {
 			MockRobotScheduler.moveShelf(shelfToReturn, returnLocation);
 		}
 		
@@ -165,6 +172,7 @@ public class Picker implements Tick, Cloneable {
 			if (myItem.inOrder()){
 				continue;
 			}
+			System.out.println("The picker is looking for a " + myItem.get_name());
 			nextItem = myItem;
 			break; // This means we found an item not in the order
 		}
@@ -191,7 +199,7 @@ public class Picker implements Tick, Cloneable {
 		returnLocation = s.shelfLoc;
 		
 		// Finally, request a new robot to bring the needed shelf to the picker.
-		int valid = MockRobotScheduler.moveShelf(currentShelf, new Point(0,1));
+		int valid = MockRobotScheduler.moveShelf(currentShelf, pickerStation);
 		
 		// If no robots are available, reset the previous variables to be null
 		// and wait another tick.

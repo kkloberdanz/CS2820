@@ -27,20 +27,20 @@ public class Master {
     	if (Debug.verboseLevel() >= 1) {
     		System.out.println("Running Simulation");
     	}
-        MockFloor     floor     = new MockFloor();
-        Inventory     inventory = new Inventory();
-        MockOrders    orders    = new MockOrders(rand);
-        Picker        picker	= new Picker();
-        Belt          belt      = new Belt();
-        RobotSchedule robot     = new RobotSchedule();
-
-        for (int i = 0;; ++i) {
+        MockFloor     		floor     = new MockFloor();
+        Inventory     		inventory = new Inventory(rand);
+        MockOrders    		orders    = new MockOrders(rand, inventory);
+        MockRobotScheduler 	robot     = new MockRobotScheduler();
+        Picker        		picker	  = new Picker(floor, orders, inventory, robot);
+        Belt          		belt      = new Belt();
+        
+        for (int i = 0; i < 20; ++i) {
             floor.tick(i);
             inventory.tick(i);
             orders.tick(i);
+            robot.tick(i);
             picker.tick(i);
             belt.tick(i);
-            robot.tick(i);
             System.out.println("Current Count = " + i);
         }
     }
