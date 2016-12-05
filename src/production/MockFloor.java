@@ -188,7 +188,7 @@ public class MockFloor implements Floor, Tick{
         int yCurr=A.y;
         while(!(xCurr>B.x)){
             while(!(yCurr>B.y)){
-            	shelves.put(unique_id,new Shelf(new Point(xCurr,yCurr),false,10,"S("+Integer.toString(xCurr)+","+Integer.toString(yCurr)+")"));
+            	shelves.put(unique_id,new Shelf(new Point(xCurr,yCurr),false,100,"S("+Integer.toString(xCurr)+","+Integer.toString(yCurr)+")"));
             	unique_id++;
 		/** author haoyang wei 
 		change the arraylist to hashmap

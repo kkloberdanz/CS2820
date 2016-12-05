@@ -96,11 +96,25 @@ public class Shelf {
 	public void setLoc(int x, int y){
 		shelfLoc.setLocation(x,y);
 	}
+	/**
+	 * returns current items
+	 * @return int
+	 */
+	public int capacity(){
+		return capacity;
+	}
+	/**
+	 * returns the current number of items in the shelf
+	 * @return int 
+	 */
+	public int size(){
+		return currItems;
+	}
         @Override
         /**
          * provides a toString() method for debugging
          */
-        public String toString(){
+    public String toString(){
             return "Name: "+ sName + "||" +shelfLoc.toString()+","+ Boolean.toString(beingCarried);
-        }
+    }
 }
