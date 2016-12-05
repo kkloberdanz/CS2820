@@ -140,7 +140,7 @@ public class Inventory implements Tick{
         }
         else{
             if(Inventory.quantity.get(product.get_id_number())<quantity){
-                System.out.println("We don't have enough products in stock, please add more products or reduce the number of products to be shippped");
+                System.out.println("We don't have enough"+ product.get_name()+ " in stock, please add more products or reduce the number of products to be shippped");
                 return false;
             }
             else{
@@ -180,7 +180,7 @@ public class Inventory implements Tick{
     // NOTE: Commented out the for loop, this is not needed for the tick. @author Tyler Foster
     public void tick(int count){
         putitemonshelf(obtainItems().get(rand.nextInt(obtainItems().size())),rand.nextInt(10));
-        
+        removeitems(obtainItems().get(rand.nextInt(obtainItems().size())),rand.nextInt(10));
     }
     
 
