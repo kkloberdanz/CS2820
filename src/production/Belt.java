@@ -62,11 +62,13 @@ public class Belt implements Tick{
 	 */
 	public static boolean delay(int x){ //work on
 		if(start == 0){
-			if(belt.get(4) == null){
-				return false;
-			}else{
-				start = x;
-				return true;
+			if(number == 5){
+				if(belt.peekLast() == null){
+					return false;
+				}else{
+					start = x;
+					return true;
+				}
 			}
 		}else{
 			current = x;
@@ -80,6 +82,7 @@ public class Belt implements Tick{
 			return true;
 		}
 	}
+	
 	
 	/**
 	 * tick method will use the previous methods when called.
