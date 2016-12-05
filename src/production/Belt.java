@@ -14,6 +14,7 @@ public class Belt implements Tick{
 	static int start = 0;
 	static int current = 0;
 	static int number = 0;
+	static Picker picker;
 	
 	
 	/**
@@ -39,7 +40,11 @@ public class Belt implements Tick{
 	public static void packBox(int x){
 		Object y;
 		if(number == 5){
-			if(belt.get(4) != null){
+			System.out.println("----------------"+belt.get(4)+"----------------");
+			if(belt.get(4) == null){
+				belt.remove(4);
+				System.out.println("Null is removed from belt");
+			}else{
 				y = belt.get(4);
 				ship.addFirst(y);
 				belt.remove(4);
@@ -47,8 +52,6 @@ public class Belt implements Tick{
 				if(Debug.verboseLevel() >= 1){
 					System.out.println("Box added to shipping belt.");
 				}
-			}else{
-				belt.remove(4);
 			}
 		}
 	}
@@ -59,11 +62,11 @@ public class Belt implements Tick{
 	 */
 	public static boolean delay(int x){ //work on
 		if(start == 0){
-			if(belt.get(4) != null){
+			if(belt.get(4) == null){
+				return false;
+			}else{
 				start = x;
 				return true;
-			}else{
-				return false;
 			}
 		}else{
 			current = x;
