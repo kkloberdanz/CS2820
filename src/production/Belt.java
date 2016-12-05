@@ -69,6 +69,8 @@ public class Belt implements Tick{
 					start = x;
 					return true;
 				}
+			}else{
+				return false;
 			}
 		}else{
 			current = x;
