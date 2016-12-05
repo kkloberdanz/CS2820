@@ -174,6 +174,7 @@ public class MockFloor implements Floor, Tick{
      */
     @Override
     public boolean isSpaceOccupied(Point loc){
+    	setUsedLocations();
         return (usedLocations.contains(loc));
     }
     /**
