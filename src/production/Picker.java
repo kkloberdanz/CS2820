@@ -1,31 +1,34 @@
 package production;
 
+import java.awt.Point;
 import java.lang.Cloneable;
+import java.util.*;
 
 public class Picker implements Tick, Cloneable {
 	
 	static Order currentOrder; // current order that the Picker is working on
 	static Order copiedOrder; // order that is going to be put into the bin
 	static Bin currentBin; // current bin that is going to be sent to the belt
-	static Item neededItem; // the item that the picker is currently attemping to get
-	static Shelf atStation; // if a robot has arrived with a shelf, update this variable
+	static Item neededItem; // the item that the picker is currently attempting to get
+	static Shelf currentShelf; // keeps track of what shelf the picker currently wants
+	static Shelf shelfToReturn; // keeps track of the shelf that the robot needs to return
+	static Point returnLocation; // keeps track of the point that the shelf needs to be returned to
 	
 	static MockOrders O; // order subsystem, check for arrayList of orders
 	static MockFloor F; // get the floor
 	static Inventory I; // get the inventory
-	static RobotScheduler R; // get the robot scheduler
+	static MockRobotScheduler R; // get the robot scheduler
 	
 	// constructor
 	public Picker() {
 		currentOrder = null;
 		currentBin = null;
 		neededItem = null;
-		atStation = null;
+		currentShelf = null;
+		shelfToReturn = null;
+		returnLocation = null;
 	}
 	
-	/**
-	 * nice formatting method
-	 */
 	@Override
 	public String toString(){
 		String output = "There is currently no order.";
@@ -86,7 +89,7 @@ public class Picker implements Tick, Cloneable {
 	
 	// This method notifies the RobotScheduler of what Shelf needs to be brought
 	// to the picker
-	public static void notifyRobot(Shelf S, RobotScheduler R){
+	public static void notifyRobot(Shelf S, MockRobotScheduler R){
 		
 	}
 
@@ -102,20 +105,6 @@ public class Picker implements Tick, Cloneable {
 		}
 	}
 	
-	// This method checks the list of filled order items to see if it the same
-	// size as the needed order items list; if it is, then all items have been
-	// collected
-	// NOTE: This method is probably not needed anymore
-	public static boolean checkOrderItems(){
-		for (int i = 0; i < currentOrder.orderItems.size(); i++) {
-			if (currentOrder.filledItems.contains(currentOrder.orderItems.get(i)) == false) {
-				return false;
-			}
-		}
-		currentOrder.updateFilled();
-		return true;
-	}
-	
 	// This method moves the current order to the bin.
 	public static void moveFinishedOrder(){
 		currentBin = new Bin();
@@ -124,6 +113,8 @@ public class Picker implements Tick, Cloneable {
 		currentBin.setComplete();
 	}
 	
+	// This is the tick method for Picker; it synchronizes the Picker's actions
+	// with the rest of the static objects in the warehouse.
 	public void tick(int count){
 		// If there is currently no order, then we need to pull the first
 		// order from the queue.
@@ -143,10 +134,28 @@ public class Picker implements Tick, Cloneable {
 		}
 		
 		// If the order is neither null or complete, then check to see if
-		// we are still waiting on an item from a robot. If yes, then just
-		// wait more.
-		if (neededItem != null) {
+		// point(0,1) is occupied; if not, then just remain idle for this
+		// tick while waiting for the robot to arrive
+		if ((F.isSpaceOccupied(new Point(0,1)) == false) && currentShelf != null) {
 			return;
+		}
+		
+		// If the space next to the picker station HAS been occupied by
+		// a robot, transfer the necessary items from the shelf to the
+		// current order, and then set the current shelf equal to null
+		if (F.isSpaceOccupied(new Point(0,1)) && currentShelf != null) {
+			transferItems(neededItem, 1, currentShelf);
+			shelfToReturn = currentShelf;
+			currentShelf = null;
+			return;
+		}
+		
+		// If the space next to the picker station is occupied but the
+		// current shelf is null, this means we have already transferred items
+		// but are simply waiting to move the shelf, so send the shelf back
+		// to where it came from
+		if (F.isSpaceOccupied(new Point(0,1)) && currentShelf == null) {
+			MockRobotScheduler.moveShelf(shelfToReturn, returnLocation);
 		}
 		
 		// At this point we should iterate through the currentOrder.orderItems()
@@ -168,17 +177,28 @@ public class Picker implements Tick, Cloneable {
 		
 		// At this point, we need to look for the item
 		Shelf s = locateItem(F, nextItem);
-		
+
 		// If the shelf is not available then the item does not exist,
-		// and inventory needs to restock
+		// and inventory needs to re-stock
 		if (s == null) {
 			return;
 		}
 		
-		// Set the field of neededItem to be the next item
+		// Set the field of neededItem to be the next item, currentShelf to be the
+		// needed shelf
 		neededItem = nextItem;
+		currentShelf = s;
+		returnLocation = s.shelfLoc;
 		
-		// The very last part of this tick involves communicating with the
-		// robot to request a shelf
+		// Finally, request a new robot to bring the needed shelf to the picker.
+		int valid = MockRobotScheduler.moveShelf(currentShelf, new Point(0,1));
+		
+		// If no robots are available, reset the previous variables to be null
+		// and wait another tick.
+		if (valid == -1){
+			neededItem = null;
+			currentShelf = null;
+			returnLocation = null;
+		}
 	};
 }
