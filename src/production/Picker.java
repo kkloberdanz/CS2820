@@ -179,7 +179,7 @@ public class Picker implements Tick, Cloneable {
 		Shelf s = locateItem(F, nextItem);
 
 		// If the shelf is not available then the item does not exist,
-		// and inventory needs to re-stock
+		// and inventory needs to restock
 		if (s == null) {
 			return;
 		}
