@@ -20,7 +20,7 @@ public class Inventory implements Tick{
     public static ArrayList<Item> Taskremove;
     public static ArrayList<Integer> TaskItemremove;
     public static MockFloor Floor=new MockFloor();
-    public static SimRandom randSource; // method added by @author Tyler Foster to give randomness to quantities
+    public static SimRandom rand; // method added by @author Tyler Foster to give randomness to quantities
     
     public static location[] loc=new location[MockFloor.getShelves().size()];
     /**
@@ -56,7 +56,9 @@ public class Inventory implements Tick{
      * Inventory class that takes SimRandom variable as a constructor
      * @author Tyler Foster
      */
-    public Inventory(SimRandom rand){
+    public Inventory(SimRandom rand, MockFloor F){
+    	Inventory.rand = rand;
+    	Inventory.Floor = F;
     	ArrayList<Item> inputItems = obtainItems();
     	ArrayList<Integer> inputQuantities = obtainQuantities(rand);
     	Inventory.initialize(inputItems, inputQuantities);
@@ -182,8 +184,10 @@ public class Inventory implements Tick{
         System.out.println("We cannot find that in stock");
         return null;
     }
+    
+    // NOTE: Commented out the for loop, this is not needed for the tick. @author Tyler Foster
     public void tick(int count){
-        for(int i=0;i<count;i++){
+        //for(int i=0;i<count;i++){
             if(initial==true){
             	if(Taskadd!=null){
                 initialize(Taskadd,TaskItemadd);
@@ -207,7 +211,7 @@ public class Inventory implements Tick{
                 }
                 
             }
-        }
+        //}
     }
     
 

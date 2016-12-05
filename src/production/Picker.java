@@ -97,7 +97,8 @@ public class Picker implements Tick, Cloneable {
 		
 	}
 
-	// This method transfers the items from a shelf into the order.
+	// This method transfers the items from a shelf into the order, and then it
+	// updates the boolean of that item to be in the order
 	public static void transferItems(Item i, int num, Shelf S){
 		boolean validTransfer = S.removeItem(i, num, false);
 		if (validTransfer){

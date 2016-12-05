@@ -29,7 +29,7 @@ public class TestOrders {
 		
 		// Tests the constructor
 		new MockOrders(rand, inventory);
-		new Inventory(rand);
+		new Inventory(rand, floor);
 		System.out.println("Current order queue:\n");
 		for (int i = 0; i < MockOrders.orderQueue.size(); i++) {
 			System.out.println(MockOrders.orderQueue.get(i).toString());

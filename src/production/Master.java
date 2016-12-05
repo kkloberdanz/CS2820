@@ -28,7 +28,7 @@ public class Master {
     		System.out.println("Running Simulation");
     	}
         MockFloor     		floor     = new MockFloor();
-        Inventory     		inventory = new Inventory(rand);
+        Inventory     		inventory = new Inventory(rand, floor);
         MockOrders    		orders    = new MockOrders(rand, inventory);
         MockRobotScheduler 	robot     = new MockRobotScheduler();
         Picker        		picker	  = new Picker(floor, orders, inventory, robot);
