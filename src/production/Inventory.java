@@ -14,12 +14,7 @@ import java.util.*;
 public class Inventory implements Tick{
     public static HashMap<Integer,Item> database;
     public static HashMap<Integer,Integer> quantity;
-    public static boolean initial=true;
-    public static ArrayList<Item> Taskadd;
-    public static ArrayList<Integer> TaskItemadd;
-    public static ArrayList<Item> Taskremove;
-    public static ArrayList<Integer> TaskItemremove;
-    public static MockFloor Floor=new MockFloor();
+    public static MockFloor Floor;
     public static SimRandom rand; // method added by @author Tyler Foster to give randomness to quantities
     
     public static location[] loc=new location[MockFloor.getShelves().size()];
@@ -32,20 +27,20 @@ public class Inventory implements Tick{
     	public static HashMap<Integer,Integer> quantity;
         public static Shelf shelf;
     	public location(Shelf shelf,HashMap<Integer,Integer> quantity){
-    		this.shelf=shelf;
-    		this.quantity=quantity;
+    		location.shelf=shelf;
+    		location.quantity=quantity;
     	}
     	public static void addquantity(location loc,int id,int quantity){
-    		if(loc.quantity.containsKey(id)){
-    			loc.quantity.put(id,loc.quantity.get(id)+quantity);
+    		if(location.quantity.containsKey(id)){
+    			location.quantity.put(id,location.quantity.get(id)+quantity);
     		}
     		else{
-    			loc.quantity.put(id, quantity);
+    			location.quantity.put(id, quantity);
     		}
     		
     	}
     	public static void removequantity(location loc,int id,int quantity){
-    		loc.quantity.put(id,loc.quantity.get(id)-quantity);
+    		location.quantity.put(id,location.quantity.get(id)-quantity);
     	}
     }
     public Inventory(){
@@ -98,35 +93,32 @@ public class Inventory implements Tick{
     public static void initialize(ArrayList<Item> item,ArrayList<Integer> quantity){
     	for(int i=0;i<loc.length;i++){
     		loc[i]=new location(MockFloor.getShelves().get(i),new HashMap<Integer,Integer>());
+    		
     	}
         database=new HashMap<Integer,Item>();
         Inventory.quantity=new HashMap<Integer,Integer>();
        for(int i=0;i<item.size();i++){
-           additems(item.get(i),quantity.get(i));
+           putitemonshelf(item.get(i),quantity.get(i));
        }
     }/*
     *add item to the database, if exists we only need to add the quantity,then put the product onto shelf
     *@author haoyang wei
     */
-    public static void additems(Item product,int quantity){
-        if(database.containsKey(product.get_id_number())){
-            Inventory.quantity.put(product.get_id_number(),Inventory.quantity.get(product.get_id_number())+quantity);
-            putitemonshelf(product,quantity);
-        }
-        else{
-            database.put(product.get_id_number(),product);
-            Inventory.quantity.put(product.get_id_number(),quantity);
-            putitemonshelf(product,quantity);
-        }
-    }
+
     public static void putitemonshelf(Item product,int quantity){
     	int temp=0;
         while(temp<loc.length){
         	Shelf i= MockFloor.getShelves().get(temp);
             if(i.addItem(product,quantity)){
-            	
             	location.addquantity(loc[temp], product.get_id_number(), quantity);
-                break;
+            	if(database.containsKey(product.get_id_number())){
+            	Inventory.quantity.put(product.get_id_number(),Inventory.quantity.get(product.get_id_number())+quantity);
+            	}
+            	else{
+            		database.put(product.get_id_number(),product);
+                    Inventory.quantity.put(product.get_id_number(),quantity);
+            	}
+            	break;
             }
             else{
             	temp++;
@@ -177,8 +169,8 @@ public class Inventory implements Tick{
     }
     public static Shelf finditem(Item product){
         for(int i=0;i<loc.length;i++){
-            if(loc[i].quantity.containsKey(product.get_id_number())){
-                return loc[i].shelf;
+            if(location.quantity.containsKey(product.get_id_number())){
+                return location.shelf;
             }
         }
         System.out.println("We cannot find that in stock");
@@ -187,31 +179,8 @@ public class Inventory implements Tick{
     
     // NOTE: Commented out the for loop, this is not needed for the tick. @author Tyler Foster
     public void tick(int count){
-        //for(int i=0;i<count;i++){
-            if(initial==true){
-            	if(Taskadd!=null){
-                initialize(Taskadd,TaskItemadd);
-                initial=false;}
-            	else{
-            		System.out.println("We need initial products in stock");
-            	}
-            }
-            else{
-                if(Taskadd!=null){
-                    additems(Taskadd.get(0),TaskItemadd.get(0));
-                }
-                else{
-                    System.out.println("We have no products to add into the stock");
-                }
-                if(Taskremove!=null){
-                    removeitems(Taskremove.get(0),TaskItemremove.get(0));
-                }
-                else{
-                    System.out.println("We have no products to be removed this time");
-                }
-                
-            }
-        //}
+        putitemonshelf(obtainItems().get(rand.nextInt(obtainItems().size())),rand.nextInt(10));
+        
     }
     
 
