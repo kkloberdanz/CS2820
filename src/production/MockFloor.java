@@ -39,8 +39,8 @@ public class MockFloor implements Floor, Tick{
     	
     	//create chargers
     	charger ch1 = new charger(new Point(9,2));ch1.setState(true);chargers.add(ch1);
-    	//charger ch2 = new charger(new Point(9,4));ch2.setState(true);chargers.add(ch2);
-    	//charger ch3 = new charger(new Point(9,6));ch3.setState(true);chargers.add(ch3);
+    	charger ch2 = new charger(new Point(9,4));ch2.setState(true);chargers.add(ch2);
+    	charger ch3 = new charger(new Point(9,6));ch3.setState(true);chargers.add(ch3);
     	
     	//set used locations
     	setUsedLocations();
@@ -224,12 +224,14 @@ public class MockFloor implements Floor, Tick{
      * this will set a robot on every charger at the beginning of the program
      */
     public void setRobots(){
-    	//int num = 0;
+    	int num = 0;
     	for (charger c:chargers){
     		Robot temp = new Robot(c.charLoc);
     		temp.charge = 100;
-    		temp.state = false; // false mean unworking
+    		temp.state = false;
+    		temp.NumberofRobot = num;// false mean unworking
     		robots.add(temp);
+    		num++;
     	}
     }
     /**
