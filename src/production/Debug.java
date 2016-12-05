@@ -30,6 +30,9 @@ public class Debug {
 	 * @param int l
 	 */
 	public static void setLevel(int l) {
+		if (l >= 0) {
+			
+		}
 		level = l;
 	}
 
