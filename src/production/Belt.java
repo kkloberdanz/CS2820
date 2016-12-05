@@ -1,6 +1,6 @@
 package production;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Belt class for warehouse project. Moves items along the belt
@@ -9,10 +9,11 @@ import java.util.ArrayList;
 
 public class Belt implements Tick{
 	
-	static ArrayList<Object> belt = new ArrayList<Object>();
-	static ArrayList<Object> ship = new ArrayList<Object>();
+	static LinkedList<Object> belt = new LinkedList<Object>();
+	static LinkedList<Object> ship = new LinkedList<Object>();
 	static int start = 0;
 	static int current = 0;
+	static int number = 0;
 	
 	
 	/**
@@ -20,7 +21,8 @@ public class Belt implements Tick{
 	 * @author Tyler Sporrer
 	 */
 	public static void loadBelt(Object x){
-		belt.add(x);
+		belt.addFirst(x);
+		number = number + 1;
 		if(x != null){ // if the bin is not empty(null), then calls removeCurrentBin to reset the bin to null
 			Picker.removeCurrentBin();
 			if(Debug.verboseLevel() >= 1){
@@ -36,16 +38,19 @@ public class Belt implements Tick{
 	 */
 	public static void packBox(int x){
 		Object y;
-		if(belt.get(0) != null){
-			y = belt.get(0);
-			ship.add(y);
-			if(Debug.verboseLevel() >= 1){
-				System.out.println("Box added to shipping belt.");
+		if(number == 5){
+			if(belt.get(4) != null){
+				y = belt.get(4);
+				ship.addFirst(y);
+				belt.remove(4);
+				number = number - 1;
+				if(Debug.verboseLevel() >= 1){
+					System.out.println("Box added to shipping belt.");
+				}
+			}else{
+				belt.remove(4);
 			}
-			belt.remove(0);
-		}else{
-			belt.remove(0);
-		}	
+		}
 	}
 
 	/**
@@ -79,8 +84,8 @@ public class Belt implements Tick{
 	 */
 	public void tick(int x){
 		if(delay(x) == false){
-			this.loadBelt(Picker.getCurrentBin()); // checks/grabs current bin from picker and adds to belt
-			this.packBox(x); // loads the boxed item onto the shipping belt
+			Belt.loadBelt(Picker.getCurrentBin()); // checks/grabs current bin from picker and adds to belt
+			Belt.packBox(x); // loads the boxed item onto the shipping belt
 		}
 				
 	}
