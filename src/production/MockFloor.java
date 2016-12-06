@@ -78,12 +78,13 @@ public class MockFloor implements Floor, Tick{
     	for (Integer i : shelves.keySet()) {
     		if (shelves.get(i).size() < shelves.get(i).capacity()) {
     			shelves.get(i).addItem(item, num_items);
+				System.out.println("We have ordered some " + item.get_name() + " from the supplier.");
     			return true;
     		}
     	}
-    	if (Debug.verboseLevel() >= 1) {
+    	//if (Debug.verboseLevel() >= 1) {
     		System.out.println("Error: We are out of shelves!");
-    	}
+    	//}
     	return false;
     }
 

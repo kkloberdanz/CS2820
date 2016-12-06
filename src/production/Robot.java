@@ -14,6 +14,7 @@ public class Robot {
 	int NumberofRobot; //Added this field back for usage by other methods
     public static int chargebound = 50;
     Point location;
+    Point currentLocation;
     int charge;
     Shelf s; // the shelf robot need to carry
     Path path; // the path robot move
@@ -24,6 +25,7 @@ public class Robot {
     public Robot(Point Createlocation){
     	this.busy = false;
         location = Createlocation;
+        currentLocation = location;
         path = null;
         s = null;
         pickerR = null;
@@ -69,6 +71,7 @@ public class Robot {
     	}
 
     	this.path = path.step();
+    	this.setRobotlocation(new Point((int)s.shelfLoc.getX(), (int)s.shelfLoc.getY())); // author Tyler Foster
     	
     	// TODO: This is a dummy placeholder.
     	// This will not work. This needs to access the static shelves from MockFloor, and set the location there

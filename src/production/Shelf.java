@@ -26,9 +26,14 @@ public class Shelf {
 	}
 	
 	/**
-	 * This method checks to see whether or not a shelf contains an item.
-	 * @author - Tyler Foster
-	 */
+	 * This method takes an Item as input and returns a boolean that depicts
+	 * whether or not the item was on this shelf.
+	 * 
+	 * @author Tyler Foster
+	 * @param I
+	 * @return boolean
+	**/
+	
 	public boolean contains(Item I) {
 		for (Item i : contents.keySet()) {
 			if (i == I) {
