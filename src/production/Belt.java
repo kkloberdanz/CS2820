@@ -40,10 +40,14 @@ public class Belt implements Tick{
 	public static void packBox(int x){
 		Object y;
 		if(number == 5){
-			System.out.println("----------------"+belt.get(4)+"----------------");
+			if(Debug.verboseLevel() >= 5){
+				System.out.println("----------------"+belt.get(4)+"----------------");
+			}
 			if(belt.get(4) == null){
 				belt.remove(4);
-				System.out.println("Null is removed from belt");
+				if(Debug.verboseLevel() >= 5){
+					System.out.println("Null is removed from belt");
+				}
 				number = number - 1;
 			}else{
 				y = belt.get(4);
