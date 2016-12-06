@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.HashMap;
 
 
-public class Shelf {
+public class Shelf implements Cloneable {
 	HashMap<Item,Integer> contents;
 	boolean beingCarried;
 	Point shelfLoc;
@@ -21,8 +21,19 @@ public class Shelf {
         beingCarried=bool;
         capacity = Int;
         sName = name;
+        currItems = 0;
         id = counter++;
         
+	}
+	
+	public Shelf(Shelf s) {
+		this.contents = s.contents;
+		this.shelfLoc = s.shelfLoc;
+		this.beingCarried = s.beingCarried;
+		this.capacity = s.capacity;
+		this.sName = s.sName;
+		this.currItems = s.currItems;
+		this.id = s.id;
 	}
 	
 	/**
@@ -81,6 +92,7 @@ public class Shelf {
 		//removes all if the removeAllFlag is true
 		if(removeAllFlag){
 			contents.remove(I);
+			currItems -= num;
 			return true;
 		}
 		//return false if the item is not in the hashmap
@@ -93,6 +105,7 @@ public class Shelf {
 		}
 		//return true if successfully removed
 		contents.remove(I);
+		currItems -= num;
 		return true;
 	}
 	/**

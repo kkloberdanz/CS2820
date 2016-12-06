@@ -14,7 +14,7 @@ public class Robot {
 	int NumberofRobot; //Added this field back for usage by other methods
     public static int chargebound = 50;
     Point location;
-    Point currentLocation;
+    Point destination;
     int charge;
     Shelf s; // the shelf robot need to carry
     Path path; // the path robot move
@@ -25,7 +25,7 @@ public class Robot {
     public Robot(Point Createlocation){
     	this.busy = false;
         location = Createlocation;
-        currentLocation = location;
+        destination = null;
         path = null;
         s = null;
         pickerR = null;
@@ -81,6 +81,7 @@ public class Robot {
     	// then done
     	if (path == null) {
     		this.busy = false;
+    		this.s.beingCarried = false; // set the shelf down
     	}
     }
     

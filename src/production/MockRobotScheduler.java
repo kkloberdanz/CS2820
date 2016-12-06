@@ -41,15 +41,19 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
      * @param A
      * @param p
      * @return index of robot that is not busy is robots list, -1 if no robot available
+     * 
+     * @author Tyler Foster
+     * Added the beingCarried field change
      */
     public static int moveShelf(Shelf A, Point p){
     	int notBusyIndex = getAvailableRobotIndex();
 
-    	if (notBusyIndex != -1) {
+    	if ((notBusyIndex != -1) && (A.beingCarried == false)) {
     		MockFloor.robots.get(notBusyIndex).setPath(MockFloor.makePath(A.shelfLoc, p, false));
     		MockFloor.robots.get(notBusyIndex).setBusy(true);
     		MockFloor.robots.get(notBusyIndex).setShelf(A);
-    		return 0;
+    		A.beingCarried = true;
+    		return notBusyIndex;
     	} else {
     		return -1;
     	}
@@ -60,6 +64,13 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
         robot.s = A;
         robot.state = true;
         */
+    }
+    
+    public static void returnShelf(Shelf A, Point p, int i) {
+    	MockFloor.robots.get(i).setPath(MockFloor.makePath(A.shelfLoc, p, false));
+    	MockFloor.robots.get(i).setBusy(true);
+    	MockFloor.robots.get(i).setShelf(A);
+    	A.beingCarried = true;
     }
     
     /**

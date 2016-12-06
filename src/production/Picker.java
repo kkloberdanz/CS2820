@@ -17,6 +17,8 @@ public class Picker implements Tick, Cloneable {
 								// to return
 	static Point returnLocation; // keeps track of the point that the shelf
 									// needs to be returned to
+	static int robotIndex; // keeps track of the index of the robot that is
+									// currently moving to the picker station
 
 	static MockOrders O; // order subsystem, check for arrayList of orders
 	static MockFloor F; // get the floor
@@ -45,6 +47,7 @@ public class Picker implements Tick, Cloneable {
 		currentShelf = null;
 		shelfToReturn = null;
 		returnLocation = null;
+		robotIndex = -1;
 	}
 
 
@@ -184,10 +187,10 @@ public class Picker implements Tick, Cloneable {
 		boolean atStation = false;
 		for (int i = 0; i < MockFloor.robots.size(); i++) {
 			Robot r = MockFloor.robots.get(i);
-			// System.out.println(r.toString());
+			System.out.println(r.toString());
 			double x = r.getLocation(r).getX();
 			double y = r.getLocation(r).getY();
-			if ((x == 0.0) && (y == 1.0)) {
+			if ((x == 0.0) && (y == 1.0) && (neededItem != null)) {
 				atStation = true;
 			}
 		}
@@ -239,8 +242,11 @@ public class Picker implements Tick, Cloneable {
 		// to where it came from
 		// if (F.isSpaceOccupied(pickerStation) && currentShelf == null) {
 		if (atStation && (currentShelf == null)) {
-			System.out.println("Sending the robot back??");
-			MockRobotScheduler.moveShelf(shelfToReturn, returnLocation);
+			System.out.println("Sending robot " + robotIndex + " back.");
+			MockRobotScheduler.returnShelf(shelfToReturn, returnLocation, robotIndex);
+			shelfToReturn = null;
+			robotIndex = -1;
+			neededItem = null;
 			return;
 		}
 
@@ -292,6 +298,12 @@ public class Picker implements Tick, Cloneable {
 			neededItem = null;
 			currentShelf = null;
 			returnLocation = null;
+		}
+		
+		else {
+			System.out.println("This executed.");
+			System.out.println(valid);
+			robotIndex = valid;
 		}
 	};
 }

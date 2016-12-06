@@ -43,6 +43,7 @@ public class Master {
         	if (Debug.verboseLevel() >= 5) {
         		System.out.println("Current Count = " + i);
         	}
+        	System.out.println("\n************************** TICK " + i + " *******************************");
         	
             floor.tick(i);
             inventory.tick(i);

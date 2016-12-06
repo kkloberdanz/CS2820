@@ -66,7 +66,7 @@ public class MockFloor implements Floor, Tick{
     public static void setShelf(Shelf s) {
     	shelves.put(s.getID(), s);
     }
-        
+    
     /**
      * @author Kyle Kloberdanz
      * If the item is not in the warhouse, then order it
@@ -78,7 +78,8 @@ public class MockFloor implements Floor, Tick{
     	for (Integer i : shelves.keySet()) {
     		if (shelves.get(i).size() < shelves.get(i).capacity()) {
     			shelves.get(i).addItem(item, num_items);
-				System.out.println("We have ordered some " + item.get_name() + " from the supplier.");
+				System.out.println("We have ordered some " + item.get_name() + " from the supplier, placed on Shelf " + i + ".");
+				System.out.println("Current size of Shelf " + i + " is " + shelves.get(i).size());
     			return true;
     		}
     	}
