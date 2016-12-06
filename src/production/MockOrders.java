@@ -79,6 +79,13 @@ public class MockOrders implements Tick {
 		return false;
 	}
 	
+	
+	public static void initialize() {
+		for (int i = 0; i < CatItem.catalog.length; i++) {
+			
+		}
+	}
+	
 	/**
 	 * Uses the local class Address to generate a random Order. It also
 	 * generates a random list of items to go with that Order; if one of the
