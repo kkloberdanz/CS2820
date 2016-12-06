@@ -78,8 +78,21 @@ public class Robot {
 
     	// then done
     	if (this.path == null) {
-    		this.busy = false;
         	MockFloor.getShelves().get(s.getID()).setBeingCarried(false);
+        	
+        	// TODO: Return Robot to its charger
+        	if (!this.location.equals(MockFloor.chargers.get(this.NumberofRobot).charLoc)) {
+        		this.path = MockFloor.makePath(this.location, MockFloor.chargers.get(this.NumberofRobot).charLoc);
+        		if (Debug.verboseLevel() >= 2) {
+        			System.out.println("Robot: " + this.NumberofRobot + " is moving back to its charger");
+        		}
+        		
+        	} else {
+        		if (Debug.verboseLevel() >= 2) {
+        			System.out.println("Robot: " + this.NumberofRobot + " is back at its charger");
+        		}
+        		this.busy = false;
+        	}
     	}
     }
     
@@ -93,6 +106,7 @@ public class Robot {
         */
     public void setRobotlocation(Point A){
        location = A;
+       MockFloor.robots.get(this.NumberofRobot).location = A;
        }
        /**
         * added a toString() method so that I could properly see that all the proper fields were created correctly
