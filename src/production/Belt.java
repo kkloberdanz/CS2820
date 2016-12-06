@@ -67,14 +67,18 @@ public class Belt implements Tick{
 	 */
 	public static boolean delay(int x){ //work on
 		if(start == 0){
-			if(number == 5){
+			if(number == 4){
+				//System.out.println("------------------------NUMBER = 4 ---------------------------------");
 				if(belt.peekLast() == null){
+					//System.out.println("------------------------ No Belt Delay------------------------------");
 					return false;
 				}else{
 					start = x;
+					//System.out.println("----------------------- start Belt delay ---------------------------");
 					return true;
 				}
 			}else{
+				//System.out.println("-------------------------- No Belt Delay 2-----------------------------");
 				return false;
 			}
 		}else{
