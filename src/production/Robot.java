@@ -65,34 +65,45 @@ public class Robot {
      * takes one step along path. when finished, sets busy to false
      */
     public void step() {
-		s.shelfLoc = path.getPos();
-		
-    	if (Debug.verboseLevel() >= 1) {
-    		System.out.println("Robot " + NumberofRobot + " is moving to: " + s.shelfLoc.getX() + ", " + s.shelfLoc.getY());
-    	}
-
-    	this.path = path.step();
-    	this.setRobotlocation(new Point((int)s.shelfLoc.getX(), (int)s.shelfLoc.getY())); // author Tyler Foster
     	
-		MockFloor.setShelf(s);
-
-    	// then done
-    	if (this.path == null) {
-        	MockFloor.getShelves().get(s.getID()).setBeingCarried(false);
-        	
-        	// TODO: Return Robot to its charger
-        	if (!this.location.equals(MockFloor.chargers.get(this.NumberofRobot).charLoc)) {
-        		this.path = MockFloor.makePath(this.location, MockFloor.chargers.get(this.NumberofRobot).charLoc);
-        		if (Debug.verboseLevel() >= 2) {
-        			System.out.println("Robot: " + this.NumberofRobot + " is moving back to its charger");
-        		}
-        		
-        	} else {
-        		if (Debug.verboseLevel() >= 2) {
-        			System.out.println("Robot: " + this.NumberofRobot + " is back at its charger");
-        		}
-        		this.busy = false;
-        	}
+    	this.charge--;
+    	if (this.charge >= 0) {
+    		
+    		// If this happens, the robot is dead.
+    		if (Debug.verboseLevel() >= 1) {
+    			System.out.println("Warning: Robot: " + this.NumberofRobot + " is out of charger");
+    		}
+    	} else {
+			s.shelfLoc = path.getPos();
+			
+	    	if (Debug.verboseLevel() >= 1) {
+	    		System.out.println("Robot " + NumberofRobot + " is moving to: " + s.shelfLoc.getX() + ", " + s.shelfLoc.getY());
+	    	}
+	
+	    	this.path = path.step();
+	    	this.setRobotlocation(new Point((int)s.shelfLoc.getX(), (int)s.shelfLoc.getY())); // author Tyler Foster
+	    	
+			MockFloor.setShelf(s);
+	
+	    	// then done
+	    	if (this.path == null) {
+	        	MockFloor.getShelves().get(s.getID()).setBeingCarried(false);
+	        	
+	        	// TODO: Return Robot to its charger
+	        	if (!this.location.equals(MockFloor.chargers.get(this.NumberofRobot).charLoc)) {
+	        		this.path = MockFloor.makePath(this.location, MockFloor.chargers.get(this.NumberofRobot).charLoc);
+	        		if (Debug.verboseLevel() >= 2) {
+	        			System.out.println("Robot: " + this.NumberofRobot + " is moving back to its charger");
+	        		}
+	        		
+	        	} else {
+	        		if (Debug.verboseLevel() >= 2) {
+	        			System.out.println("Robot: " + this.NumberofRobot + " is back at its charger");
+	        			this.charge = 100;
+	        		}
+	        		this.busy = false;
+	        	}
+	    	}
     	}
     }
     
