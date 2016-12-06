@@ -54,10 +54,18 @@ public class Shelf implements Cloneable {
 		return false;
 	}
 	
+	/**
+	 * @author Kyle Kloberdanz
+	 * @param b
+	 */
 	public void setBeingCarried(boolean b) {
 		this.beingCarried = b;
 	}
 	
+	/**
+	 * @author Kyle Kloberdanz
+	 * @return
+	 */
 	public boolean isBeingCarried() {
 		return this.beingCarried;
 	}

@@ -38,8 +38,8 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
     /**
      * 
      * @author Kyle Kloberdanz
-     * @param A
-     * @param p
+     * @param A: Shelf
+     * @param p: Point
      * @return index of robot that is not busy is robots list, -1 if no robot available
      * 
      * @author Tyler Foster
@@ -49,6 +49,7 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
     	int notBusyIndex = getAvailableRobotIndex();
 
     	if ((notBusyIndex != -1) && (A.beingCarried == false)) {
+        	MockFloor.getShelves().get(A.getID()).setBeingCarried(true);
     		MockFloor.robots.get(notBusyIndex).setPath(MockFloor.makePath(A.shelfLoc, p, false));
     		MockFloor.robots.get(notBusyIndex).setBusy(true);
     		MockFloor.robots.get(notBusyIndex).setShelf(A);
