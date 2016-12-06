@@ -35,12 +35,20 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
         a.location = a.path.pos;
     }
     
+    /**
+     * 
+     * @author Kyle Kloberdanz
+     * @param A
+     * @param p
+     * @return index of robot that is not busy is robots list, -1 if no robot available
+     */
     public static int moveShelf(Shelf A, Point p){
     	int notBusyIndex = getAvailableRobotIndex();
+
     	if (notBusyIndex != -1) {
-    		robots.get(notBusyIndex).setPath(MockFloor.makePath(A.shelfLoc, p, true));
-    		robots.get(notBusyIndex).setBusy(true);
-    		robots.get(notBusyIndex).setShelf(A);
+    		MockFloor.robots.get(notBusyIndex).setPath(MockFloor.makePath(A.shelfLoc, p, false));
+    		MockFloor.robots.get(notBusyIndex).setBusy(true);
+    		MockFloor.robots.get(notBusyIndex).setShelf(A);
     		return 0;
     	} else {
     		return -1;
@@ -59,8 +67,8 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
      * returns the index of a robot that is not busy
      */
     public static int getAvailableRobotIndex() {
-    	for (int i = 0; i < robots.size(); ++i) {
-    		if (!robots.get(i).isBusy()) {
+    	for (int i = 0; i < MockFloor.robots.size(); ++i) {
+    		if (!MockFloor.robots.get(i).isBusy()) {
     			return i;
     		}
     	}
@@ -81,9 +89,9 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
     	a.charge = 100;
     }
 	public void tick(int count) {
-		for (int i = 0; i < robots.size(); ++i) {
-			if (robots.get(i).isBusy()) {
-				robots.get(i).step();
+		for (int i = 0; i < MockFloor.robots.size(); ++i) {
+			if (MockFloor.robots.get(i).isBusy()) {
+				MockFloor.robots.get(i).step();
 			}
 		}
 		/*

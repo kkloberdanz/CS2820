@@ -19,7 +19,7 @@ public class Robot {
     Path path; // the path robot move
     Point pickerR;
     boolean state;
-    private boolean busy;
+    private boolean busy = false;
     
     public Robot(Point Createlocation){
     	this.busy = false;
@@ -62,11 +62,16 @@ public class Robot {
      * takes one step along path. when finished, sets busy to false
      */
     public void step() {
+		s.shelfLoc = path.getPos();
+		
+    	if (Debug.verboseLevel() >= 1) {
+    		System.out.println("Robot " + NumberofRobot + " is moving to: " + s.shelfLoc.getX() + ", " + s.shelfLoc.getY());
+    	}
+
     	this.path = path.step();
     	
     	// TODO: This is a dummy placeholder.
     	// This will not work. This needs to access the static shelves from MockFloor, and set the location there
-		s.shelfLoc = location;
 		
 		MockFloor.setShelf(s);
 

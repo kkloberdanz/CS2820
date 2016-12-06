@@ -66,7 +66,7 @@ public class MockFloor implements Floor, Tick{
     public static void setShelf(Shelf s) {
     	shelves.put(s.getID(), s);
     }
-    
+        
     /**
      * @author Kyle Kloberdanz
      * If the item is not in the warhouse, then order it
@@ -102,6 +102,10 @@ public class MockFloor implements Floor, Tick{
         usedLocations.add(packer);
         usedLocations.add(shippingDock);
         usedLocations.add(receivingDock);
+    }
+    
+    public static Path makePath(Point A, Point B) {
+    	return makePath(A, B, false);
     }
     /**
      * this will return a path from point A to point B

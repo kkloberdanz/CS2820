@@ -15,7 +15,7 @@ public class Debug {
 	}
 	*/
 	
-	private static int level = 5;
+	private static int level = 1;
 	
 	/**
 	 * @author Kyle Kloberdanz
