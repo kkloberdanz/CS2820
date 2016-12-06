@@ -76,7 +76,7 @@ public class MockFloor implements Floor, Tick{
      */
     public static boolean OrderFromSupplier(Item item, int num_items) {
     	for (Integer i : shelves.keySet()) {
-    		if (shelves.get(i).size() < shelves.get(i).capacity()) {
+    		if ((shelves.get(i).size() < shelves.get(i).capacity()) && (!shelves.get(i).isBeingCarried()) ) {
     			shelves.get(i).addItem(item, num_items);
 				System.out.println("We have ordered some " + item.get_name() + " from the supplier, placed on Shelf " + i + ".");
 				System.out.println("Current size of Shelf " + i + " is " + shelves.get(i).size());
