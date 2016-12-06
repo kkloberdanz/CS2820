@@ -54,6 +54,13 @@ public class Shelf implements Cloneable {
 		return false;
 	}
 	
+	public void setBeingCarried(boolean b) {
+		this.beingCarried = b;
+	}
+	
+	public boolean isBeingCarried() {
+		return this.beingCarried;
+	}
 	
 	/**
 	 * adds an amount of an item to the shelf

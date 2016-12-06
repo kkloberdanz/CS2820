@@ -61,6 +61,7 @@ public class Robot {
     
     /**
      * @author Kyle Kloberdanz
+     * @author Tyler Foster
      * takes one step along path. when finished, sets busy to false
      */
     public void step() {
@@ -73,15 +74,12 @@ public class Robot {
     	this.path = path.step();
     	this.setRobotlocation(new Point((int)s.shelfLoc.getX(), (int)s.shelfLoc.getY())); // author Tyler Foster
     	
-    	// TODO: This is a dummy placeholder.
-    	// This will not work. This needs to access the static shelves from MockFloor, and set the location there
-		
 		MockFloor.setShelf(s);
 
     	// then done
-    	if (path == null) {
+    	if (this.path == null) {
     		this.busy = false;
-    		this.s.beingCarried = false; // set the shelf down
+        	MockFloor.getShelves().get(s.getID()).setBeingCarried(false);
     	}
     }
     

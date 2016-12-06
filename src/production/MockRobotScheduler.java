@@ -67,6 +67,8 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
     }
     
     public static void returnShelf(Shelf A, Point p, int i) {
+    	// set shelf to being carried here
+    	MockFloor.getShelves().get(A.getID()).setBeingCarried(true);
     	MockFloor.robots.get(i).setPath(MockFloor.makePath(A.shelfLoc, p, false));
     	MockFloor.robots.get(i).setBusy(true);
     	MockFloor.robots.get(i).setShelf(A);
