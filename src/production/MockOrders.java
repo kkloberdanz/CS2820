@@ -18,7 +18,7 @@ public class MockOrders implements Tick {
 	static int id = 1; // keeps track of order ID number
 	static ArrayList<Item> itemDatabase = new ArrayList<Item>();
 	static ArrayList<Integer> itemQuantities = new ArrayList<Integer>();
-
+	static Order finish;//* author haoyang wei help tells the inventory to delete database*//
 	/**
 	 * The constructor for MockOrders; it takes a SimRandom variable, inventory,
 	 * and floor as arguments, and also initializes the orderQueue while
@@ -58,6 +58,7 @@ public class MockOrders implements Tick {
 	 * @return Order
 	 */
 	public static Order getNextOrder(){
+		finish=orderQueue.get(0);
 		return orderQueue.remove(0);
 	}
 	
