@@ -7,6 +7,8 @@ package production;
 
 //import java.awt.Point;
 
+import java.util.*;
+
 public class Master {
 
     /**
@@ -37,7 +39,8 @@ public class Master {
     	if (Debug.verboseLevel() >= 1) {
     		System.out.println("Running Simulation");
     	}
-        
+        Scanner keyboard = new Scanner(System.in);
+
         for (int i = 0; i < 1000; ++i) {
         	
         	System.out.println("\n*************************** TICK " + i + " ******************************");
@@ -47,11 +50,15 @@ public class Master {
         	}*/
         	
             floor.tick(i);
-            inventory.tick(i);
+            //inventory.tick(i);
             orders.tick(i);
             robot.tick(i);
             picker.tick(i);
             belt.tick(i);
+            
+            if (Debug.stepThrough()) {
+            	keyboard.nextLine();
+            }
         }
     }
 }

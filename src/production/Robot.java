@@ -9,6 +9,7 @@ import java.awt.Point;
  *
  * @author Shuhao Liu
  * @author Gary Ridgway -- 11/15/2016 -- changed Location from Object to Point so it would work with the MockFloor
+ * @author Kyle Kloberdanz
  */
 public class Robot {
 	int NumberofRobot; //Added this field back for usage by other methods
@@ -89,7 +90,7 @@ public class Robot {
 	    	if (this.path == null) {
 	        	MockFloor.getShelves().get(s.getID()).setBeingCarried(false);
 	        	
-	        	// TODO: Return Robot to its charger
+	        	// Returns Robot to its charger
 	        	if (!this.location.equals(MockFloor.chargers.get(this.NumberofRobot).charLoc)) {
 	        		this.path = MockFloor.makePath(this.location, MockFloor.chargers.get(this.NumberofRobot).charLoc);
 	        		if (Debug.verboseLevel() >= 2) {

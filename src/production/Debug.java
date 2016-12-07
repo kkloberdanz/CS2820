@@ -15,6 +15,7 @@ public class Debug {
 	}
 	*/
 	
+	private static boolean step = true;
 	private static int level = 3;
 	
 	/**
@@ -34,6 +35,10 @@ public class Debug {
 			
 		}
 		level = l;
+	}
+	
+	public static boolean stepThrough() {
+		return step;
 	}
 
 }
