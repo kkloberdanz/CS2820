@@ -15,7 +15,7 @@ public class Debug {
 	}
 	*/
 	
-	private static boolean step = false;
+	private static boolean step = true;
 	private static int level = 3;
 	
 	/**
