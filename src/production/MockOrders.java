@@ -103,14 +103,11 @@ public class MockOrders implements Tick {
 		int numItems = (1+randSource.nextInt(5));
 		for (int i = 0; i < numItems; i++){
 			Item myItem = randomItem();
-			/*if (locateItem(myItem) == false) {
-				MockFloor.OrderFromSupplier(myItem, 3);
-			}*/
 			returnOrder.addItem(myItem,numItems);
-			/* author haoyang wei add item with quantity*/
 		}
 		returnOrder.orderID = id;
 		id += 1;
+		System.out.println("A new order has come in.");
 		return returnOrder;
 	}
 

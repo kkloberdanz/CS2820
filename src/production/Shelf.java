@@ -120,19 +120,17 @@ public class Shelf implements Cloneable {
 		
 		//return false if you try and remove too many items
 		if(contents.get(I.get_name())-num < 0){
-			System.out.println("Can't remoThis shelf does not have enough of the requested Item");
+			System.out.println("Can't remoThis shelf does not have enough of the requested Item.");
 			return false;
 		}
 		
-		//return true if successfully removed
-		System.out.println("~~~~~~~~~~~~~~~****"+contents.containsKey(I.get_name())+"*****~~~~~~~~~~~~~~~~~~~~~~~~");
 		//only remove the number we want
 		contents.put(I.get_name(), contents.get(I.get_name())-num);
 		if(contents.get(I.get_name())==0){
 			contents.remove(I.get_name());
+			System.out.println("Last " + I.get_name() + " was removed from Shelf " + this.getID() + ".");
 		}
 		currItems -= num;
-		System.out.println("~~~~~~~~~~~~~~~****"+contents.containsKey(I.get_name())+"*****~~~~~~~~~~~~~~~~~~~~~~~~");
 		return true;
 	}
 	/**

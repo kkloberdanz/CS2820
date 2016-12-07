@@ -333,7 +333,7 @@ public class Picker implements Tick, Cloneable {
 		if (valid != -1) {
 			robotIndex = valid;
 			if (Debug.verboseLevel() >= 1) {
-				System.out.println("Robot " + robotIndex + " is going to retrieve shelf " + s.getID());
+				System.out.println("Robot " + robotIndex + " is going to retrieve shelf " + s.getID() + ".");
 			}
 		}
 	};

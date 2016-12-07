@@ -80,6 +80,7 @@ public class Inventory implements Tick{
     	Object randomKey = keyList[rand.nextInt(keyList.length)];
     	if (MockFloor.getShelves().get(randomKey).beingCarried == false) {
     		if (MockFloor.getShelves().get(randomKey).addItem(I, times)) {
+    			System.out.println(times + " " + I.get_name() + "s have been restocked.");
     			return true;
     		}
     	}
@@ -113,16 +114,6 @@ public class Inventory implements Tick{
     	return myQuantities;
     }
     
-    
-    /**
-     * Initializes items onto every shelf in the warehouse.
-     * @author Tyler Foster
-     */
-    
-    public static void initializeStock() {
-    	
-    }
-
     /**
      * initial the database and add the items into database
      * @author haoyang wei
