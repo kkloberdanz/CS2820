@@ -160,10 +160,11 @@ public class Inventory implements Tick{
             		database.put(product.get_id_number(),product);
                     Inventory.quantity.put(product.get_id_number(),quantity);
             	}
-            	checkedshelf.add(temp);
+            	
             	break;
             }
             else{
+                checkedshelf.add(temp);
             	count++;
 }
             }
