@@ -40,8 +40,9 @@ public class Master {
 			System.out.println("\nRunning Simulation");
 		}
 		Scanner keyboard = new Scanner(System.in);
-
-		for (int i = 0; i < 1000; ++i) {
+		String exitFlag = "a";
+		
+		for (int i = 0; !exitFlag.equals("q") ; ++i) {
 
 			System.out.println("\n*************************** TICK " + i + " ******************************");
 
@@ -58,11 +59,12 @@ public class Master {
 			belt.tick(i);
 
 			if (Debug.stepThrough()) {
-				keyboard.nextLine();
+				exitFlag = keyboard.nextLine();
 			}
 		}
 		System.out.println("####### Completed and Shipped Orders #######");
 		ShippedOrders.shippedOrders();
+		keyboard.close();
 		
 	}
 }
