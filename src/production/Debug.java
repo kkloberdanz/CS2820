@@ -37,6 +37,13 @@ public class Debug {
 		level = l;
 	}
 	
+	/**
+	 * @author Kyle Kloberdanz
+	 * @return step
+	 * 
+	 * Used in master to set if you want to step through the loop by pressing ENTER
+	 * for each tick
+	 */
 	public static boolean stepThrough() {
 		return step;
 	}
