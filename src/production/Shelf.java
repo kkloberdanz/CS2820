@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 
 public class Shelf implements Cloneable {
-	HashMap<Item,Integer> contents;
+	HashMap<String,Integer> contents;
 	boolean beingCarried;
 	Point shelfLoc;
 	int capacity;
@@ -45,9 +45,9 @@ public class Shelf implements Cloneable {
 	 * @return boolean
 	**/
 	
-	public boolean contains(int I) {
-		for (Item i : contents.keySet()) {
-			if (I == i.get_id_number()) {
+	public boolean contains(String I) {
+		for (String i : contents.keySet()) {
+			if (I == i) {
 				return true;
 			}
 		}
@@ -83,12 +83,12 @@ public class Shelf implements Cloneable {
 		if (contents.containsKey(I)){
 			//adds the number of given items to the already 
 			//listed items if the item already exists in the hashmap
-                    contents.put(I, contents.get(I)+num);
+                    contents.put(I.get_name(), contents.get(I)+num);
                     currItems+=num;
                     return true;
                 }else{
                 	//adds item to the hashmap
-                    contents.put(I,num);
+                    contents.put(I.get_name(),num);
                     currItems+=num;
                     return true;
                 }
@@ -109,18 +109,23 @@ public class Shelf implements Cloneable {
 			contents.remove(I);
 			currItems -= num;
 			return true;
-		}
-		/*//return false if the item is not in the hashmap
+		}/*
+		
+		//return false if the item is not in the hashmap
 		if(!contents.containsKey(I)){
+			System.out.println("Can't remove an Item that does not exist in this shelf!");
 			return false;
 		}
 		//return false if you try and remove too many items
 		if(contents.get(I)-num < 0){
+			System.out.println("Can't remoThis shelf does not have enough of the requested Item");
 			return false;
 		}*/
 		//return true if successfully removed
+		System.out.println("~~~~~~~~~~~~~~~****"+contents.containsKey(I)+"*****~~~~~~~~~~~~~~~~~~~~~~~~");
 		contents.remove(I);
 		currItems -= num;
+		System.out.println("~~~~~~~~~~~~~~~****"+contents.containsKey(I)+"*****~~~~~~~~~~~~~~~~~~~~~~~~");
 		return true;
 	}
 	/**
