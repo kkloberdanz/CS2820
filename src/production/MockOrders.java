@@ -106,7 +106,8 @@ public class MockOrders implements Tick {
 			/*if (locateItem(myItem) == false) {
 				MockFloor.OrderFromSupplier(myItem, 3);
 			}*/
-			returnOrder.addItem(myItem);
+			returnOrder.addItem(myItem,numItems);
+			/* author haoyang wei add item with quantity*//
 		}
 		returnOrder.orderID = id;
 		id += 1;
