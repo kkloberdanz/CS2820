@@ -199,7 +199,9 @@ public class Picker implements Tick, Cloneable {
 		boolean atStation = false;
 		for (int i = 0; i < MockFloor.robots.size(); i++) {
 			Robot r = MockFloor.robots.get(i);
-			System.out.println(r.toString());
+			if (Debug.verboseLevel() >= 3) {
+				System.out.println(r.toString());
+			}
 			double x = r.getLocation(r).getX();
 			double y = r.getLocation(r).getY();
 			if ((x == 0.0) && (y == 1.0) && (neededItem != null)) {
@@ -211,8 +213,10 @@ public class Picker implements Tick, Cloneable {
 		// order from the queue.
 		if (currentOrder == null) {
 			updateOrder(MockOrders.getNextOrder());
-			System.out.println("\nPicker is starting a new order.\n");
-			System.out.println(currentOrder.toString());
+			if (Debug.verboseLevel() >= 1) {
+				System.out.println("\nPicker is starting a new order.\n");
+				System.out.println(currentOrder.toString());
+			}
 			return;
 		}
 
@@ -220,8 +224,10 @@ public class Picker implements Tick, Cloneable {
 		// move it to the bin.
 		if (currentOrder.isFilled()) {
 			moveFinishedOrder();
-			System.out.println("\nPicker put the completed order in the bin.");
-			System.out.println(currentOrder.toString());
+			if (Debug.verboseLevel() >= 1) {
+				System.out.println("\nPicker put the completed order in the bin.");
+				System.out.println(currentOrder.toString());
+			}
 			currentOrder = null;
 			return;
 		}
@@ -230,7 +236,9 @@ public class Picker implements Tick, Cloneable {
 		// point(0,1) is occupied; if not, then just remain idle for this
 		// tick while waiting for the robot to arrive
 		if (!atStation && currentShelf != null) {
-			System.out.println("Waiting on a robot to retrieve a " + neededItem.get_name() + ".");
+			if (Debug.verboseLevel() >= 3) {
+				System.out.println("Picker is waiting on Robot " + robotIndex + " to retrieve a " + neededItem.get_name() + ".");
+			}
 			return;
 		}
 
@@ -239,7 +247,9 @@ public class Picker implements Tick, Cloneable {
 		// current order, and then set the current shelf equal to null
 		if (atStation && (currentShelf != null)) {
 			transferItems(neededItem, 1, currentShelf);
-			System.out.println("A " + neededItem.get_name() + " has been transferred to the current order.");
+			if (Debug.verboseLevel() >= 1) {
+				System.out.println("A " + neededItem.get_name() + " has been transferred to the current order.");
+			}
 			shelfToReturn = currentShelf;
 			currentShelf = null;
 			return;
@@ -250,7 +260,9 @@ public class Picker implements Tick, Cloneable {
 		// but are simply waiting to move the shelf, so send the shelf back
 		// to where it came from
 		if (atStation && (currentShelf == null)) {
-			System.out.println("Sending robot " + robotIndex + " back.");
+			if (Debug.verboseLevel() >= 2) {
+				System.out.println("Sending Robot " + robotIndex + " back.");
+			}
 			MockRobotScheduler.returnShelf(shelfToReturn, returnLocation, robotIndex);
 			shelfToReturn = null;
 			robotIndex = -1;
@@ -265,7 +277,9 @@ public class Picker implements Tick, Cloneable {
 			if (myItem.inOrder()) {
 				continue;
 			}
-			System.out.println("The picker is looking for a " + myItem.get_name());
+			if (Debug.verboseLevel() >= 3) {
+				System.out.println("The picker is looking for a " + myItem.get_name());
+			}
 			nextItem = myItem;
 			break; // This means we found an item not in the order
 		}
@@ -283,7 +297,9 @@ public class Picker implements Tick, Cloneable {
 		// If the shelf is not available then the item does not exist,
 		// and inventory needs to restock
 		if (s == null) {
-			System.out.println("Could not find a " + nextItem.get_name() + " from the shelves.");
+			if (Debug.verboseLevel() >= 1) {
+				System.out.println("Could not find a " + nextItem.get_name() + " from the shelves.");
+			}
 			Inventory.restockItem(nextItem);
 			return;
 		}
@@ -311,7 +327,9 @@ public class Picker implements Tick, Cloneable {
 		
 		if (valid != -1) {
 			robotIndex = valid;
-			System.out.println("Robot " + robotIndex + " is going to retrieve shelf " + s.getID());
+			if (Debug.verboseLevel() >= 1) {
+				System.out.println("Robot " + robotIndex + " is going to retrieve shelf " + s.getID());
+			}
 		}
 	};
 }

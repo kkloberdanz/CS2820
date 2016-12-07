@@ -38,7 +38,7 @@ public class Master {
     		System.out.println("Running Simulation");
     	}
         
-        for (int i = 0; i < 100; ++i) {
+        for (int i = 0; i < 1000; ++i) {
         	
         	System.out.println("\n*************************** TICK " + i + " ******************************");
         	

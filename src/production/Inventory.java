@@ -68,11 +68,22 @@ public class Inventory implements Tick{
     	}
     }
     
-    public static void restockItem(Item I) {
+    /**
+     * Restocks the requested item on a random shelf.
+     * 
+     * @author Tyler Foster
+     * @param I
+     */
+    public static boolean restockItem(Item I) {
     	int times = 1 + rand.nextInt(4);
     	Object[] keyList = (MockFloor.getShelves().keySet().toArray());
     	Object randomKey = keyList[rand.nextInt(keyList.length)];
-    	boolean valid = MockFloor.getShelves().get(randomKey).addItem(I, times);
+    	if (MockFloor.getShelves().get(randomKey).beingCarried == false) {
+    		if (MockFloor.getShelves().get(randomKey).addItem(I, times)) {
+    			return true;
+    		}
+    	}
+    	return false;
     }
     
     /**

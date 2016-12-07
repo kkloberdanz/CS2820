@@ -55,7 +55,15 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
     		MockFloor.robots.get(notBusyIndex).setShelf(A);
     		A.beingCarried = true;
     		return notBusyIndex;
-    	} else {
+    	} 
+    	else if (A.beingCarried == false){
+    		if (Debug.verboseLevel() >= 2) {
+    			System.out.println("The requested shelf is currently being moved.");
+    		}
+    		return -1;
+    	}
+    	
+    	else {
     		return -1;
     	}
     	/*
