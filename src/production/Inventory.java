@@ -143,11 +143,16 @@ public class Inventory implements Tick{
     */
 
     public static void putitemonshelf(Item product,int quantity){
-    	int temp=0;
-        while(temp<loc.length){
+    	int count=0;
+    	ArrayList<Integer> checkedshelf=new ArrayList<>();
+        while(count<loc.length){
+        	int temp=rand.nextInt(loc.length);
+        	while(checkedshelf.contains(temp)){
+        		temp=rand.nextInt(loc.length);
+        	}
         	Shelf i= MockFloor.getShelves().get(temp);
             if(i.addItem(product,quantity)){
-            	location.addquantity(loc[temp], product.get_id_number(), quantity);
+            	location.addquantity(loc[count], product.get_id_number(), quantity);
             	if(database.containsKey(product.get_id_number())){
             	Inventory.quantity.put(product.get_id_number(),Inventory.quantity.get(product.get_id_number())+quantity);
             	}
@@ -155,13 +160,14 @@ public class Inventory implements Tick{
             		database.put(product.get_id_number(),product);
                     Inventory.quantity.put(product.get_id_number(),quantity);
             	}
+            	checkedshelf.add(temp);
             	break;
             }
             else{
-            	temp++;
+            	count++;
 }
             }
-        if(temp==loc.length){
+        if(count==loc.length){
         	System.out.println("No shelf can store these items");
         
         }
@@ -214,9 +220,14 @@ public class Inventory implements Tick{
         return null;
     }
     
-    // NOTE: Commented out the for loop, this is not needed for the tick. @author Tyler Foster
     public void tick(int count){
-        //putitemonshelf(obtainItems().get(rand.nextInt(obtainItems().size())),rand.nextInt(10));
+        putitemonshelf(obtainItems().get(rand.nextInt(obtainItems().size())),rand.nextInt(10));
+        removeitems(obtainItems().get(rand.nextInt(obtainItems().size())),1);
+        if(MockOrders.finish!=null){
+        for(int i=0;i<MockOrders.finish.orderItems.size();i++){
+        	Item temp=MockOrders.finish.orderItems.get(i);
+        	Inventory.removeitems(temp,1);
+        }
     }
     
 
