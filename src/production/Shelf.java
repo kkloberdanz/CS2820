@@ -107,26 +107,28 @@ public class Shelf implements Cloneable {
 	public boolean removeItem(Item I, int num, boolean removeAllFlag){
 		//removes all if the removeAllFlag is true
 		if(removeAllFlag){
-			contents.remove(I);
+			contents.remove(I.get_name());
 			currItems -= num;
 			return true;
-		}/*
+		}
 		
 		//return false if the item is not in the hashmap
-		if(!contents.containsKey(I)){
+		if(!contents.containsKey(I.get_name())){
 			System.out.println("Can't remove an Item that does not exist in this shelf!");
 			return false;
 		}
+		
 		//return false if you try and remove too many items
-		if(contents.get(I)-num < 0){
+		if(contents.get(I.get_name())-num < 0){
 			System.out.println("Can't remoThis shelf does not have enough of the requested Item");
 			return false;
-		}*/
+		}
+		
 		//return true if successfully removed
-		System.out.println("~~~~~~~~~~~~~~~****"+contents.containsKey(I)+"*****~~~~~~~~~~~~~~~~~~~~~~~~");
-		contents.remove(I);
+		System.out.println("~~~~~~~~~~~~~~~****"+contents.containsKey(I.get_name())+"*****~~~~~~~~~~~~~~~~~~~~~~~~");
+		contents.remove(I.get_name());
 		currItems -= num;
-		System.out.println("~~~~~~~~~~~~~~~****"+contents.containsKey(I)+"*****~~~~~~~~~~~~~~~~~~~~~~~~");
+		System.out.println("~~~~~~~~~~~~~~~****"+contents.containsKey(I.get_name())+"*****~~~~~~~~~~~~~~~~~~~~~~~~");
 		return true;
 	}
 	/**

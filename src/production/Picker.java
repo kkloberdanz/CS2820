@@ -168,11 +168,15 @@ public class Picker implements Tick, Cloneable {
 	public static void transferItems(Item i, int num, Shelf S) {
 		boolean validTransfer = MockFloor.getShelves().get(S.getID()).removeItem(i, num, false);
 		if (validTransfer) {
+			MockFloor.setShelf(S);
 			for (int j = 0; j < currentOrder.orderItems.size(); j++) {
 				if (currentOrder.orderItems.get(j).get_id_number() == i.get_id_number()) {
 					currentOrder.orderItems.get(j).setInOrder();
 				}
 			}
+		}
+		else {
+			Inventory.restockItem(i);
 		}
 	}
 
