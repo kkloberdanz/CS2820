@@ -72,6 +72,7 @@ public class Shelf implements Cloneable {
 	
 	/**
 	 * adds an amount of an item to the shelf
+	 * 
 	 * @param Item I
 	 * @param int num
 	 * @return boolean
