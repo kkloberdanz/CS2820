@@ -188,7 +188,6 @@ public class Inventory implements Tick{
                 return false;
             }
             else{
-                removeitemfromshelf(product,quantity);
                 Inventory.quantity.put(product.get_id_number(),Inventory.quantity.get(product.get_id_number())-quantity);
                 if(Inventory.quantity.get(product.get_id_number())==0){
                     database.remove(product.get_id_number());
