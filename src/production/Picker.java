@@ -138,7 +138,7 @@ public class Picker implements Tick, Cloneable {
 	public static Object locateItem(Item I) {
 		Object[] keys = MockFloor.getShelves().keySet().toArray();
 		for (Object o : keys) {
-			if (MockFloor.getShelves().get(o).contains(I.get_id_number())) {
+			if (MockFloor.getShelves().get(o).contains(I.get_name())) {
 				return o;
 			}
 		}

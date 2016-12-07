@@ -73,7 +73,7 @@ public class MockOrders implements Tick {
 	public static boolean locateItem(Item I) {
 		for (Integer i : MockFloor.getShelves().keySet()) {
 			Shelf s = MockFloor.getShelves().get(i);
-			if (s.contains(I.get_id_number())) {
+			if (s.contains(I.get_name())) {
 				return true;
 			}
 		}
