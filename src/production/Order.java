@@ -15,6 +15,7 @@ public class Order implements Tick, Cloneable {
 	int orderID;					// order ID number
 	ArrayList<Item> orderItems;		// list of items included in order
 	ArrayList<Item> filledItems;	// list of items that have been filled
+	ArrayList<Integer> orderQuantities;// author by haoyang wei quantity of the item in the order//
 	boolean isFilled;				// has the order been filled?
 	
 	public Order () {
@@ -22,6 +23,7 @@ public class Order implements Tick, Cloneable {
 		this.orderID = 0;
 		this.orderAddress = null;
 		this.orderItems = new ArrayList<Item>();
+		this.orderQuantities=new ArrayList<Integer>();
 		this.filledItems = new ArrayList<Item>();
 	}
 	
@@ -30,6 +32,7 @@ public class Order implements Tick, Cloneable {
 		this.orderID = o.orderID;
 		this.orderAddress = o.orderAddress;
 		this.orderItems = o.orderItems;
+		this.orderQuantities=o.orderQuantities;
 		this.filledItems = o.filledItems;
 	}
 	
@@ -48,9 +51,10 @@ public class Order implements Tick, Cloneable {
 		orderID = idNum;
 	}
 	
-	// Adds an item to the list of items required for this order
-	public void addItem(Item a) {
+	// Adds an item to the list of items required for this order, adn the quantity to the list of quantities
+	public void addItem(Item a,int q) {
 		orderItems.add(a);
+		orderQuantities.add(q);
 	}
 	
 	// Adds an item to the list of filled items for the order
