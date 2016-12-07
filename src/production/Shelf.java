@@ -45,9 +45,9 @@ public class Shelf implements Cloneable {
 	 * @return boolean
 	**/
 	
-	public boolean contains(Item I) {
+	public boolean contains(int I) {
 		for (Item i : contents.keySet()) {
-			if (i == I) {
+			if (I == i.get_id_number()) {
 				return true;
 			}
 		}
@@ -110,14 +110,14 @@ public class Shelf implements Cloneable {
 			currItems -= num;
 			return true;
 		}
-		//return false if the item is not in the hashmap
+		/*//return false if the item is not in the hashmap
 		if(!contents.containsKey(I)){
 			return false;
 		}
 		//return false if you try and remove too many items
 		if(contents.get(I)-num < 0){
 			return false;
-		}
+		}*/
 		//return true if successfully removed
 		contents.remove(I);
 		currItems -= num;

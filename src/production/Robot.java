@@ -67,7 +67,7 @@ public class Robot {
     public void step() {
     	
     	this.charge--;
-    	if (this.charge >= 0) {
+    	if (this.charge <= 0) {
     		
     		// If this happens, the robot is dead.
     		if (Debug.verboseLevel() >= 1) {
@@ -99,8 +99,8 @@ public class Robot {
 	        	} else {
 	        		if (Debug.verboseLevel() >= 2) {
 	        			System.out.println("Robot: " + this.NumberofRobot + " is back at its charger");
-	        			this.charge = 100;
 	        		}
+	        		this.charge = 100;
 	        		this.busy = false;
 	        	}
 	    	}

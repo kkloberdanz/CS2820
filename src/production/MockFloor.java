@@ -76,22 +76,19 @@ public class MockFloor implements Floor, Tick{
      */
     public static boolean OrderFromSupplier(Item item, int num_items) {
     	for (Integer i : shelves.keySet()) {
-<<<<<<< HEAD
-    		if ((shelves.get(i).size() < shelves.get(i).capacity()) && (!shelves.get(i).isBeingCarried()) ) {
-=======
-    		if (shelves.get(i).size()+num_items < shelves.get(i).capacity()) {
->>>>>>> 85d11579c73a88f5124b83067fb7bb0f95ce012b
+    		if ((shelves.get(i).size()+num_items < shelves.get(i).capacity()) && (!shelves.get(i).isBeingCarried()) ) {
     			shelves.get(i).addItem(item, num_items);
-				System.out.println("We have ordered some " + item.get_name() + " from the supplier, placed on Shelf " + i + ".");
-				System.out.println("Current size of Shelf " + i + " is " + shelves.get(i).size());
+    			System.out.println("We have ordered some " + item.get_name() + " from the supplier, placed on Shelf " + i + ".");
+    			System.out.println("Current size of Shelf " + i + " is " + shelves.get(i).size());
     			return true;
     		}
     	}
     	//if (Debug.verboseLevel() >= 1) {
-    		System.out.println("Error: We are out of shelves!");
+    	System.out.println("Error: We are out of shelves!");
     	//}
     	return false;
     }
+
 
     /**
      *This Function will set the currently used locations by objects in the area. 
@@ -248,7 +245,7 @@ public class MockFloor implements Floor, Tick{
      * This implements Tick
      */
     public void tick(int count){
-    	if (Debug.verboseLevel()>=2){
+    	if (Debug.verboseLevel()>=4){
     		for (charger c:chargers){
     			System.out.println(c.toString());
     		}

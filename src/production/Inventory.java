@@ -15,6 +15,7 @@ public class Inventory implements Tick{
     public static HashMap<Integer,Item> database;
     public static HashMap<Integer,Integer> quantity;
     public static MockFloor Floor;
+    public static ArrayList<Item> stock;
     public static SimRandom rand; // method added by @author Tyler Foster to give randomness to quantities
     
     public static location[] loc=new location[MockFloor.getShelves().size()];
@@ -51,12 +52,27 @@ public class Inventory implements Tick{
      * Inventory class that takes SimRandom variable as a constructor
      * @author Tyler Foster
      */
-    public Inventory(SimRandom rand, MockFloor F){
-    	Inventory.rand = rand;
+    public Inventory(SimRandom randSource, MockFloor F){
+    	Inventory.rand = randSource;
     	Inventory.Floor = F;
-    	ArrayList<Item> inputItems = obtainItems();
-    	ArrayList<Integer> inputQuantities = obtainQuantities(rand);
-    	Inventory.initialize(inputItems, inputQuantities);
+    	stock = new ArrayList<Item>();
+    	for (int i = 0; i < CatItem.catalog.length; i++) {
+    		int times = 1 + rand.nextInt(4);
+    		//for (int j = 0; j < times; j++) {
+    			Item n = new Item(CatItem.catalog[i].id, CatItem.catalog[i].description);
+    			Object[] keyList = (MockFloor.getShelves().keySet().toArray());
+    			Object randomKey = keyList[rand.nextInt(keyList.length)];
+    			boolean valid = MockFloor.getShelves().get(randomKey).addItem(n, times);
+    			System.out.println(times + " " + n.get_name() + "s were added to Shelf " + MockFloor.getShelves().get(randomKey).getID());
+    		//}
+    	}
+    }
+    
+    public static void restockItem(Item I) {
+    	int times = 1 + rand.nextInt(4);
+    	Object[] keyList = (MockFloor.getShelves().keySet().toArray());
+    	Object randomKey = keyList[rand.nextInt(keyList.length)];
+    	boolean valid = MockFloor.getShelves().get(randomKey).addItem(I, times);
     }
     
     /**
@@ -84,6 +100,16 @@ public class Inventory implements Tick{
     		myQuantities.add(rand.nextInt(5));
     	}
     	return myQuantities;
+    }
+    
+    
+    /**
+     * Initializes items onto every shelf in the warehouse.
+     * @author Tyler Foster
+     */
+    
+    public static void initializeStock() {
+    	
     }
 
     /**
@@ -179,7 +205,7 @@ public class Inventory implements Tick{
     
     // NOTE: Commented out the for loop, this is not needed for the tick. @author Tyler Foster
     public void tick(int count){
-        putitemonshelf(obtainItems().get(rand.nextInt(obtainItems().size())),rand.nextInt(10));
+        //putitemonshelf(obtainItems().get(rand.nextInt(obtainItems().size())),rand.nextInt(10));
     }
     
 

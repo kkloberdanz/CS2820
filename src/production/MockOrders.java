@@ -72,7 +72,7 @@ public class MockOrders implements Tick {
 	public static boolean locateItem(Item I) {
 		for (Integer i : MockFloor.getShelves().keySet()) {
 			Shelf s = MockFloor.getShelves().get(i);
-			if (s.contains(I)) {
+			if (s.contains(I.get_id_number())) {
 				return true;
 			}
 		}
@@ -102,9 +102,9 @@ public class MockOrders implements Tick {
 		int numItems = (1+randSource.nextInt(5));
 		for (int i = 0; i < numItems; i++){
 			Item myItem = randomItem();
-			if (locateItem(myItem) == false) {
+			/*if (locateItem(myItem) == false) {
 				MockFloor.OrderFromSupplier(myItem, 3);
-			}
+			}*/
 			returnOrder.addItem(myItem);
 		}
 		returnOrder.orderID = id;

@@ -38,11 +38,13 @@ public class Master {
     		System.out.println("Running Simulation");
     	}
         
-        for (int i = 0; i < 20; ++i) {
+        for (int i = 0; i < 100; ++i) {
         	
-        	if (Debug.verboseLevel() >= 5) {
+        	System.out.println("\n*************************** TICK " + i + " ******************************");
+        	
+        	/*if (Debug.verboseLevel() >= 5) {
         		System.out.println("Current Count = " + i);
-        	}
+        	}*/
         	
             floor.tick(i);
             inventory.tick(i);

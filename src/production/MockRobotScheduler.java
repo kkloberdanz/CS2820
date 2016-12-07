@@ -67,6 +67,14 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
         */
     }
     
+    /**
+     * Returns the shelf at the picker station to its previous location.
+     * 
+     * @author Tyler Foster
+     * @param A
+     * @param p
+     * @param i
+     */
     public static void returnShelf(Shelf A, Point p, int i) {
     	// set shelf to being carried here
     	MockFloor.getShelves().get(A.getID()).setBeingCarried(true);

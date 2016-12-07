@@ -134,7 +134,18 @@ public class Picker implements Tick, Cloneable {
 	 * @param I
 	 * @return The shelf that the needed item is on.
 	 */
-	public static Shelf locateItem(Item I) {
+	
+	public static Object locateItem(Item I) {
+		Object[] keys = MockFloor.getShelves().keySet().toArray();
+		for (Object o : keys) {
+			if (MockFloor.getShelves().get(o).contains(I.get_id_number())) {
+				return o;
+			}
+		}
+		return null;
+	}
+	
+	/*public static Shelf locateItem(Item I) {
 		for (Integer i : MockFloor.getShelves().keySet()) {
 			Shelf s = MockFloor.getShelves().get(i);
 			if (s.contains(I)) {
@@ -142,7 +153,7 @@ public class Picker implements Tick, Cloneable {
 			}
 		}
 		return null;
-	}
+	}*/
 
 	/**
 	 * This method transfers the desired item from the Shelf at (0,1) to
@@ -266,13 +277,14 @@ public class Picker implements Tick, Cloneable {
 		}
 
 		// At this point, we need to look for the item
-		Shelf s = locateItem(nextItem);
+		Object shelfKey = locateItem(nextItem);
+		Shelf s = MockFloor.getShelves().get(shelfKey);
 
 		// If the shelf is not available then the item does not exist,
 		// and inventory needs to restock
 		if (s == null) {
 			System.out.println("Could not find a " + nextItem.get_name() + " from the shelves.");
-			MockFloor.OrderFromSupplier(nextItem, 3);
+			Inventory.restockItem(nextItem);
 			return;
 		}
 
