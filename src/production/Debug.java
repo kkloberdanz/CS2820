@@ -15,7 +15,7 @@ public class Debug {
 	}
 	*/
 	
-	private static boolean step = false;
+	private static boolean step = true;
 	private static int level = 3;
 	
 	/**
@@ -32,9 +32,8 @@ public class Debug {
 	 */
 	public static void setLevel(int l) {
 		if (l >= 0) {
-			
+			level = l;
 		}
-		level = l;
 	}
 	
 	/**
