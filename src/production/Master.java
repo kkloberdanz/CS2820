@@ -61,5 +61,8 @@ public class Master {
 				keyboard.nextLine();
 			}
 		}
+		System.out.println("####### Completed and Shipped Orders #######");
+		ShippedOrders.shippedOrders();
+		
 	}
 }
