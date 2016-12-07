@@ -19,6 +19,7 @@ public class Robot {
     int charge;
     Shelf s; // the shelf robot need to carry
     Path path; // the path robot move
+    private Path pathToShelf;
     Point pickerR;
     boolean state;
     private boolean busy = false;
@@ -60,6 +61,10 @@ public class Robot {
     	this.path = p;
     }
     
+    public void setPathToShelf(Path p) {
+    	this.pathToShelf = p;
+    }
+    
     /**
      * @author Kyle Kloberdanz
      * @author Tyler Foster
@@ -74,11 +79,19 @@ public class Robot {
     		if (Debug.verboseLevel() >= 1) {
     			System.out.println("Warning: Robot: " + this.NumberofRobot + " is out of charger");
     		}
+    		
+    	} else if (this.pathToShelf != null) {
+    		
+	    	if (Debug.verboseLevel() >= 1) {
+	    		System.out.println("Moving to a shelf: Robot " + NumberofRobot + " is moving to: " + this.pathToShelf.getPos().getX() + ", " + this.pathToShelf.getPos().getY());
+	    	}
+    		this.pathToShelf = pathToShelf.step();
+	    	
     	} else {
 			s.shelfLoc = path.getPos();
 			
 	    	if (Debug.verboseLevel() >= 1) {
-	    		System.out.println("Robot " + NumberofRobot + " is moving to: " + s.shelfLoc.getX() + ", " + s.shelfLoc.getY());
+	    		System.out.println("Has shelf: Robot " + NumberofRobot + " is moving to: " + s.shelfLoc.getX() + ", " + s.shelfLoc.getY());
 	    	}
 	
 	    	this.path = path.step();
