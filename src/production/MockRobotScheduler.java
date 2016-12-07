@@ -51,6 +51,7 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
     	if ((notBusyIndex != -1) && (A.beingCarried == false)) {
         	MockFloor.getShelves().get(A.getID()).setBeingCarried(true);
     		MockFloor.robots.get(notBusyIndex).setPath(MockFloor.makePath(A.shelfLoc, p, false));
+    		MockFloor.robots.get(notBusyIndex).setPathToShelf(MockFloor.makePath(MockFloor.chargers.get(MockFloor.robots.get(notBusyIndex).NumberofRobot).charLoc, A.shelfLoc, false));
     		MockFloor.robots.get(notBusyIndex).setBusy(true);
     		MockFloor.robots.get(notBusyIndex).setShelf(A);
     		A.beingCarried = true;
