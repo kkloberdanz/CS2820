@@ -217,7 +217,7 @@ public class Inventory implements Tick{
         if(MockOrders.finish!=null){
         for(int i=0;i<MockOrders.finish.orderItems.size();i++){
         	Item temp=MockOrders.finish.orderItems.get(i);
-            Item temp1=MockOrders.finish.orderQuantities.get(i);
+            //Item temp1=MockOrders.finish.orderQuantities.get(i);
         	Inventory.removeitems(temp,1);
         }
     }
