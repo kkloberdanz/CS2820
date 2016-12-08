@@ -4,7 +4,11 @@ import java.util.*;
 
 /**
  * 
- * @author Tyler
+ * The MockOrders class controls the flow of orders into the warehouse and to
+ * the Picker. It generates random orders and keeps a queue list before
+ * orders are sent to the Picker.
+ * 
+ * @author Tyler Foster
  *
  */
 
@@ -16,9 +20,9 @@ public class MockOrders implements Tick {
 	static Inventory Inventory;
 	static MockFloor floor;
 	static int id = 1; // keeps track of order ID number
-	static ArrayList<Item> itemDatabase = new ArrayList<Item>();
-	static ArrayList<Integer> itemQuantities = new ArrayList<Integer>();
 	static Order finish;//* author haoyang wei help tells the inventory to delete database*//
+	
+	
 	/**
 	 * The constructor for MockOrders; it takes a SimRandom variable, inventory,
 	 * and floor as arguments, and also initializes the orderQueue while
@@ -79,13 +83,7 @@ public class MockOrders implements Tick {
 		}
 		return false;
 	}
-	
-	
-	public static void initialize() {
-		for (int i = 0; i < CatItem.catalog.length; i++) {
-			
-		}
-	}
+
 	
 	/**
 	 * Uses the local class Address to generate a random Order. It also
@@ -239,8 +237,6 @@ class Address {
 	 */
 	public String createAddress() {
 		String name = chooseName();
-		/*String firstName = chooseFirstName();
-		String lastName = chooseLastName();*/
 		String number = new Integer(chooseNumber()).toString();
 		String streetName = chooseStreet();
 		String city = chooseCity();

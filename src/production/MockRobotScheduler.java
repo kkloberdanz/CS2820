@@ -24,12 +24,6 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
     	robots = new ArrayList<Robot>();
     }
     
-    /*
-    public MockRobotScheduler(MockFloor F){
-        this.F = F;
-        robots = F.robots;
-    }
-    */
     
     public void moveRobot(Robot a){
         a.location = a.path.pos;
@@ -57,7 +51,7 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
     		A.beingCarried = true;
     		return notBusyIndex;
     	} 
-    	else if (A.beingCarried == false){
+    	else if (A.beingCarried == true){
     		if (Debug.verboseLevel() >= 2) {
     			System.out.println("The requested shelf is currently being moved.");
     		}
@@ -67,13 +61,6 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
     	else {
     		return -1;
     	}
-    	/*
-        Robot robot = GetAvailableRobot();
-        robot.path = F.makePath(A.shelfLoc,p, false);
-        robot.pickerR = this.picker;
-        robot.s = A;
-        robot.state = true;
-        */
     }
     
     /**
@@ -125,16 +112,6 @@ public class MockRobotScheduler implements RobotScheduler,Tick{
 				MockFloor.robots.get(i).step();
 			}
 		}
-		/*
-	    for(Robot a:robots) {
-	    	if (a.path.next == null){
-	    		a.path = null;
-	    	}
-	    	else{
-	    		a.path.step();
-	    	}
-	    }
-	    */
 	}
     
 }

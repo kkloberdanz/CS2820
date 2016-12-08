@@ -5,94 +5,136 @@ import java.lang.Cloneable;
 
 /**
  * 
- * @author Tyler
+ * The Order class is used to create Order objects. Order objects are created when
+ * orders come into the warehouse.
+ * 
+ * @author Tyler Foster
  *
  */
 
-public class Order implements Tick, Cloneable {
+public class Order implements Cloneable {
 	
 	String orderAddress;			// address of this order
 	int orderID;					// order ID number
 	ArrayList<Item> orderItems;		// list of items included in order
-	ArrayList<Item> filledItems;	// list of items that have been filled
 	ArrayList<Integer> orderQuantities;// author by haoyang wei quantity of the item in the order//
 	boolean isFilled;				// has the order been filled?
 	
+	/**
+	 * Constructor for Order.
+	 *
+	 * @author Tyler Foster
+	 */
 	public Order () {
 		this.isFilled = false;
 		this.orderID = 0;
 		this.orderAddress = null;
 		this.orderItems = new ArrayList<Item>();
 		this.orderQuantities=new ArrayList<Integer>();
-		this.filledItems = new ArrayList<Item>();
 	}
 	
+	/**
+	 * Clones an Order object.
+	 *
+	 * @author Tyler Foster
+	 * @param o
+	 */
 	public Order(Order o) {
 		this.isFilled = o.isFilled;
 		this.orderID = o.orderID;
 		this.orderAddress = o.orderAddress;
 		this.orderItems = o.orderItems;
 		this.orderQuantities=o.orderQuantities;
-		this.filledItems = o.filledItems;
 	}
 	
-	public void tick(int count) {
-		// TODO: Do something with tick
-	}
-	
-	// Updates the address of the order
+	/**
+	 * Setter method that updates the order of the address.
+	 *
+	 * @author Tyler Foster
+	 * @param address
+	 */
 	public void updateAddress(String address){
 		orderAddress = address;
 	}
 	
-	
-	// Updates the id number of the order
+	/**
+	 * Setter method that updates the id of the order.
+	 * 
+	 * @author Tyler Foster
+	 * @param idNum
+	 */
 	public void updateID(int idNum){
 		orderID = idNum;
 	}
 	
-	// Adds an item to the list of items required for this order, adn the quantity to the list of quantities
+	/**
+	 * Adds an item to the order list.
+	 * 
+	 * @author Tyler Foster
+	 * @param a
+	 * @param q
+	 */
 	public void addItem(Item a,int q) {
 		orderItems.add(a);
 		orderQuantities.add(q);
 	}
 	
-	// Adds an item to the list of filled items for the order
-	public void fillItem(Item a) {
-		filledItems.add(a);
-	}
-	
-	// Removes the item from the list of items required for this order
+	/**
+	 * Removes an item from order list.
+	 * 
+	 * @author Tyler Foster
+	 * @param a
+	 */
 	public void removeItem(Item a) {
 		orderItems.remove(a);
 	}
-	
-	// Queries on whether or not the item is required for this order
-	public boolean containsItem(Item a) {
-		return orderItems.contains(a);
-	}
-	
-	// Returns the address the order is being shipped to
+
+	/**
+	 * Getter method that returns the address stored in the order.
+	 *
+	 * @author Tyler Foster
+	 * @return The string containing the order's address.
+	 */
 	public String getAddress() {
 		return orderAddress;
 	}
 	
-	// Returns the list of items within this order
+	/**
+	 * Getter method that returns the ArrayList of items in the order.
+	 *
+	 * @author Tyler Foster
+	 * @return The ArrayList containing the item's orders.
+	 */
 	public ArrayList<Item> getItems() {
 		return orderItems;
 	}
 	
-	// Updates the status of the isFilled boolean
+	/**
+	 * Setter method that sets the status of the order as filled.
+	 *
+	 * @author Tyler Foster
+	 */
 	public void updateFilled(){
 		isFilled = true;
 	}
 	
-	// Returns the status of the isFilled boolean
+	/**
+	 * Getter method that returns the boolean on whether or not
+	 * the order has been filled.
+	 *
+	 * @author Tyler Foster
+	 * @return Boolean determining whether or not order is filled.
+	 */
 	public boolean isFilled(){
 		return isFilled;
 	}
 	
-	// This method converts the order object into a string
+	/**
+	 * Converts the order's contents into a legible set of string lines.
+	 * 
+	 * @author Tyler Foster
+	 * @return String
+	 */
 	@Override
 	public String toString(){
 		String output = "";

@@ -1,8 +1,24 @@
 package production;
 
 import java.awt.Point;
-import java.lang.Cloneable;
-import java.util.*;
+
+/**
+ * 
+ * The Picker class controls the interactions between the MockOrders subsystem,
+ * the MockRobotScheduler, and the Belt. On every tick it goes through an
+ * elaborate set of conditions to find out which part of the warehouse it
+ * needs to be interacting with.
+ * 
+ * A rough order:
+ * 1) Retrieve orders from MockOrders
+ * 2) Request shelves from the MockRobotScheduler / MockFloor
+ * 3) Transfer items from shelves into the order
+ * 4) Put the completed orders in a bin for the Belt to take
+ * 
+ * 
+ * @author Tyler Foster
+ *
+ */
 
 public class Picker implements Tick, Cloneable {
 
@@ -134,7 +150,6 @@ public class Picker implements Tick, Cloneable {
 	 * @param I
 	 * @return The shelf that the needed item is on.
 	 */
-	
 	public static Object locateItem(Item I) {
 		Object[] keys = MockFloor.getShelves().keySet().toArray();
 		for (Object o : keys) {
@@ -145,17 +160,6 @@ public class Picker implements Tick, Cloneable {
 		return null;
 	}
 	
-	/*public static Shelf locateItem(Item I) {
-		for (Integer i : MockFloor.getShelves().keySet()) {
-			Shelf s = MockFloor.getShelves().get(i);
-			if (s.contains(I)) {
-				return s;
-			}
-		}
-		return null;
-	}*/
-	//
-
 	/**
 	 * This method transfers the desired item from the Shelf at (0,1) to
 	 * the current order.
@@ -266,7 +270,7 @@ public class Picker implements Tick, Cloneable {
 		// to where it came from
 		if (atStation && (currentShelf == null)) {
 			if (Debug.verboseLevel() >= 2) {
-				System.out.println("Sending Robot " + robotIndex + " back.");
+				System.out.println("Picker sends robot " + robotIndex + " back.");
 			}
 			MockRobotScheduler.returnShelf(shelfToReturn, returnLocation, robotIndex);
 			shelfToReturn = null;
@@ -283,7 +287,7 @@ public class Picker implements Tick, Cloneable {
 				continue;
 			}
 			if (Debug.verboseLevel() >= 3) {
-				System.out.println("The picker is looking for a " + myItem.get_name());
+				System.out.println("Picker is looking for a " + myItem.get_name() + ".");
 			}
 			nextItem = myItem;
 			break; // This means we found an item not in the order
@@ -303,7 +307,7 @@ public class Picker implements Tick, Cloneable {
 		// and inventory needs to restock
 		if (s == null) {
 			if (Debug.verboseLevel() >= 1) {
-				System.out.println("Could not find a " + nextItem.get_name() + " from the shelves.");
+				System.out.println("Picker could not find a " + nextItem.get_name() + " from the shelves.");
 			}
 			Inventory.restockItem(nextItem);
 			return;

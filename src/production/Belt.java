@@ -51,7 +51,7 @@ public class Belt implements Tick{
 				number = number - 1;
 			}else{
 				y = belt.get(4);
-				ship.addFirst(y);
+				ship.addLast(y);
 				belt.remove(4);
 				number = number - 1;
 				if(Debug.verboseLevel() >= 1){

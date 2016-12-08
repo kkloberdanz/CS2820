@@ -10,6 +10,7 @@ import java.awt.Point;
  * @author Shuhao Liu
  * @author Gary Ridgway -- 11/15/2016 -- changed Location from Object to Point so it would work with the MockFloor
  * @author Kyle Kloberdanz
+ * @author Tyler Foster -- 12/5/2016 -- made a few minor adjustments to work in conjunction with Picker
  */
 public class Robot {
 	int NumberofRobot; //Added this field back for usage by other methods
@@ -77,23 +78,22 @@ public class Robot {
     		
     		// If this happens, the robot is dead.
     		if (Debug.verboseLevel() >= 1) {
-    			System.out.println("Warning: Robot: " + this.NumberofRobot + " is out of charger");
+    			System.out.println("Warning: Robot: " + this.NumberofRobot + " is out of charger.");
     		}
     		
     	} else if (this.pathToShelf != null) {
     		
 	    	if (Debug.verboseLevel() >= 1) {
-	    		System.out.println("Moving to a shelf: Robot " + NumberofRobot + " is moving to: " + this.pathToShelf.getPos().getX() + ", " + this.pathToShelf.getPos().getY());
+	    		System.out.println("Moving to a shelf: Robot " + NumberofRobot + " is moving to: " + this.pathToShelf.getPos().getX() + ", " + this.pathToShelf.getPos().getY() + ".");
 	    	}
     		this.pathToShelf = pathToShelf.step();
 	    	
     	} else {
 			s.shelfLoc = path.getPos();
 			
-	    	if (Debug.verboseLevel() >= 1) {
-	    		System.out.println("Has shelf: Robot " + NumberofRobot + " is moving to: " + s.shelfLoc.getX() + ", " + s.shelfLoc.getY());
+	    	if ((Debug.verboseLevel() >= 1) && (this.s.beingCarried)) {
+	    		System.out.println("Has shelf: Robot " + NumberofRobot + " is moving to: " + s.shelfLoc.getX() + ", " + s.shelfLoc.getY() + ".");
 	    	}
-	
 	    	this.path = path.step();
 	    	this.setRobotlocation(new Point((int)s.shelfLoc.getX(), (int)s.shelfLoc.getY())); // author Tyler Foster
 	    	
@@ -107,12 +107,12 @@ public class Robot {
 	        	if (!this.location.equals(MockFloor.chargers.get(this.NumberofRobot).charLoc)) {
 	        		this.path = MockFloor.makePath(this.location, MockFloor.chargers.get(this.NumberofRobot).charLoc);
 	        		if (Debug.verboseLevel() >= 2) {
-	        			System.out.println("Robot: " + this.NumberofRobot + " is moving back to its charger");
+	        			System.out.println("Robot: " + this.NumberofRobot + " is moving back to its charger.");
 	        		}
 	        		
 	        	} else {
 	        		if (Debug.verboseLevel() >= 2) {
-	        			System.out.println("Robot: " + this.NumberofRobot + " is back at its charger");
+	        			System.out.println("Robot: " + this.NumberofRobot + " is back at its charger.");
 	        		}
 	        		this.charge = 100;
 	        		this.busy = false;

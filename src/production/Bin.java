@@ -1,24 +1,35 @@
 package production;
 
-import java.lang.Cloneable;
-
 /**
+ * The Bin class creates a Bin object that is used to transfer orders from
+ * the Picker to the Belt.
  * 
- * @author Tyler
+ * @author Tyler Foster
  *
  */
 
-public class Bin implements Cloneable {
+public class Bin{
 	Order order; // the Order that this bin is associated with
 	boolean complete; // this will be set to true once the order is complete
 	
-	// constructor. An empty bin initially has no order and is not complete.
+	/**
+	 * Bin constructor, starts off with a null order inside and
+	 * a false completion status.
+	 *
+	 * @author Tyler Foster
+	 */
 	public Bin() {
 		order = null;
 		complete = false;
 	}
 	
-	// converts bin to a string representation
+	/**
+	 * 
+	 * Converts the Bin object to a readable String.
+	 * 
+	 * @author Tyler Foster
+	 * 
+	 */
 	@Override
 	public String toString(){
 		String output = order.toString();
@@ -26,28 +37,41 @@ public class Bin implements Cloneable {
 		return output;
 	}
 	
-	// this constructor clones a bin
-	public Bin(Bin b) {
-		this.order = b.order;
-		this.complete = b.complete;
-	}
-	
-	// this method returns the completion status of the bin
+	/**
+	 * Getter method that returns the completion status of the bin.
+	 *
+	 * @author Tyler Foster
+	 * @return boolean
+	 */
 	public boolean isComplete() {
 		return complete;
 	}
 	
-	// this method sets the completion status of the bin
+	/**
+	 * Setter method that sets the completion status of the bin to be true.
+	 *
+	 * @author Tyler Foster
+	 */
 	public void setComplete() {
 		complete = true;
 	}
 	
-	// this method returns the order that is placed inside the bin
+	/**
+	 * Getter method that returns the current order inside the bin.
+	 *
+	 * @author Tyler Foster
+	 * @return
+	 */
 	public Order getOrder() {
 		return order;
 	}
 	
-	// this method places an order in the bin
+	/**
+	 * Setter method that sets the current order inside the bin.
+	 *
+	 * @author Tyler Foster
+	 * @param x
+	 */
 	public void setOrder(Order x) {
 		order = x;
 	}

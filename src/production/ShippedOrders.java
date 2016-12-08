@@ -9,7 +9,7 @@ public class ShippedOrders {
 		for(int i = 0; i < Belt.ship.size(); i++){
 			int num = i + 1;
 			System.out.println("");
-			System.out.println("----Completed Order" + num + "----");
+			System.out.println("----Completed Order " + num + "----");
 			System.out.println(Belt.ship.get(i));
 		}
 		//h

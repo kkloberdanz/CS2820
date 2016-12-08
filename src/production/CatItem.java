@@ -2,7 +2,7 @@ package production;
 
 /**
  * 
- * @author Tyler
+ * @author Ted Herman
  *
  * This is a local class that contains the database of Inventory's items.
  * 
